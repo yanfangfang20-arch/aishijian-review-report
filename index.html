@@ -5485,6 +5485,7 @@ body.ec-ai-over #ecAiDrawer .ai-rc-cb-bar.act em{color:#1a8a45}
 .ai-rc-mat-top20-head div span{font-size:11px;color:#7f91a8}
 .ai-rc-mat-sort{padding:3px 8px;border:1px solid #d9e6f7;border-radius:99px;background:#fff;color:#3971bd;font-size:10.5px;font-weight:700;white-space:nowrap}
 .ai-rc-mat-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px 12px;background:#fbfcfe;border-bottom:1px solid #edf1f6}
+.ai-rc-mat-summary-outside{margin:0 0 10px;padding:0;background:transparent;border:0}
 .ai-rc-mat-summary-item{padding:7px 10px;border:1px solid #e7edf5;border-radius:8px;background:#fff}
 .ai-rc-mat-summary-item small{display:block;color:#8292a6;font-size:10px;margin-bottom:3px}
 .ai-rc-mat-summary-item b{font-size:15px;color:#183b6d;font-variant-numeric:tabular-nums}
@@ -6498,11 +6499,11 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
                   </div>
                   <div class="ai-rc-ev-sub-body">
 
+                    <div class="ai-rc-mat-summary ai-rc-mat-summary-outside" id="aiRcMatSummary"></div>
                     <div class="ai-rc-mat-top20" id="aiRcMatTop20">
                       <div class="ai-rc-mat-top20-head">
                         <div><strong id="aiRcMatTitle">近7天消耗TOP20素材数据</strong></div>
                       </div>
-                      <div class="ai-rc-mat-summary" id="aiRcMatSummary"></div>
                       <div class="ai-rc-mat-table-wrap">
                         <table class="ai-rc-mat-table">
                           <thead><tr><th>排名</th><th>素材名称</th><th>消耗</th><th>广告ROI</th><th>广告GMV</th><th>点击率</th><th>转化率</th><th>人群分析</th></tr></thead>
