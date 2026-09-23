@@ -6951,7 +6951,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
         +factorRow('客单价','实际 <em class="no">105元</em> vs 目标120元，客单价不达标形成约 <em class="no">−12万</em> GMV缺口。','no')
         +factorRow('投放效率','综合ROI 2.9 vs 目标3.0，投放效率仍需围绕实际广告ROI继续优化。','no')
         +factorRow('素材表现','优先核查主推产品的低价券、达人专属价及异常链接，避免价格异常继续压低成交价。','no');
-      factorHtml+=factorTitle('业务因子','价格 / 人群 / 场次主播 / 商品供给','business')
+      factorHtml+=factorTitle('业务因子','价格 / 人群 / 场次主播','business')
         +factorRow('价格与货盘','主推产品可能存在低价乱价，需优先排查并建立最低成交价预警。','no')
         +factorRow('人群与主播承接','基于当前人群、场次和主播表现持续复核承接效率，避免将价格问题误判为流量或转化问题。')
         +factorRow('处理优先级','先处理异常低价链接，再复盘投放与承接；价格恢复后重新评估GMV和ROI。');
@@ -6962,7 +6962,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
         +factorRow('客单价','客单价高于目标，持续为GMV提供正向对冲。','ok')
         +factorRow('投放效率','综合ROI <em class="ok">'+overRoi.toFixed(1)+'</em>，经营效率达到目标，可在ROI稳定前提下逐步放量。','ok')
         +factorRow('素材表现','保留高广告ROI素材并扩展同类人群组合，保障持续拿量。','ok');
-      factorHtml+=factorTitle('业务因子','人群 / 场次主播 / 商品供给','business')
+      factorHtml+=factorTitle('业务因子','人群 / 场次主播','business')
         +factorRow('人群匹配','高价值人群支付占比提升，继续向高转化人群倾斜预算。','ok')
         +factorRow('场次与主播','复制高效主播与高效时段的承接方式，维持转化稳定。','ok')
         +factorRow('行动建议','GMV实际 <em class="ok">'+overGmv+'万</em>，在库存与价格稳定的前提下逐步提升预算。','ok');
@@ -6972,11 +6972,10 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
         +factorRow('客单价','实际 <em class="ok">125元</em> vs 目标120元，达成104%，正向对冲 <em class="ok">+1万</em>，不纳入负向归因。','ok')
         +factorRow('投放效率','广告ROI <em class="no">2.4</em> vs 目标3.0；实际消耗 <em class="no">8万</em>，仅达目标消耗11.4万的70%，投放规模与效率同时不足。','no')
         +factorRow('素材表现','2条素材违规限流，CTR为 <em class="no">2.15%</em>（基准3.20%），素材曝光受限并削弱拿量能力。','no');
-      factorHtml+=factorTitle('业务因子','人群 / 场次主播 / 商品供给','business')
+      factorHtml+=factorTitle('业务因子','人群 / 场次主播','business')
         +factorRow('人群匹配','小镇青年看播11%→支付7%、Gen Z看播9%→支付4%，低价值人群看播占比高于支付占比，需调整定向与素材表达。','no')
         +factorRow('场次与主播','1-2、11-12、16-17为低效时段并拖累CVR；优先复用周明真5.2%、王亚营20-21时段5.8%的有效承接方式。','no')
-        +factorRow('商品供给','主推产品可售库存仅200件、可售2天，需补足供给以避免限制有效流量的成交承接。','no')
-        +factorRow('行动优先级','先将预算迁移至广告ROI≥3的有效组合并恢复合规素材，再校准人群、主播排班与主推品库存。');
+        +factorRow('行动优先级','先将预算迁移至广告ROI≥3的有效组合并恢复合规素材，再校准人群与主播排班。');
     }
     el.innerHTML=factorHtml+'</div></div>';
     return;
