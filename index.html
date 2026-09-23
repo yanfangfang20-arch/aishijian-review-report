@@ -1612,6 +1612,12 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 #aiRcStep5 .live-sum-compact .ec-sum-compact-row.no{border-left-color:#5c9cff;background:#f8fbff}
 #aiRcStep5 .live-sum-compact .ec-sum-compact-row.no::before{background:#2f7ff7}
 #aiRcStep5 .live-sum-compact .ec-sum-compact-row.ok{border-left-color:#5c9cff;background:#f8fbff}
+#aiRcStep5 .live-sum-compact .ec-sum-factor-title{display:flex;align-items:center;gap:8px;margin:13px 0 7px;padding:0 2px;font-size:12px;color:#244c80}
+#aiRcStep5 .live-sum-compact .ec-sum-factor-title:first-of-type{margin-top:2px}
+#aiRcStep5 .live-sum-compact .ec-sum-factor-title::before{content:"";width:3px;height:14px;border-radius:2px;background:#2f7ff7}
+#aiRcStep5 .live-sum-compact .ec-sum-factor-title.business{color:#9d5a27}
+#aiRcStep5 .live-sum-compact .ec-sum-factor-title.business::before{background:#ff8c4b}
+#aiRcStep5 .live-sum-compact .ec-sum-factor-title em{font-style:normal;font-weight:500;color:#8a9ab0;font-size:11px}
 /* 一类电商：综合结论摘要 */
 .ec-sum-wrap.ec-sum-compact{padding:14px 16px 15px;border:1px solid #bde9ca;border-radius:12px;background:linear-gradient(135deg,#effbf2 0%,#f8fffa 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
 .ec-sum-compact-head{display:flex;align-items:center;gap:8px;padding:0 0 10px;border-bottom:1px solid #d5efdc;color:#1d5d35;font-size:13px;font-weight:800}
@@ -6931,6 +6937,49 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
     var scenario=aiRcGetScenario();
     var over=scenario===1||scenario===2;
     var aovNegative=scenario===3;
+    var factorTitle=function(title,detail,cls){
+      return '<div class="ec-sum-factor-title '+(cls||'')+'"><b>'+title+'</b><em>'+detail+'</em></div>';
+    };
+    var factorRow=function(title,body,cls){
+      return '<div class="ec-sum-compact-row '+(cls||'')+'"><b>'+title+'</b>：'+body+'</div>';
+    };
+    var factorHtml='<div class="ec-sum-wrap ec-sum-compact live-sum-compact"><div class="ec-sum-compact-head"><span class="ec-sum-compact-check">✓</span><span>综合结论</span><span class="ec-sum-compact-divider">|</span><span>直接因子与业务因子</span></div><div class="ec-sum-compact-list">';
+    factorHtml+=factorTitle('直接因子','流量 / 转化率 / 客单价 / 投放效率 / 素材表现');
+    if(aovNegative){
+      factorHtml+=factorRow('流量（UV）','看播UV已达到目标，未形成负向贡献。','ok')
+        +factorRow('曝光转化率（CVR）','曝光转化率已达到目标，当前GMV缺口并非由转化效率造成。','ok')
+        +factorRow('客单价','实际 <em class="no">105元</em> vs 目标120元，客单价不达标形成约 <em class="no">−12万</em> GMV缺口。','no')
+        +factorRow('投放效率','综合ROI 2.9 vs 目标3.0，投放效率仍需围绕实际广告ROI继续优化。','no')
+        +factorRow('素材表现','优先核查主推产品的低价券、达人专属价及异常链接，避免价格异常继续压低成交价。','no');
+      factorHtml+=factorTitle('业务因子','价格 / 人群 / 场次主播 / 商品供给','business')
+        +factorRow('价格与货盘','主推产品可能存在低价乱价，需优先排查并建立最低成交价预警。','no')
+        +factorRow('人群与主播承接','基于当前人群、场次和主播表现持续复核承接效率，避免将价格问题误判为流量或转化问题。')
+        +factorRow('处理优先级','先处理异常低价链接，再复盘投放与承接；价格恢复后重新评估GMV和ROI。');
+    }else if(over){
+      var overGmv=scenario===2?108:120,overRoi=scenario===2?3.2:3.5;
+      factorHtml+=factorRow('流量（UV）','流量UV达到目标并形成正向拉动，当前无需纳入负向归因。','ok')
+        +factorRow('曝光转化率（CVR）','曝光转化率CVR达到目标，高效时段承接可继续复制。','ok')
+        +factorRow('客单价','客单价高于目标，持续为GMV提供正向对冲。','ok')
+        +factorRow('投放效率','综合ROI <em class="ok">'+overRoi.toFixed(1)+'</em>，经营效率达到目标，可在ROI稳定前提下逐步放量。','ok')
+        +factorRow('素材表现','保留高广告ROI素材并扩展同类人群组合，保障持续拿量。','ok');
+      factorHtml+=factorTitle('业务因子','人群 / 场次主播 / 商品供给','business')
+        +factorRow('人群匹配','高价值人群支付占比提升，继续向高转化人群倾斜预算。','ok')
+        +factorRow('场次与主播','复制高效主播与高效时段的承接方式，维持转化稳定。','ok')
+        +factorRow('行动建议','GMV实际 <em class="ok">'+overGmv+'万</em>，在库存与价格稳定的前提下逐步提升预算。','ok');
+    }else{
+      factorHtml+=factorRow('流量（UV）','实际 <em class="no">42,000人</em> vs 目标50,000人，形成 <em class="no">−10万</em> GMV缺口，占总缺口 <em class="no">63%</em>。','no')
+        +factorRow('曝光转化率（CVR）','实际 <em class="no">4.5%</em> vs 目标5.0%，形成 <em class="no">−6万</em> GMV缺口，占总缺口 <em class="no">37%</em>。','no')
+        +factorRow('客单价','实际 <em class="ok">125元</em> vs 目标120元，达成104%，正向对冲 <em class="ok">+1万</em>，不纳入负向归因。','ok')
+        +factorRow('投放效率','广告ROI <em class="no">2.4</em> vs 目标3.0；实际消耗 <em class="no">8万</em>，仅达目标消耗11.4万的70%，投放规模与效率同时不足。','no')
+        +factorRow('素材表现','2条素材违规限流，CTR为 <em class="no">2.15%</em>（基准3.20%），素材曝光受限并削弱拿量能力。','no');
+      factorHtml+=factorTitle('业务因子','人群 / 场次主播 / 商品供给','business')
+        +factorRow('人群匹配','小镇青年看播11%→支付7%、Gen Z看播9%→支付4%，低价值人群看播占比高于支付占比，需调整定向与素材表达。','no')
+        +factorRow('场次与主播','1-2、11-12、16-17为低效时段并拖累CVR；优先复用周明真5.2%、王亚营20-21时段5.8%的有效承接方式。','no')
+        +factorRow('商品供给','主推产品可售库存仅200件、可售2天，需补足供给以避免限制有效流量的成交承接。','no')
+        +factorRow('行动优先级','先将预算迁移至广告ROI≥3的有效组合并恢复合规素材，再校准人群、主播排班与主推品库存。');
+    }
+    el.innerHTML=factorHtml+'</div></div>';
+    return;
     var byDay=(typeof aiRcPeriod==='undefined'||aiRcPeriod!=='month');
     var R='<em class="no">', G='<em class="ok">', E='</em>';
     var L=function(nm,val,jd,cls,txt){
@@ -9702,7 +9751,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">1</span>
           <span class="ai-rc-step-title">确认问题</span>
-          <span class="ai-rc-step-sub">2026年9月 vs 8月</span>
         </div>
         <!-- 指标卡片：达成与缺口判定（与直播「确认问题」同构） -->
         <div class="ai-rc-confirm-cards">
@@ -9736,7 +9784,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">2</span>
           <span class="ai-rc-step-title">一类整体四维缺口贡献度</span>
-          <span class="ai-rc-step-sub">品牌 / 类目 / 渠道 / SPU · 零操作全维度对比</span>
         </div>
         <div class="ec-bi-grid" id="ecBiGrid"></div>
       </div>
@@ -9764,7 +9811,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">5</span>
           <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
-          <span class="ai-rc-step-sub">SPU 缺口明细 + 受影响链接汇总·一体展示</span>
         </div>
         <div class="ec-bi-tools" id="ecBiTools"></div>
         <div class="ec-bi-table-wrap">
@@ -9852,7 +9898,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">2</span>
           <span class="ai-rc-step-title">一类整体四维缺口贡献度</span>
-          <span class="ai-rc-step-sub">品牌 / 类目 / 渠道 / SPU · 单日口径</span>
         </div>
         <div class="ec-bi-grid" id="ecBiGridD"></div>
       </div>
@@ -9880,7 +9925,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">5</span>
           <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
-          <span class="ai-rc-step-sub">SPU 缺口明细 + 受影响链接汇总</span>
         </div>
         <div class="ec-bi-tools" id="ecBiToolsD"></div>
         <div class="ec-bi-table-wrap">
@@ -10276,7 +10320,7 @@ if(document.getElementById('ecLcTabs')){
     ecBiD().dims.forEach(function(d){
       var tot=d.items.map(ecBiGap).reduce(function(s,g){return s+g;},0);
       h+='<div class="ec-bi-card'+(d.key==='SPU'?' wide':'')+'">'
-       +'<div class="ec-bi-card-hd"><h4>'+d.name+'</h4><span class="sub">'+d.sub+'</span></div>'
+       +'<div class="ec-bi-card-hd"><h4>'+d.name+'</h4></div>'
        +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
        +ecBiBars(d)
        +ecBiCtb(d)
@@ -12131,7 +12175,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">1</span>
           <span class="ai-rc-step-title">确认问题</span>
-          <span class="ai-rc-step-sub" id="inStep1Sub">2026年9月 vs 8月</span>
         </div>
         <div class="ai-rc-confirm-cards" id="inConfirmCards"></div>
         <div class="ai-rc-info-bar" style="margin-top:10px" id="inConfirmNote"></div>
@@ -12141,7 +12184,6 @@ if(document.getElementById('ecLcTabs')){
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">2</span>
           <span class="ai-rc-step-title">兴趣整体四维缺口贡献度</span>
-          <span class="ai-rc-step-sub">大区 / 品牌 / 类目 / SPU · 零操作全维度对比</span>
         </div>
         <div class="ec-bi-block-hd"><h4>四大维度缺口 &amp; 贡献度</h4></div>
         <div class="ec-bi-grid" id="inBiGrid"></div>
@@ -12602,7 +12644,7 @@ function renderGrid(){
   dims().forEach(function(d){
     var tot=d.items.reduce(function(s,x){return s+x.g;},0);
     h+='<div class="ec-bi-card'+(d.key==='SPU'?' wide':'')+'">'
-      +'<div class="ec-bi-card-hd"><h4>'+esc(d.name)+'</h4><span class="sub">'+esc(d.sub)+'</span></div>'
+      +'<div class="ec-bi-card-hd"><h4>'+esc(d.name)+'</h4></div>'
       +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
       +bBars(d)+bCtb(d)
       +'<div class="ec-bi-card-note"><b>小结：</b>'+esc(d.key)+'维度合计'+((tot<0)?'缺口':'超额')+' <b>'+W(tot)+'</b>，'+bNote(d)+'</div>'
