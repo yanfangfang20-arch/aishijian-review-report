@@ -9207,7 +9207,7 @@ if(document.getElementById('ecLcTabs')){
       var roi=gmv/spend;
       var materialTotal=(typeof EC_LC_DATA!=='undefined'&&EC_LC_DATA.stages)?EC_LC_DATA.stages.reduce(function(total,stage){return total+(stage.materials?stage.materials.length:0);},0):allData.length;
       var hotRate=materialTotal?(hitCount/materialTotal*100):0;
-      summary.innerHTML='<button class="ai-rc-mat-summary-item '+(filterHot?'active':'')+'" id="aiRcMatHitFilter" type="button" aria-pressed="'+filterHot+'" title="点击'+(filterHot?'恢复全部素材':'仅查看爆款素材')+'"><small>日爆款量</small><b>'+hitCount+'条</b></button>'
+      summary.innerHTML='<button class="ai-rc-mat-summary-item '+(filterHot?'active':'')+'" id="aiRcMatHitFilter" type="button" aria-pressed="'+filterHot+'" title="点击'+(filterHot?'恢复全部素材':'仅查看爆款素材')+'"><small>日爆款量（广告GMV＞1万）</small><b>'+hitCount+'条</b></button>'
         +'<div class="ai-rc-mat-summary-item"><small>素材总量</small><b>'+materialTotal+'条</b></div>'
         +'<div class="ai-rc-mat-summary-item"><small>爆款率</small><b class="blue">'+hotRate.toFixed(1)+'%</b></div>';
       renderConclusion(allData,data,spend,gmv,roi);
