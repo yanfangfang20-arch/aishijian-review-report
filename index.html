@@ -6187,7 +6187,6 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">1</span>
           <span class="ai-rc-step-title">确认问题</span>
-          <span class="ai-rc-step-sub" id="aiRcPeriodTag">今日 · 2026/07/20 · 目标对比</span>
         </div>
         <!-- GMV / ROI 双卡片（同时展示，已取消TAB切换） -->
         <div class="ai-rc-confirm-cards">
@@ -6287,10 +6286,6 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
             </div>
             <div class="ai-rc-contrib-val" style="color:#1a8a45">+1万 🔺</div>
           </div>
-        </div>
-        <div class="ai-rc-contrib-total" style="">
-          <span>净缺口（−16万负向 + 1万客单对冲）</span>
-          <strong>−15万</strong>
         </div>
 </div>
 
@@ -8146,7 +8141,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
     var range=getDateRange();
     if(document.getElementById('aiRcPick')){
       aiRcPickSync();
-    }else{
+    }else if(periodTag){
       periodTag.textContent=range+' · 目标对比';
     }
     mask.classList.add('show');
