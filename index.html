@@ -5484,7 +5484,7 @@ body.ec-ai-over #ecAiDrawer .ai-rc-cb-bar.act em{color:#1a8a45}
 .ai-rc-mat-top20-head div{display:flex;align-items:baseline;gap:9px}
 .ai-rc-mat-top20-head div span{font-size:11px;color:#7f91a8}
 .ai-rc-mat-sort{padding:3px 8px;border:1px solid #d9e6f7;border-radius:99px;background:#fff;color:#3971bd;font-size:10.5px;font-weight:700;white-space:nowrap}
-.ai-rc-mat-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px 12px;background:#fbfcfe;border-bottom:1px solid #edf1f6}
+.ai-rc-mat-summary{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 12px;background:#fbfcfe;border-bottom:1px solid #edf1f6}
 .ai-rc-mat-summary-item{padding:7px 10px;border:1px solid #e7edf5;border-radius:8px;background:#fff}
 .ai-rc-mat-summary-item small{display:block;color:#8292a6;font-size:10px;margin-bottom:3px}
 .ai-rc-mat-summary-item b{font-size:15px;color:#183b6d;font-variant-numeric:tabular-nums}
@@ -9195,9 +9195,8 @@ if(document.getElementById('ecLcTabs')){
       var spend=0,gmv=0,hitCount=allData.filter(isHot).length;
       allData.forEach(function(r){spend+=r.sp;gmv+=r.gmv;});
       var roi=gmv/spend;
-      summary.innerHTML='<button class="ai-rc-mat-summary-item '+(filterHot?'active':'')+'" id="aiRcMatHitFilter" type="button" aria-pressed="'+filterHot+'" title="点击'+(filterHot?'恢复全部素材':'仅查看爆款素材')+'"><small>爆款数量（广告GMV＞1万）</small><b>'+allData.length+' 条</b></button>'
-        +'<div class="ai-rc-mat-summary-item"><small>总消耗</small><b class="orange">'+spend.toFixed(1)+'万</b></div>'
-        +'<div class="ai-rc-mat-summary-item"><small>广告GMV总计</small><b class="blue">'+gmv.toFixed(1)+'万</b></div>';
+      var hotRate=allData.length?(hitCount/allData.length*100):0;
+      summary.innerHTML='<button class="ai-rc-mat-summary-item '+(filterHot?'active':'')+'" id="aiRcMatHitFilter" type="button" aria-pressed="'+filterHot+'" title="点击'+(filterHot?'恢复全部素材':'仅查看爆款素材')+'"><small>日爆款素材量 / 爆款率</small><b>'+hitCount+'条 / '+hotRate.toFixed(0)+'%</b></button>';
       renderConclusion(allData,data,spend,gmv,roi);
       tbody.innerHTML=data.map(function(r,i){
         var profile=audienceProfile(r.n),opened=openAudience===r.n;
