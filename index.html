@@ -6500,7 +6500,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
 
                     <div class="ai-rc-mat-top20" id="aiRcMatTop20">
                       <div class="ai-rc-mat-top20-head">
-                        <div><strong>近7天消耗TOP20素材数据</strong></div>
+                        <div><strong id="aiRcMatTitle">近7天消耗TOP20素材数据</strong></div>
                       </div>
                       <div class="ai-rc-mat-summary" id="aiRcMatSummary"></div>
                       <div class="ai-rc-mat-table-wrap">
@@ -9117,7 +9117,17 @@ if(document.getElementById('ecLcTabs')){
     var tbody=document.getElementById('aiRcMatTbody');
     var summary=document.getElementById('aiRcMatSummary');
     var conclusion=document.getElementById('aiRcMatConclusion');
+    var materialTitle=document.getElementById('aiRcMatTitle');
     if(!root||!tbody||!summary||!conclusion) return;
+    function syncMaterialTitle(){
+      if(!materialTitle) return;
+      var activePick=document.querySelector('#aiRcPick .ai-rc-pick-btn.active');
+      materialTitle.textContent=activePick&&activePick.getAttribute('data-g')==='month'?'近30天消耗TOP20素材数据':'近7天消耗TOP20素材数据';
+    }
+    syncMaterialTitle();
+    document.querySelectorAll('#aiRcPick .ai-rc-pick-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){setTimeout(syncMaterialTitle,0);});
+    });
     var rows=[
       {n:'7.18 护眼台灯Pro｜学生护眼痛点讲解.mp4',sp:4.6,roi:3.72,gmv:17.1,ctr:4.82,cvr:6.90,a:'资深中产 34%|新锐白领 27%|精致妈妈 16%'},
       {n:'7.17 护眼台灯Pro｜国AA级光源实测.mp4',sp:4.1,roi:3.46,gmv:14.2,ctr:4.56,cvr:6.41,a:'资深中产 31%|小镇中老年 25%|新锐白领 19%'},
