@@ -6502,7 +6502,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
                     <div class="ai-rc-mat-summary ai-rc-mat-summary-outside" id="aiRcMatSummary"></div>
                     <div class="ai-rc-mat-top20" id="aiRcMatTop20">
                       <div class="ai-rc-mat-top20-head">
-                        <div><strong id="aiRcMatTitle">近7天消耗TOP20素材数据</strong></div>
+                        <div><strong id="aiRcMatTitle">日消耗TOP20素材数据</strong></div>
                       </div>
                       <div class="ai-rc-mat-table-wrap">
                         <table class="ai-rc-mat-table">
@@ -9107,7 +9107,7 @@ if(document.getElementById('ecLcTabs')){
     });
   })();
 
-  /* ---- 内容素材：近7天 TOP20（按广告GMV排序，不做生命周期分类） ---- */
+  /* ---- 内容素材：按当前周期统计消耗 TOP20，不做生命周期分类 ---- */
   (function(){
     var root=document.getElementById('aiRcMatTop20');
     /* 旧的生命周期分类不再参与展示，仅保留近7天素材明细。 */
@@ -9120,14 +9120,17 @@ if(document.getElementById('ecLcTabs')){
     var conclusion=document.getElementById('aiRcMatConclusion');
     var materialTitle=document.getElementById('aiRcMatTitle');
     if(!root||!tbody||!summary||!conclusion) return;
+    function isMonthMaterialMode(){
+      var activePick=document.querySelector('#aiRcPick .ai-rc-pick-btn.active');
+      return !!(activePick&&activePick.getAttribute('data-g')==='month');
+    }
     function syncMaterialTitle(){
       if(!materialTitle) return;
-      var activePick=document.querySelector('#aiRcPick .ai-rc-pick-btn.active');
-      materialTitle.textContent=activePick&&activePick.getAttribute('data-g')==='month'?'近30天消耗TOP20素材数据':'近7天消耗TOP20素材数据';
+      materialTitle.textContent=isMonthMaterialMode()?'月消耗TOP20素材数据':'日消耗TOP20素材数据';
     }
     syncMaterialTitle();
     document.querySelectorAll('#aiRcPick .ai-rc-pick-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){setTimeout(syncMaterialTitle,0);});
+      btn.addEventListener('click',function(){setTimeout(function(){syncMaterialTitle();render();},0);});
     });
     var rows=[
       {n:'7.18 护眼台灯Pro｜学生护眼痛点讲解.mp4',sp:4.6,roi:3.72,gmv:17.1,ctr:4.82,cvr:6.90,a:'资深中产 34%|新锐白领 27%|精致妈妈 16%'},
@@ -9158,8 +9161,8 @@ if(document.getElementById('ecLcTabs')){
       return (start.getMonth()+1)+'/'+start.getDate()+' - '+(end.getMonth()+1)+'/'+end.getDate();
     }
     var filterHot=false;
-    /* 爆款按近7天广告GMV大于1万判定，用于统计卡与列表联动筛选。 */
-    function isHot(r){return r.gmv>1;}
+    /* 爆款按周期判定：日广告GMV大于1万；月广告GMV大于5万。 */
+    function isHot(r){return r.gmv>(isMonthMaterialMode()?5:1);}
     var openAudience='';
     function audienceProfile(key){
       var names=['小镇中老年','资深中产','新锐白领','精致妈妈','小镇青年','Gen Z','都市银发','都市蓝领'];
@@ -9198,18 +9201,20 @@ if(document.getElementById('ecLcTabs')){
         conclusion.innerHTML='<b>爆款素材结论：</b>当前 '+data.length+' 条爆款平均广告ROI <span class="good">'+hotRoi.toFixed(2)+'</span>，以 <span class="key">'+(hotSpend/spend*100).toFixed(1)+'% 消耗贡献 '+(hotGmv/gmv*100).toFixed(1)+'% 广告GMV</span>，是当前最有效的放量池。建议优先复用其开场卖点、实测讲解和人群定向组合，并按每条素材的支付人群占比复制计划。';
         return;
       }
-      conclusion.innerHTML='<b>素材整体结论：</b>近7天 TOP20 累计消耗 <span class="key">'+spend.toFixed(1)+'万</span>，带来广告GMV <span class="key">'+gmv.toFixed(1)+'万</span>，整体广告ROI为 <span class="'+(roi>=3?'good':'risk')+'">'+roi.toFixed(2)+'</span>'+(roi>=3?'，已达到3.0效率基准。':'，距3.0效率基准仍差 '+(3-roi).toFixed(2)+'。')+' <span class="good">'+hot.length+' 条爆款</span>仅占 '+(hot.length/allData.length*100).toFixed(1)+'%，却以 '+(hotSpend/spend*100).toFixed(1)+'% 消耗贡献 '+(hotGmv/gmv*100).toFixed(1)+'% GMV（ROI '+hotRoi.toFixed(2)+'）；头部有效表达集中在“'+esc(topNames)+'”。<span class="risk">ROI＜2.5 的 '+low.length+' 条素材</span>消耗 '+lowSpend.toFixed(1)+'万、ROI仅 '+lowRoi.toFixed(2)+'，建议暂停扩量并优先重做前3秒卖点、素材承接和低效人群定向；预算可先向爆款池迁移20%–30%。';
+      var periodText=isMonthMaterialMode()?'本月':'当日';
+      conclusion.innerHTML='<b>素材整体结论：</b>'+periodText+'消耗 TOP20 累计消耗 <span class="key">'+spend.toFixed(1)+'万</span>，带来广告GMV <span class="key">'+gmv.toFixed(1)+'万</span>，整体广告ROI为 <span class="'+(roi>=3?'good':'risk')+'">'+roi.toFixed(2)+'</span>'+(roi>=3?'，已达到3.0效率基准。':'，距3.0效率基准仍差 '+(3-roi).toFixed(2)+'。')+' <span class="good">'+hot.length+' 条爆款</span>仅占 '+(hot.length/allData.length*100).toFixed(1)+'%，却以 '+(hotSpend/spend*100).toFixed(1)+'% 消耗贡献 '+(hotGmv/gmv*100).toFixed(1)+'% GMV（ROI '+hotRoi.toFixed(2)+'）；头部有效表达集中在“'+esc(topNames)+'”。<span class="risk">ROI＜2.5 的 '+low.length+' 条素材</span>消耗 '+lowSpend.toFixed(1)+'万、ROI仅 '+lowRoi.toFixed(2)+'，建议暂停扩量并优先重做前3秒卖点、素材承接和低效人群定向；预算可先向爆款池迁移20%–30%。';
     }
     function render(){
-      var allData=rows.slice().sort(function(a,b){return b.gmv-a.gmv;});
+      var monthMode=isMonthMaterialMode();
+      var allData=rows.slice().sort(function(a,b){return b.sp-a.sp;});
       var data=filterHot?allData.filter(isHot):allData;
       var spend=0,gmv=0,hitCount=allData.filter(isHot).length;
       allData.forEach(function(r){spend+=r.sp;gmv+=r.gmv;});
       var roi=gmv/spend;
       var materialTotal=(typeof EC_LC_DATA!=='undefined'&&EC_LC_DATA.stages)?EC_LC_DATA.stages.reduce(function(total,stage){return total+(stage.materials?stage.materials.length:0);},0):allData.length;
       var hotRate=materialTotal?(hitCount/materialTotal*100):0;
-      summary.innerHTML='<button class="ai-rc-mat-summary-item '+(filterHot?'active':'')+'" id="aiRcMatHitFilter" type="button" aria-pressed="'+filterHot+'" title="点击'+(filterHot?'恢复全部素材':'仅查看爆款素材')+'"><small>日爆款量（广告GMV＞1万）</small><b>'+hitCount+'条</b></button>'
-        +'<div class="ai-rc-mat-summary-item"><small>素材总量</small><b>'+materialTotal+'条</b></div>'
+      summary.innerHTML='<button class="ai-rc-mat-summary-item '+(filterHot?'active':'')+'" id="aiRcMatHitFilter" type="button" aria-pressed="'+filterHot+'" title="点击'+(filterHot?'恢复全部素材':'仅查看爆款素材')+'"><small>'+(monthMode?'月爆款量（广告GMV＞5万）':'日爆款量（广告GMV＞1万）')+'</small><b>'+hitCount+'条</b></button>'
+        +'<div class="ai-rc-mat-summary-item"><small>'+(monthMode?'月素材总量':'日素材总量')+'</small><b>'+materialTotal+'条</b></div>'
         +'<div class="ai-rc-mat-summary-item"><small>爆款率</small><b class="blue">'+hotRate.toFixed(1)+'%</b></div>';
       renderConclusion(allData,data,spend,gmv,roi);
       tbody.innerHTML=data.map(function(r,i){
@@ -9231,6 +9236,8 @@ if(document.getElementById('ecLcTabs')){
         render();
         return;
       }
+    });
+    summary.addEventListener('click',function(e){
       var btn=e.target.closest&&e.target.closest('#aiRcMatHitFilter');
       if(!btn)return;
       filterHot=!filterHot;
@@ -9238,6 +9245,8 @@ if(document.getElementById('ecLcTabs')){
     });
     var picker=document.getElementById('aiRcDayPick');
     if(picker)picker.addEventListener('change',render);
+    var monthPicker=document.getElementById('aiRcMonthPick');
+    if(monthPicker)monthPicker.addEventListener('change',render);
   })();
 
   /* ---- 对话折叠 ---- */
