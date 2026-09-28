@@ -9729,9 +9729,8 @@ if(document.getElementById('ecLcTabs')){
     <button class="ai-rc-tab active" data-target="ecAiStep1" type="button">① 确认问题</button>
     <button class="ai-rc-tab" data-target="ecAiStep3" type="button">② 缺口贡献度</button>
     <button class="ai-rc-tab" data-target="ecAiStepRegion" type="button">③ 大区下钻</button>
-    <button class="ai-rc-tab" data-target="ecAiStepOwner" type="button">④ 店铺负责人下钻</button>
-    <button class="ai-rc-tab" data-target="ecAiStepProd" type="button">⑤ 缺口产品明细·链接清单</button>
-    <button class="ai-rc-tab" data-target="ecAiStepSum" type="button">⑥ 总结建议</button>
+    <button class="ai-rc-tab" data-target="ecAiStepProd" type="button">④ 缺口产品明细·链接清单</button>
+    <button class="ai-rc-tab" data-target="ecAiStepSum" type="button">⑤ 总结建议</button>
   </div>
   <!-- 周期筛选：按日 / 按月 + 重新分析 -->
   <div class="ec-ai-pickrow">
@@ -9816,18 +9815,9 @@ if(document.getElementById('ecLcTabs')){
         <div class="ec-rd-channels" id="ecRdChannels"></div>
       </div>
 
-      <div class="ai-rc-step" id="ecAiStepOwner">
-        <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">4</span>
-          <span class="ai-rc-step-title">店铺负责人下钻分析</span>
-          <span class="ai-rc-step-sub">店铺负责人 → 渠道 → 产品 · 策略 / 内容 / 推广 三视角</span>
-        </div>
-        <div class="ec-ow" id="ecOwWrap"></div>
-      </div>
-
       <div class="ai-rc-step" id="ecAiStepProd">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">5</span>
+          <span class="ai-rc-step-badge s2">4</span>
           <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
         </div>
         <div class="ec-bi-tools" id="ecBiTools"></div>
@@ -9868,7 +9858,7 @@ if(document.getElementById('ecLcTabs')){
 
       <div class="ai-rc-step" id="ecAiStepSum">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">6</span>
+          <span class="ai-rc-step-badge s2">5</span>
           <span class="ai-rc-step-title">总结建议</span>
         </div>
         <div class="ec-sum-wrap" id="ecSumWrap"></div>
@@ -9930,18 +9920,9 @@ if(document.getElementById('ecLcTabs')){
         <div class="ec-rd-channels" id="ecRdChannelsD"></div>
       </div>
 
-      <div class="ai-rc-step" id="ecAiStepOwnerD">
-        <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">4</span>
-          <span class="ai-rc-step-title">店铺负责人下钻分析</span>
-          <span class="ai-rc-step-sub">店铺负责人 → 渠道 → 产品 · 单日口径</span>
-        </div>
-        <div class="ec-ow" id="ecOwWrapD"></div>
-      </div>
-
       <div class="ai-rc-step" id="ecAiStepProdD">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">5</span>
+          <span class="ai-rc-step-badge s2">4</span>
           <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
         </div>
         <div class="ec-bi-tools" id="ecBiToolsD"></div>
@@ -9977,7 +9958,7 @@ if(document.getElementById('ecLcTabs')){
 
       <div class="ai-rc-step" id="ecAiStepSumD">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">6</span>
+          <span class="ai-rc-step-badge s2">5</span>
           <span class="ai-rc-step-title">总结建议</span>
         </div>
         <div class="ec-sum-wrap" id="ecSumWrapD"></div>
@@ -11340,7 +11321,7 @@ if(document.getElementById('ecLcTabs')){
     var h='<div class="ec-sum-compact-head"><span class="ec-sum-compact-check">✓</span><b>综合结论</b><span class="ec-sum-compact-divider">|</span><b>核心摘要</b></div><div class="ec-sum-compact-list">';
     h+=row(1,'业务结果','GSV目标 '+gmvT.toLocaleString()+'万 vs 实际 <em class="'+(gmvG<0?'no':'ok')+'">'+gmvA.toLocaleString()+'万</em>，达成率 <em class="'+(gmvG<0?'no':'ok')+'">'+ecSumPct(gmvA,gmvT).toFixed(1)+'%</em>，'+(gmvG<0?'缺口 <em class="no">'+amount(gmvG)+'</em>':'超额 <em class="ok">'+amount(gmvG)+'</em>')+'；利润率 '+rateN.toFixed(1)+'% vs 目标 '+rateT.toFixed(1)+'%，'+(rateGap<0?'缺口 <em class="no">'+Math.abs(rateGap).toFixed(1)+'</em>':'超额 <em class="ok">'+Math.abs(rateGap).toFixed(1)+'</em>')+'。');
     h+=row(2,'缺口结构','负向缺口合计 <em class="no">'+amount(-gapTotal)+'</em>，'+(topBrand.g<0?'<em>'+esc(topBrand.n)+'</em> 缺口 '+amount(topBrand.g)+'，占负向缺口 <em>'+topBrandPct.toFixed(0)+'%</em>':'当前无负向品牌大区缺口')+'；TOP'+topRows.length+'产品贡献 <em>'+topRowsPct.toFixed(0)+'%</em>'+positiveText+'。');
-    h+=row(3,'产品与渠道归因','核心缺口产品为 '+productText+'；店铺负责人 <em>'+esc(owTop.n)+'</em> 名下GSV '+(owTop.s.g<0?'<em class="no">缺口 '+amount(owTop.s.g)+'</em>':'<em class="ok">正向抵消 '+amount(owTop.s.g)+'</em>')+'，需优先沿渠道—产品逐项定位并闭环。');
+    h+=row(3,'产品与渠道归因','核心缺口产品为 '+productText+'；需优先沿渠道—产品逐项定位并闭环。');
     h+=row(4,'供给与经营风险','平均退货率 <em class="'+(rrAvg>12?'no':'ok')+'">'+rrAvg.toFixed(1)+'%</em>，最高为 <em>'+esc(rrTop)+'</em> '+at[rrTop].rr.toFixed(1)+'%；'+(riskStock.length?('<em>'+riskStock.length+'个</em> SKU可售天数偏低，优先补货'):'库存供给整体可控')+(delayList.length?('；<em>'+delayList.length+'个</em> SKU存在当月目标销售天数风险'):'')+'。');
     h+=row(5,'定性与行动建议',(gmvG<0?'当前应优先聚焦 <em>'+esc(topBrand.n)+'</em> 与核心缺口产品，':'当前整体达成健康，建议复制高贡献产品与渠道打法，')+'同步推进低效渠道治理、高退货商品优化和补货节奏管理；按周复盘目标、实际与改善结果。');
     h+='</div>';
