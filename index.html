@@ -2076,6 +2076,29 @@ body.ec-ai-over #ecAiDrawer .ai-rc-cb-bar.act em{color:#1a8a45}
 
 
 </style>
+<style>
+/* ===== 商用 AI 复盘工作台：结论先行、证据可达、行动可追踪 ===== */
+.ai-rc-command-center{margin:8px 20px 4px;padding:16px 18px;border:1px solid #cdddf5;border-radius:12px;background:linear-gradient(135deg,#f4f8ff 0%,#fff 72%);box-shadow:0 5px 16px rgba(26,86,178,.06)}
+.ai-rc-command-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.ai-rc-command-kicker{margin:0 0 5px;font-size:12px;font-weight:800;color:#1f6fff;letter-spacing:.4px}
+.ai-rc-command-title{margin:0;color:#102d57;font-size:17px;line-height:1.55;font-weight:800}
+.ai-rc-command-status{height:30px;padding:0 12px;border:1px solid #ffb36e;border-radius:16px;background:#fff7ed;color:#be6208;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.16s ease}
+.ai-rc-command-status:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(190,98,8,.14)}
+.ai-rc-command-status[data-state="doing"]{border-color:#7db4ff;background:#eef5ff;color:#1f6fff}
+.ai-rc-command-status[data-state="done"]{border-color:#79d39b;background:#effbf3;color:#178a46}
+.ai-rc-command-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.ai-rc-command-item{min-height:78px;padding:12px 13px;border:1px solid #e1eaf7;border-radius:9px;background:#fff;text-align:left;cursor:pointer;transition:.16s ease}
+.ai-rc-command-item:hover{border-color:#6ba2f8;box-shadow:0 5px 12px rgba(31,111,255,.10);transform:translateY(-1px)}
+.ai-rc-command-item strong{display:block;margin-bottom:5px;color:#173b69;font-size:14px;line-height:1.35}
+.ai-rc-command-item span{display:block;color:#5c7190;font-size:13px;line-height:1.45}
+.ai-rc-command-item .num{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:6px;border-radius:5px;background:#1f6fff;color:#fff;font-size:12px;vertical-align:1px}
+.ai-rc-command-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding-top:12px;border-top:1px solid #e3ebf7;color:#496482;font-size:13px;font-weight:600}
+.ai-rc-command-foot button{border:0;background:transparent;color:#1f6fff;font:800 13px/1 inherit;cursor:pointer;padding:4px 0}
+.ai-rc-command-foot button:hover{text-decoration:underline}
+.ai-rc-step-sub{display:none!important}
+.ec-bi-card-hd .sub{padding:3px 8px;border-radius:10px;background:#eef5ff;color:#3675cf!important;font-size:12px!important;font-weight:700}
+@media(max-width:900px){.ai-rc-command-list{grid-template-columns:1fr}.ai-rc-command-top{flex-direction:column}.ai-rc-command-status{align-self:flex-start}}
+</style>
 </head>
 <body>
 <div class="live-shell">
@@ -13355,6 +13378,38 @@ if(document.readyState==='complete'){setTimeout(init,0);}
   document.querySelectorAll('[data-prd-open]').forEach(function(btn){btn.addEventListener('click',function(){show(btn.getAttribute('data-prd-open'));});});
   document.querySelectorAll('[data-prd-tab]').forEach(function(tab){tab.addEventListener('click',function(){show(tab.getAttribute('data-prd-tab'));});});
   close.addEventListener('click',hide);mask.addEventListener('click',function(e){if(e.target===mask)hide();});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mask.classList.contains('show'))hide();});
+})();
+</script>
+
+<script>
+/* 商用分析闭环：将既有数据看板转换为「AI判断 → 证据 → 行动」工作流，不改变指标或下载逻辑。 */
+(function(){
+  var configs=[
+    {content:'aiRcContent',analysis:'aiRcAnalysis',key:'live',metric:'#aiRcStep1 .ai-rc-what-gmv',summary:'直播间的核心缺口需要按流量、转化和投放效率依次收敛。',items:[['直接因子','优先核查流量UV、曝光转化率与客单价对GMV的影响','aiRcStep2'],['业务归因','查看投放效率、素材、人群与场次主播的证据链','aiRcStep4'],['行动建议','按总结建议确认责任人和本周期复盘动作','aiRcStep5']]},
+    {content:'ecAiContent',analysis:'ecAiAnalysis',key:'ec',metric:'#ecAiStep1 .ai-rc-what-gmv',summary:'一类电商需优先收敛GSV与利润率缺口，再定位到品类、渠道、产品和链接。',items:[['直接因子','先识别GSV和利润率的最大缺口维度','ecAiStep3'],['业务归因','下钻查看缺口品类、产品及受影响链接','ecAiStepProd'],['行动建议','依据综合结论安排渠道和产品的改善动作','ecAiStepSum']]},
+    {content:'inContent',analysis:'inAnalysis',key:'interest',metric:'#inStep1 .ai-rc-what-gmv',summary:'兴趣电商需先定位GSV与利润率缺口，再下钻到大区、部门、产品和员工。',items:[['直接因子','识别大区、品牌、品类等维度的核心缺口','inStep3'],['业务归因','沿大区—部门—产品—员工查看责任归因','inStepRegion'],['行动建议','基于总结建议确定当期经营改善动作','inStepSum']]}
+  ];
+  function safeGet(k){try{return localStorage.getItem(k)||'todo';}catch(e){return 'todo';}}
+  function safeSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  function stateText(s){return s==='doing'?'处理中':(s==='done'?'已完成':'待处理');}
+  function nextState(s){return s==='todo'?'doing':(s==='doing'?'done':'todo');}
+  function metricText(cfg){var n=document.querySelector(cfg.metric);return n?String(n.textContent||'').replace(/\s+/g,' ').trim():'';}
+  function scrollToStep(cfg,id){var box=document.getElementById(cfg.analysis),step=document.getElementById(id);if(!box||!step)return;box.scrollTo({top:Math.max(0,step.offsetTop-10),behavior:'smooth'});}
+  function mount(cfg){
+    var content=document.getElementById(cfg.content);if(!content||content.querySelector('.ai-rc-command-center'))return;
+    var statusKey='ai-rc-action-'+cfg.key;
+    var panel=document.createElement('section');panel.className='ai-rc-command-center';panel.setAttribute('aria-label','AI行动工作台');
+    panel.innerHTML='<div class="ai-rc-command-top"><div><p class="ai-rc-command-kicker">AI 行动工作台</p><p class="ai-rc-command-title"></p></div><button type="button" class="ai-rc-command-status"></button></div><div class="ai-rc-command-list">'+cfg.items.map(function(x,i){return '<button type="button" class="ai-rc-command-item" data-target="'+x[2]+'"><strong><i class="num">'+(i+1)+'</i>'+x[0]+'</strong><span>'+x[1]+'</span></button>';}).join('')+'</div><div class="ai-rc-command-foot"><span>点击任一项可直达对应数据证据，状态会在本机保存。</span><button type="button" data-target="'+cfg.items[2][2]+'">查看完整行动建议 →</button></div>';
+    content.insertBefore(panel,content.firstChild);
+    var title=panel.querySelector('.ai-rc-command-title'),status=panel.querySelector('.ai-rc-command-status');
+    function render(){var metric=metricText(cfg);title.textContent=cfg.summary+(metric?' 当前结果：'+metric+'。':'');var s=safeGet(statusKey);status.dataset.state=s;status.textContent='执行状态：'+stateText(s);}
+    panel.addEventListener('click',function(e){var target=e.target.closest('[data-target]');if(target){scrollToStep(cfg,target.getAttribute('data-target'));}if(e.target===status){var s=nextState(safeGet(statusKey));safeSet(statusKey,s);render();}});
+    render();
+    var reBtn=cfg.key==='live'?document.getElementById('aiRcReBtn'):(cfg.key==='ec'?document.getElementById('ecAiReBtn'):document.getElementById('inReBtn'));
+    if(reBtn)reBtn.addEventListener('click',function(){setTimeout(render,550);});
+  }
+  function init(){configs.forEach(mount);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 
