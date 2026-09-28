@@ -13455,7 +13455,8 @@ if(document.readyState==='complete'){setTimeout(init,0);}
   function go(id){var el=document.getElementById(id);if(!el)return;var top=Math.max(0,el.offsetTop-10);analysis.scrollTo({top:top,behavior:'smooth'});}
   var panel=document.createElement('section');panel.className='ec-ai-diagnosis';panel.setAttribute('aria-label','一类电商AI根因诊断');
   function render(){
-    var gsv=txt('#ecAiStep1 .ai-rc-what-gmv'),profit=txt('#ecAiStep1 .ai-rc-roi-num'),dims=dimFacts();
+    var activePeriod=visible(content.querySelectorAll('.ec-period'))||content;
+    var gsv=txt('.ai-rc-what-gmv',activePeriod),profit=txt('.ai-rc-roi-num',activePeriod),dims=dimFacts();
     var brand=dims[0]||{name:'品牌维度',item:'待分析',gap:'—'},category=dims[dims.length-1]||{name:'品类维度',item:'待分析',gap:'—'},channel=dims[2]||{name:'渠道维度',item:'待分析',gap:'—'},prod=productFact();
     var actions=[
       {title:'优先治理 '+brand.item+' 的GSV缺口',sub:'从'+brand.name+'确认最大负向贡献，并下钻到对应缺口产品。',target:'ecAiStep3'},
@@ -13475,7 +13476,9 @@ if(document.readyState==='complete'){setTimeout(init,0);}
     var a=e.target.closest('[data-action]');if(a){var id=Number(a.getAttribute('data-action')),s=nextState(getState(id));setState(id,s);render();go(a.getAttribute('data-go'));return;}
     var btn=e.target.closest('[data-go]');if(btn)go(btn.getAttribute('data-go'));
   });
-  var firstStep=content.querySelector('#ecAiStep1');content.insertBefore(panel,firstStep);
+  var firstPeriod=content.querySelector('.ec-period');
+  if(firstPeriod&&firstPeriod.parentNode) firstPeriod.parentNode.insertBefore(panel,firstPeriod);
+  else content.insertBefore(panel,content.firstChild);
   render();
   ['ecAiReBtn','ecAiDayPick','ecAiMonthPick'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('change',function(){setTimeout(render,600);});if(el&&id==='ecAiReBtn')el.addEventListener('click',function(){setTimeout(render,600);});});
 })();
