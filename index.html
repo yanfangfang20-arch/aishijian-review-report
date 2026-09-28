@@ -2098,6 +2098,21 @@ body.ec-ai-over #ecAiDrawer .ai-rc-cb-bar.act em{color:#1a8a45}
 .ai-rc-step-sub{display:none!important}
 .ec-bi-card-hd .sub{padding:3px 8px;border-radius:10px;background:#eef5ff;color:#3675cf!important;font-size:12px!important;font-weight:700}
 @media(max-width:900px){.ai-rc-command-list{grid-template-columns:1fr}.ai-rc-command-top{flex-direction:column}.ai-rc-command-status{align-self:flex-start}}
+/* 一类电商 AI 诊断：从数据看板升级为结果、根因、动作的闭环。 */
+#ecAiContent>.ai-rc-command-center{display:none}
+.ec-ai-diagnosis{margin:8px 20px 12px;padding:18px 20px;border:1px solid #bfd4f4;border-radius:12px;background:linear-gradient(135deg,#f3f7ff 0%,#fff 64%);box-shadow:0 5px 18px rgba(25,82,166,.07)}
+.ec-ai-diagnosis-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:14px;border-bottom:1px solid #dce8f8}
+.ec-ai-diagnosis-head h4{margin:0;color:#123563;font-size:18px;line-height:1.35}.ec-ai-diagnosis-head p{margin:5px 0 0;color:#526d8d;font-size:14px;line-height:1.55}
+.ec-ai-diag-refresh{border:0;background:transparent;color:#1f6fff;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap}
+.ec-ai-diag-refresh:hover{text-decoration:underline}
+.ec-ai-diag-chain{display:grid;grid-template-columns:1fr 22px 1fr 22px 1.12fr;align-items:stretch;gap:8px;margin:15px 0}
+.ec-ai-diag-node{padding:12px 13px;border:1px solid #dae6f6;border-radius:9px;background:#fff}.ec-ai-diag-node.result{border-color:#ffcfca;background:#fff8f7}.ec-ai-diag-node.cause{border-color:#c9dcfb;background:#f7faff}.ec-ai-diag-node.action{border-color:#bfe6cb;background:#f6fcf7}
+.ec-ai-diag-node em{display:block;margin-bottom:6px;color:#6b81a0;font-size:12px;font-style:normal;font-weight:800}.ec-ai-diag-node strong{display:block;color:#183a66;font-size:15px;line-height:1.45}
+.ec-ai-diag-arrow{display:grid;place-items:center;color:#5d8fd9;font-size:20px;font-weight:800}
+.ec-ai-diag-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:4px}.ec-ai-diag-section{min-width:0}.ec-ai-diag-section h5{margin:0 0 9px;color:#22466f;font-size:14px}
+.ec-ai-evidence{display:flex;flex-direction:column;gap:7px}.ec-ai-evidence button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 11px;border:1px solid #e1eaf6;border-radius:8px;background:#fff;text-align:left;color:#28486e;cursor:pointer}.ec-ai-evidence button:hover{border-color:#77a7ee;background:#f7faff}.ec-ai-evidence .index{display:grid;place-items:center;flex:0 0 auto;width:20px;height:20px;border-radius:5px;background:#e8f1ff;color:#1f6fff;font-size:12px;font-weight:800}.ec-ai-evidence b{font-size:14px;line-height:1.4}.ec-ai-evidence i{margin-left:auto;color:#1f6fff;font-size:12px;font-style:normal;font-weight:700;white-space:nowrap}
+.ec-ai-actions{display:flex;flex-direction:column;gap:7px}.ec-ai-action{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 11px;border-left:3px solid #4f8cff;border-radius:0 8px 8px 0;background:#fff}.ec-ai-action strong{display:block;color:#22466f;font-size:14px;line-height:1.4}.ec-ai-action span{display:block;margin-top:3px;color:#617995;font-size:13px;line-height:1.4}.ec-ai-action button{min-width:64px;height:28px;border:1px solid #ffb873;border-radius:14px;background:#fff8ef;color:#bd6106;font-size:12px;font-weight:800;cursor:pointer}.ec-ai-action button[data-state="doing"]{border-color:#83b7ff;background:#eef5ff;color:#1f6fff}.ec-ai-action button[data-state="done"]{border-color:#79d39b;background:#effbf3;color:#178a46}
+@media(max-width:900px){.ec-ai-diagnosis{margin:8px 14px}.ec-ai-diag-chain,.ec-ai-diag-grid{grid-template-columns:1fr}.ec-ai-diag-arrow{height:18px;transform:rotate(90deg)}.ec-ai-diagnosis-head{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -13410,6 +13425,59 @@ if(document.readyState==='complete'){setTimeout(init,0);}
   }
   function init(){configs.forEach(mount);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+<script>
+/* 一类电商 AI 根因诊断引擎：从已渲染的真实指标中自动形成结论、证据链和行动队列。 */
+(function(){
+  var content=document.getElementById('ecAiContent'),analysis=document.getElementById('ecAiAnalysis');
+  if(!content||!analysis)return;
+  function clean(v){return String(v||'').replace(/\s+/g,' ').trim();}
+  function visible(list){for(var i=0;i<list.length;i++){if(list[i].offsetParent!==null)return list[i];}return list[0]||null;}
+  function txt(sel,root){var el=(root||document).querySelector(sel);return el?clean(el.textContent):'—';}
+  function dimFacts(){
+    var grid=visible(content.querySelectorAll('#ecBiGrid,#ecBiGridD'));
+    if(!grid)return [];
+    return Array.prototype.map.call(grid.querySelectorAll('.ec-bi-card'),function(card){
+      return {name:txt('.ec-bi-card-hd h4',card),item:txt('.ec-bi-ctb-row .ec-bi-ctb-name',card),gap:txt('.ec-bi-ctb-row .ec-bi-ctb-val',card)};
+    }).filter(function(x){return x.name&&x.name!=='—';});
+  }
+  function productFact(){
+    var body=visible(content.querySelectorAll('#ecBiTBody,#ecBiTBodyD'));
+    if(!body)return '缺口产品';
+    var cell=body.querySelector('tr td');return cell?clean(cell.textContent):'缺口产品';
+  }
+  function getState(i){try{return localStorage.getItem('ec-ai-action-'+i)||'todo';}catch(e){return 'todo';}}
+  function setState(i,s){try{localStorage.setItem('ec-ai-action-'+i,s);}catch(e){}}
+  function stateText(s){return s==='doing'?'处理中':(s==='done'?'已完成':'待处理');}
+  function nextState(s){return s==='todo'?'doing':(s==='doing'?'done':'todo');}
+  function go(id){var el=document.getElementById(id);if(!el)return;var top=Math.max(0,el.offsetTop-10);analysis.scrollTo({top:top,behavior:'smooth'});}
+  var panel=document.createElement('section');panel.className='ec-ai-diagnosis';panel.setAttribute('aria-label','一类电商AI根因诊断');
+  function render(){
+    var gsv=txt('#ecAiStep1 .ai-rc-what-gmv'),profit=txt('#ecAiStep1 .ai-rc-roi-num'),dims=dimFacts();
+    var brand=dims[0]||{name:'品牌维度',item:'待分析',gap:'—'},category=dims[dims.length-1]||{name:'品类维度',item:'待分析',gap:'—'},channel=dims[2]||{name:'渠道维度',item:'待分析',gap:'—'},prod=productFact();
+    var actions=[
+      {title:'优先治理 '+brand.item+' 的GSV缺口',sub:'从'+brand.name+'确认最大负向贡献，并下钻到对应缺口产品。',target:'ecAiStep3'},
+      {title:'聚焦 '+category.item+' 与 '+prod,sub:'核查目标、实际、退货与缺货等经营证据，定位可立即修复的问题。',target:'ecAiStepProd'},
+      {title:'复盘 '+channel.item+' 的渠道动作',sub:'结合受影响链接清单，确认价格、流量、转化和费率的改善动作。',target:'ecAiStepProd'}
+    ];
+    panel.innerHTML='<div class="ec-ai-diagnosis-head"><div><h4>AI 经营根因诊断</h4><p>基于当前周期数据自动收敛结果、关键根因与行动顺序；不改变原始统计口径。</p></div><button class="ec-ai-diag-refresh" type="button">刷新诊断</button></div>'
+      +'<div class="ec-ai-diag-chain"><div class="ec-ai-diag-node result"><em>业务结果</em><strong>GSV '+gsv+'；利润率 '+profit+'</strong></div><div class="ec-ai-diag-arrow">→</div><div class="ec-ai-diag-node cause"><em>核心根因</em><strong>'+brand.name+'：'+brand.item+' '+brand.gap+'<br>'+category.name+'：'+category.item+' '+category.gap+'</strong></div><div class="ec-ai-diag-arrow">→</div><div class="ec-ai-diag-node action"><em>优先处理</em><strong>先品类与产品，再渠道与受影响链接</strong></div></div>'
+      +'<div class="ec-ai-diag-grid"><section class="ec-ai-diag-section"><h5>证据链：为什么是这些问题</h5><div class="ec-ai-evidence">'
+      +'<button type="button" data-go="ecAiStep3"><i class="index">1</i><b>'+brand.name+'中，'+brand.item+'是当前最大缺口对象（'+brand.gap+'）</b><i>查看贡献</i></button>'
+      +'<button type="button" data-go="ecAiStep3"><i class="index">2</i><b>'+category.name+'中，'+category.item+'需要优先拆解（'+category.gap+'）</b><i>查看品类</i></button>'
+      +'<button type="button" data-go="ecAiStepProd"><i class="index">3</i><b>缺口产品 '+prod+' 进入产品与链接核查队列</b><i>查看明细</i></button>'
+      +'</div></section><section class="ec-ai-diag-section"><h5>行动队列：先做什么</h5><div class="ec-ai-actions">'+actions.map(function(a,i){var s=getState(i);return '<div class="ec-ai-action"><div><strong>'+(i+1)+'. '+a.title+'</strong><span>'+a.sub+'</span></div><button type="button" data-state="'+s+'" data-action="'+i+'" data-go="'+a.target+'">'+stateText(s)+'</button></div>';}).join('')+'</div></section></div>';
+  }
+  panel.addEventListener('click',function(e){
+    var refresh=e.target.closest('.ec-ai-diag-refresh');if(refresh){render();return;}
+    var a=e.target.closest('[data-action]');if(a){var id=Number(a.getAttribute('data-action')),s=nextState(getState(id));setState(id,s);render();go(a.getAttribute('data-go'));return;}
+    var btn=e.target.closest('[data-go]');if(btn)go(btn.getAttribute('data-go'));
+  });
+  var firstStep=content.querySelector('#ecAiStep1');content.insertBefore(panel,firstStep);
+  render();
+  ['ecAiReBtn','ecAiDayPick','ecAiMonthPick'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('change',function(){setTimeout(render,600);});if(el&&id==='ecAiReBtn')el.addEventListener('click',function(){setTimeout(render,600);});});
 })();
 </script>
 
