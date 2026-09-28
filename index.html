@@ -10206,6 +10206,22 @@ if(document.getElementById('ecLcTabs')){
   };
   var ecBiPeriod='month';
   function ecBiD(){var __o=ecAiIsOver();return (__o?EC_BI_OVER:EC_BI_DATA)[ecBiPeriod]||EC_BI_DATA.month;}
+  /* 三级类目维度仅用于整体缺口贡献展示；产品明细仍保留 SPU 口径。 */
+  function ecBiThirdCategoryDim(period){
+    var month=[
+      ['电动修脚器',520,450],['冲牙器',490,420],['洁牙仪',480,420],['理发器',470,400],['卷/直/烫/吹发器',440,370],
+      ['空气净化器',500,420],['加湿器',400,350],['空调伴侣',350,300],['洗地机',400,360],['吸尘器',380,350],
+      ['扫地机/擦窗机',320,290],['破壁/豆浆机',300,280],['电热水壶',250,230],['蒸汽清洁机',200,190],['电动拖把',500,520]
+    ];
+    var day=[
+      ['电动修脚器',10,8],['冲牙器',10,8],['洁牙仪',9,8],['理发器',9,8],['卷/直/烫/吹发器',8,7],
+      ['空气净化器',8,7],['加湿器',8,8],['空调伴侣',8,8],['洗地机',7,6],['吸尘器',7,6],
+      ['扫地机/擦窗机',7,6],['破壁/豆浆机',7,6],['电热水壶',7,6],['蒸汽清洁机',7,6],['电动拖把',7,5]
+    ];
+    var rows=(period==='day'?day:month);
+    return {key:'SPU',name:'三级类目维度',sub:'TOP15 缺口三级类目',items:rows.map(function(x){return {n:x[0],t:x[1],a:x[2]};})};
+  }
+  function ecBiDisplayDim(d){return d.key==='SPU'?ecBiThirdCategoryDim(ecBiPeriod):d;}
   function ecBiId(base){return base+(ecBiPeriod==='day'?'D':'');}
   function ecBiGap(it){return it.a-it.t;}
   function ecBiW(v){return (v>0?'+':(v<0?'\u2212':''))+Math.abs(v)+'万';}
@@ -10317,13 +10333,14 @@ if(document.getElementById('ecLcTabs')){
     if(!el) return;
     var h='';
     ecBiD().dims.forEach(function(d){
-      var tot=d.items.map(ecBiGap).reduce(function(s,g){return s+g;},0);
-      h+='<div class="ec-bi-card'+(d.key==='SPU'?' wide':'')+'">'
-       +'<div class="ec-bi-card-hd"><h4>'+d.name+'</h4></div>'
-       +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
-       +ecBiBars(d)
-       +ecBiCtb(d)
-       +'<div class="ec-bi-card-note"><b>小结：</b>'+d.key+'维度合计缺口 <b>'+ecBiW(tot)+'</b>，'+ecBiNote(d)+'</div>'
+      var viewD=ecBiDisplayDim(d);
+      var tot=viewD.items.map(ecBiGap).reduce(function(s,g){return s+g;},0);
+      h+='<div class="ec-bi-card'+(viewD.key==='SPU'?' wide':'')+'">'
+       +'<div class="ec-bi-card-hd"><h4>'+viewD.name+'</h4><span class="sub">'+viewD.sub+'</span></div>'
+        +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
+       +ecBiBars(viewD)
+       +ecBiCtb(viewD)
+       +'<div class="ec-bi-card-note"><b>小结：</b>三级类目维度合计缺口 <b>'+ecBiW(tot)+'</b>，'+ecBiNote(viewD)+'</div>'
        +'</div>';
     });
     el.innerHTML=h;
