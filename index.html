@@ -1760,6 +1760,11 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 .ec-bi-vgroup{position:relative;flex:1;min-width:0;cursor:pointer;display:flex;justify-content:center;align-items:flex-end;gap:10px}
 .ec-bi-tbar{background:linear-gradient(180deg,#8db5f0,#4b6fd1);border-radius:3px 3px 0 0;animation:ecBiGrowY .5s cubic-bezier(.22,1,.36,1) both;min-height:3px;transform-origin:center bottom;position:relative}
 .ec-bi-abar{background:linear-gradient(180deg,#f5b070,#e8783c);border-radius:3px 3px 0 0;animation:ecBiGrowY .5s cubic-bezier(.22,1,.36,1) both;min-height:3px;transform-origin:center bottom;position:relative}
+.ec-bi-vgroup.ec-bi-nested{gap:0}
+.ec-bi-vgroup.ec-bi-nested .ec-bi-tbar{width:24px!important;background:linear-gradient(180deg,rgba(141,181,240,.42),rgba(75,111,209,.24));border:1px solid rgba(75,111,209,.3);z-index:1}
+.ec-bi-vgroup.ec-bi-nested .ec-bi-abar{position:absolute;bottom:0;width:12px!important;background:linear-gradient(180deg,#ffb16c,#f0783d);z-index:2;box-shadow:0 1px 5px rgba(224,103,40,.18)}
+.ec-bi-vgroup.ec-bi-nested .ec-bi-tbar .lab{right:-3px;transform:translateX(100%);color:#6d82ab}
+.ec-bi-vgroup.ec-bi-nested .ec-bi-abar .lab{left:50%;transform:translateX(-50%);color:#e66f31}
 @keyframes ecBiGrowY{from{transform:scaleY(.02)}to{transform:scaleY(1)}}
 .ec-bi-tbar .lab{position:absolute;top:-13px;right:0;transform:translateX(0);font-size:8.5px;font-weight:800;white-space:nowrap;line-height:1;color:#5c70a0;text-align:right}
 .ec-bi-abar .lab{position:absolute;top:-13px;left:0;transform:translateX(0);font-size:8.5px;font-weight:800;white-space:nowrap;line-height:1;color:#e8783c;text-align:left}
@@ -10206,7 +10211,7 @@ if(document.getElementById('ecLcTabs')){
   };
   var ecBiPeriod='month';
   function ecBiD(){var __o=ecAiIsOver();return (__o?EC_BI_OVER:EC_BI_DATA)[ecBiPeriod]||EC_BI_DATA.month;}
-  /* 三级类目维度仅用于整体缺口贡献展示；产品明细仍保留 SPU 口径。 */
+  /* 品类维度仅用于整体缺口贡献展示；产品明细仍保留 SPU 口径。 */
   function ecBiThirdCategoryDim(period){
     var month=[
       ['电动修脚器',520,450],['冲牙器',490,420],['洁牙仪',480,420],['理发器',470,400],['卷/直/烫/吹发器',440,370],
@@ -10219,7 +10224,7 @@ if(document.getElementById('ecLcTabs')){
       ['扫地机/擦窗机',7,6],['破壁/豆浆机',7,6],['电热水壶',7,6],['蒸汽清洁机',7,6],['电动拖把',7,5]
     ];
     var rows=(period==='day'?day:month);
-    return {key:'SPU',name:'三级类目维度',sub:'TOP15 缺口三级类目',items:rows.map(function(x){return {n:x[0],t:x[1],a:x[2]};})};
+    return {key:'SPU',name:'品类维度',sub:'TOP15 缺口品类',items:rows.map(function(x){return {n:x[0],t:x[1],a:x[2]};})};
   }
   function ecBiDisplayDim(d){return d.key==='SPU'?ecBiThirdCategoryDim(ecBiPeriod):d;}
   function ecBiId(base){return base+(ecBiPeriod==='day'?'D':'');}
@@ -10261,7 +10266,7 @@ if(document.getElementById('ecLcTabs')){
     var order=items.map(function(it,i){return {it:it,g:gs[i]};})
       .sort(function(a,b){return Math.abs(b.g)-Math.abs(a.g);});
     var n=order.length;
-    var wide=(d.key==='SPU');
+    var wide=(d.key==='SPU'),nested=wide;
     var dense=(n>=9);
     var maxVal=0;
     items.forEach(function(it){maxVal=Math.max(maxVal,it.t||0,it.a||0);});
@@ -10272,7 +10277,7 @@ if(document.getElementById('ecLcTabs')){
       var it=o.it;
       var th=Math.max((it.t||0)/maxVal*inner,3);
       var ah=Math.max((it.a||0)/maxVal*inner,3);
-      h+='<div class="ec-bi-vgroup" data-dim="'+d.key+'" data-name="'+ecBiEsc(it.n)+'">'
+      h+='<div class="ec-bi-vgroup'+(nested?' ec-bi-nested':'')+'" data-dim="'+d.key+'" data-name="'+ecBiEsc(it.n)+'">'
         +'<span class="ec-bi-tbar" style="width:'+barW+'px;height:'+th.toFixed(1)+'px"><i class="lab">'+it.t+'</i></span>'
         +'<span class="ec-bi-abar" style="width:'+barW+'px;height:'+ah.toFixed(1)+'px"><i class="lab">'+it.a+'</i></span>'
         +'</div>';
@@ -10340,7 +10345,7 @@ if(document.getElementById('ecLcTabs')){
         +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
        +ecBiBars(viewD)
        +ecBiCtb(viewD)
-       +'<div class="ec-bi-card-note"><b>小结：</b>三级类目维度合计缺口 <b>'+ecBiW(tot)+'</b>，'+ecBiNote(viewD)+'</div>'
+       +'<div class="ec-bi-card-note"><b>小结：</b>品类维度合计缺口 <b>'+ecBiW(tot)+'</b>，'+ecBiNote(viewD)+'</div>'
        +'</div>';
     });
     el.innerHTML=h;
