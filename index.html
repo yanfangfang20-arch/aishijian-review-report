@@ -1425,6 +1425,7 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 .ec-rd-tab:not(.active) em{background:#f2f3f5;color:#86909c}
 /* 渠道缺口贡献度：渠道行 + 条形 */
 .ec-rd-ch-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 8px;flex-wrap:nowrap}
+.ec-rd-store-summary{margin:0 0 12px;border:1px solid #dbe7f6;border-radius:10px;background:#fff;overflow:hidden}.ec-rd-store-summary-head{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f7faff;border-bottom:1px solid #e5eef9}.ec-rd-store-summary-head b{color:#183a66;font-size:13px}.ec-rd-store-summary-head span{color:#6c83a0;font-size:12px}.ec-rd-store-table{width:100%;border-collapse:collapse;table-layout:fixed}.ec-rd-store-table th{height:34px;padding:0 10px;background:#fbfcff;color:#7185a0;font-size:11px;font-weight:700;text-align:left}.ec-rd-store-table td{height:43px;padding:0 10px;border-top:1px solid #edf2f8;color:#28486e;font-size:12px}.ec-rd-store-table td.c,.ec-rd-store-table th.c{text-align:center}.ec-rd-store-table .store-name{font-weight:800;color:#183a66}.ec-rd-store-table .actual{color:#ef4c55;font-weight:800}.ec-rd-store-table .target{color:#6f829d}.ec-rd-store-table .rate{font-weight:800;color:#276fe5}.ec-rd-store-table .owner{display:inline-flex;padding:3px 7px;border-radius:5px;background:#f1f6ff;color:#386397;font-weight:700}
 .ec-rd-ch-title{font-size:12px;font-weight:800;color:#1d2b3f}
 .ec-rd-ch-right{display:flex;align-items:center;gap:10px;min-width:0;flex:0 1 auto}
 .ec-rd-ch-sum{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;justify-content:flex-end;font-size:11px;color:#8595ab;min-width:0;overflow:hidden}
@@ -1757,6 +1758,7 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 /* 四维缺口：目标vs实际双柱对比（参考截图样式） */
 .ec-bi-vchart{margin-top:12px}
 .ec-bi-vplot{position:relative;display:flex;gap:6px;align-items:flex-end;padding-top:18px}
+.ec-bi-rate-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.ec-bi-rate-svg polyline{fill:none;stroke:#26a269;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.ec-bi-rate-svg circle{fill:#fff;stroke:#26a269;stroke-width:2.5}.ec-bi-rate-svg text{fill:#1b8b55;font-size:10px;font-weight:800}.ec-bi-rate-key{display:inline-flex;align-items:center;gap:4px;color:#1b8b55}.ec-bi-rate-key i{display:inline-block;width:14px;height:2px;border-radius:2px;background:#26a269;position:relative}.ec-bi-rate-key i:after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-radius:50%;background:#fff;border:2px solid #26a269}
 .ec-bi-vgroup{position:relative;flex:1;min-width:0;cursor:pointer;display:flex;justify-content:center;align-items:flex-end;gap:10px}
 .ec-bi-tbar{background:linear-gradient(180deg,#8db5f0,#4b6fd1);border-radius:3px 3px 0 0;animation:ecBiGrowY .5s cubic-bezier(.22,1,.36,1) both;min-height:3px;transform-origin:center bottom;position:relative}
 .ec-bi-abar{background:linear-gradient(180deg,#f5b070,#e8783c);border-radius:3px 3px 0 0;animation:ecBiGrowY .5s cubic-bezier(.22,1,.36,1) both;min-height:3px;transform-origin:center bottom;position:relative}
@@ -2112,6 +2114,7 @@ body.ec-ai-over #ecAiDrawer .ai-rc-cb-bar.act em{color:#1a8a45}
 .ec-ai-diag-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:4px}.ec-ai-diag-section{min-width:0}.ec-ai-diag-section h5{margin:0 0 9px;color:#22466f;font-size:14px}
 .ec-ai-evidence{display:flex;flex-direction:column;gap:7px}.ec-ai-evidence button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 11px;border:1px solid #e1eaf6;border-radius:8px;background:#fff;text-align:left;color:#28486e;cursor:pointer}.ec-ai-evidence button:hover{border-color:#77a7ee;background:#f7faff}.ec-ai-evidence .index{display:grid;place-items:center;flex:0 0 auto;width:20px;height:20px;border-radius:5px;background:#e8f1ff;color:#1f6fff;font-size:12px;font-weight:800}.ec-ai-evidence b{font-size:14px;line-height:1.4}.ec-ai-evidence i{margin-left:auto;color:#1f6fff;font-size:12px;font-style:normal;font-weight:700;white-space:nowrap}
 .ec-ai-actions{display:flex;flex-direction:column;gap:7px}.ec-ai-action{padding:10px 11px;border-left:3px solid #4f8cff;border-radius:0 8px 8px 0;background:#fff}.ec-ai-action strong{display:block;color:#22466f;font-size:14px;line-height:1.4}.ec-ai-action span{display:block;margin-top:3px;color:#617995;font-size:13px;line-height:1.4}
+.ec-ai-attain{display:inline-flex;align-items:center;gap:5px;margin-left:8px;padding:2px 7px;border-radius:5px;background:#edf7f1;color:#278457;font-size:12px;font-weight:700}.ec-ai-attain b{color:#178a46!important}
 @media(max-width:900px){.ec-ai-diagnosis{margin:8px 14px}.ec-ai-diag-chain,.ec-ai-diag-grid{grid-template-columns:1fr}.ec-ai-diag-arrow{height:18px;transform:rotate(90deg)}.ec-ai-diagnosis-head{flex-direction:column}}
 </style>
 </head>
@@ -10320,6 +10323,16 @@ if(document.getElementById('ecLcTabs')){
         +'<span class="ec-bi-abar" style="width:'+barW+'px;height:'+ah.toFixed(1)+'px"><i class="lab">'+it.a+'</i></span>'
         +'</div>';
     });
+    var ratePts=[],rateMarks=[];
+    order.forEach(function(o,idx){
+      var rate=o.it.t?Math.max(0,Math.min(120,o.it.a/o.it.t*100)):0;
+      var x=order.length===1?150:16+idx*(268/(order.length-1));
+      var y=16+(120-rate)/60*(PLOT-36);
+      y=Math.max(16,Math.min(PLOT-20,y));
+      ratePts.push(x.toFixed(1)+','+y.toFixed(1));
+      rateMarks.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3"></circle><text x="'+x.toFixed(1)+'" y="'+Math.max(12,y-7).toFixed(1)+'" text-anchor="middle">'+rate.toFixed(0)+'%</text>');
+    });
+    h+='<svg class="ec-bi-rate-svg" viewBox="0 0 300 '+PLOT+'" preserveAspectRatio="none" aria-label="目标达成率折线"><polyline points="'+ratePts.join(' ')+'"></polyline>'+rateMarks.join('')+'</svg>';
     h+='</div><div class="ec-bi-vnames'+(dense?' dense':'')+'">';
     order.forEach(function(o){
       var it=o.it;
@@ -10380,7 +10393,7 @@ if(document.getElementById('ecLcTabs')){
       var tot=viewD.items.map(ecBiGap).reduce(function(s,g){return s+g;},0);
       h+='<div class="ec-bi-card'+(viewD.key==='SPU'?' wide':'')+'">'
        +'<div class="ec-bi-card-hd"><h4>'+viewD.name+'</h4><span class="sub">'+viewD.sub+'</span></div>'
-        +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
+        +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span><span class="ec-bi-rate-key"><i></i>目标达成率</span></div>'
        +ecBiBars(viewD)
        +ecBiCtb(viewD)
        +'<div class="ec-bi-card-note"><b>小结：</b>品类维度合计缺口 <b>'+ecBiW(tot)+'</b>，'+ecBiNote(viewD)+'</div>'
@@ -11029,6 +11042,38 @@ if(document.getElementById('ecLcTabs')){
     });
     return h+'</tbody></table></div>';
   }
+  /* 店铺缺口汇总：按当前选中大区聚合，负责人作为经营归因的责任字段展示。 */
+  var EC_RD_STORE_OWNERS={
+    '爱视健旗舰店':{strategy:'张伟',content:'王丽',promotion:'赵强'},
+    '爱视健京东自营店':{strategy:'李娜',content:'周敏',promotion:'陈浩'},
+    '爱视健官方店':{strategy:'刘洋',content:'孙悦',promotion:'黄磊'}
+  };
+  function ecRdStoreSummary(region){
+    var map={};
+    (region.channels||[]).forEach(function(channel){
+      (channel.products||[]).forEach(function(product){
+        var stores=product.stores||[],total=0;
+        stores.forEach(function(store){(store.links||[]).forEach(function(link){total+=Math.abs(link.g||0);});});
+        if(!total) total=stores.length||1;
+        stores.forEach(function(store){
+          var weight=0;(store.links||[]).forEach(function(link){weight+=Math.abs(link.g||0);});
+          weight=weight||1;
+          var key=store.n+'__'+channel.n;
+          if(!map[key]) map[key]={store:store.n,channel:channel.n,t:0,a:0};
+          map[key].t+=product.t*weight/total;
+          map[key].a+=product.a*weight/total;
+        });
+      });
+    });
+    var rows=Object.keys(map).map(function(k){return map[k];}).sort(function(a,b){return (a.a-a.t)-(b.a-b.t);});
+    if(!rows.length) return '';
+    var h='<section class="ec-rd-store-summary"><div class="ec-rd-store-summary-head"><b>店铺缺口汇总</b><span>当前大区：'+ecRdEsc(region.n)+' · 按店铺与渠道汇总</span></div><table class="ec-rd-store-table"><thead><tr><th style="width:20%">店铺名称</th><th class="c" style="width:12%">实际GSV</th><th class="c" style="width:12%">目标GSV</th><th class="c" style="width:12%">目标达成率</th><th class="c" style="width:11%">渠道</th><th class="c" style="width:11%">策略负责人</th><th class="c" style="width:11%">内容负责人</th><th class="c" style="width:11%">推广负责人</th></tr></thead><tbody>';
+    rows.forEach(function(row){
+      var owner=EC_RD_STORE_OWNERS[row.store]||{strategy:'待分配',content:'待分配',promotion:'待分配'},rate=row.t?row.a/row.t*100:0;
+      h+='<tr><td class="store-name">'+ecRdEsc(row.store)+'</td><td class="c actual">'+row.a.toFixed(1)+'万</td><td class="c target">'+row.t.toFixed(1)+'万</td><td class="c rate">'+rate.toFixed(1)+'%</td><td class="c">'+ecRdEsc(row.channel)+'</td><td class="c"><span class="owner">'+owner.strategy+'</span></td><td class="c"><span class="owner">'+owner.content+'</span></td><td class="c"><span class="owner">'+owner.promotion+'</span></td></tr>';
+    });
+    return h+'</tbody></table></section>';
+  }
   function ecRdRenderChannels(){
     var sfx=ecRdSfx(),el=document.getElementById('ecRdChannels'+sfx);
     if(!el) return;
@@ -11052,6 +11097,7 @@ if(document.getElementById('ecLcTabs')){
         +'<div class="ec-rd-ch-sum">GSV 实际/目标 <b class="a'+(region.a<region.t?' short':'')+'">'+region.a.toLocaleString()+'万</b><i class="sep">/</i><b class="t">'+region.t.toLocaleString()+'万</b> · '+wdCap+'合计 <b class="gap '+(region.g<0?'neg':'pos')+'">'+ecRdW(region.g)+'</b> · <span style="color:#a8b6c8">点击'+lvlName+'展开产品，点击产品查看缺口链接明细</span></div>'
         +'<button class="ec-rd-allbtn" type="button" data-open="0"><i>⇕</i><span class="txt">全部展开</span></button>'
       +'</div></div>';
+    h+=ecRdStoreSummary(region);
     chs.forEach(function(c,ci){
       var pct=Math.abs(c.g)/totalGap*100;
       var barW=Math.max(3,pct);
@@ -11438,7 +11484,7 @@ if(document.getElementById('ecLcTabs')){
       var info=s1.querySelector('.ai-rc-what-info');
       if(info){
         var gg=D.actual-D.target, pct=Math.abs(gg/D.target*100).toFixed(1);
-        info.innerHTML=(over?'\ud83d\udfe2 GSV\u8d85\u989d\u8fbe\u6807':'\ud83d\udd34 GSV\u672a\u8fbe\u6807')+'<br>GSV <strong>'+D.actual.toLocaleString()+'\u4e07</strong>\uff0c\u76ee\u6807 <strong>'+D.target.toLocaleString()+'\u4e07</strong>\uff0c'+(over?'\u8d85\u989d <strong>+':'\u7f3a\u53e3 <strong>')+Math.abs(gg).toLocaleString()+'\u4e07</strong>'+(over?'\uff08'+(gg>0?'+':'\u2212')+pct+'%\uff09':'');
+        info.innerHTML=(over?'\ud83d\udfe2 GSV\u8d85\u989d\u8fbe\u6807':'\ud83d\udd34 GSV\u672a\u8fbe\u6807')+'<br>GSV <strong>'+D.actual.toLocaleString()+'\u4e07</strong>\uff0c\u76ee\u6807 <strong>'+D.target.toLocaleString()+'\u4e07</strong>\uff0c'+(over?'\u8d85\u989d <strong>+':'\u7f3a\u53e3 <strong>')+Math.abs(gg).toLocaleString()+'\u4e07</strong>'+(over?'\uff08'+(gg>0?'+':'\u2212')+pct+'%\uff09':'')+'<span class="ec-ai-attain">目标达成率 <b>'+(D.actual/D.target*100).toFixed(1)+'%</b></span>';
       }
       var rn=s1.querySelector('.ai-rc-roi-num');
       if(rn) rn.innerHTML=rateN.toFixed(1)+'%<small>&nbsp;/ \u76ee\u6807 '+rateT.toFixed(1)+'%</small>';
