@@ -11494,7 +11494,7 @@ if(document.getElementById('ecLcTabs')){
       var ri=s1.querySelector('.ai-rc-roi-info');
       if(ri){
         var dpp=(over?rateN-rateT:rateT-rateN).toFixed(1);
-        ri.innerHTML=(over?'\ud83d\udfe2 \u5229\u6da6\u7387\u8fbe\u6807':'\ud83d\udd34 \u5229\u6da6\u7387\u672a\u8fbe\u6807')+'<br>\u5229\u6da6\u7387 <strong>'+rateN.toFixed(1)+'%</strong>\uff0c\u76ee\u6807 <strong>'+rateT.toFixed(1)+'%</strong>\uff0c'+(over?'\u8d85\u989d <strong>+':'\u7f3a\u53e3 <strong>')+dpp+'</strong>'+(over?'\uff08+'+(dpp/rateT*100).toFixed(1)+'%\uff09':'');
+        ri.innerHTML=(over?'\ud83d\udfe2 \u5229\u6da6\u7387\u8fbe\u6807':'\ud83d\udd34 \u5229\u6da6\u7387\u672a\u8fbe\u6807')+'<br>\u5229\u6da6\u7387 <strong>'+rateN.toFixed(1)+'%</strong>\uff0c\u76ee\u6807 <strong>'+rateT.toFixed(1)+'%</strong>\uff0c'+(over?'\u8d85\u989d <strong>+':'\u7f3a\u53e3 <strong>')+dpp+'</strong>'+(over?'\uff08+'+(dpp/rateT*100).toFixed(1)+'%\uff09':'')+'<span class="ec-ai-attain">目标达成率 <b>'+(rateN/rateT*100).toFixed(1)+'%</b></span>';
       }
       var bar=s1.querySelector('.ai-rc-info-bar');
       if(bar){
