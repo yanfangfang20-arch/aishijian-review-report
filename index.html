@@ -2111,7 +2111,7 @@ body.ec-ai-over #ecAiDrawer .ai-rc-cb-bar.act em{color:#1a8a45}
 .ec-ai-diag-arrow{display:grid;place-items:center;color:#5d8fd9;font-size:20px;font-weight:800}
 .ec-ai-diag-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:4px}.ec-ai-diag-section{min-width:0}.ec-ai-diag-section h5{margin:0 0 9px;color:#22466f;font-size:14px}
 .ec-ai-evidence{display:flex;flex-direction:column;gap:7px}.ec-ai-evidence button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 11px;border:1px solid #e1eaf6;border-radius:8px;background:#fff;text-align:left;color:#28486e;cursor:pointer}.ec-ai-evidence button:hover{border-color:#77a7ee;background:#f7faff}.ec-ai-evidence .index{display:grid;place-items:center;flex:0 0 auto;width:20px;height:20px;border-radius:5px;background:#e8f1ff;color:#1f6fff;font-size:12px;font-weight:800}.ec-ai-evidence b{font-size:14px;line-height:1.4}.ec-ai-evidence i{margin-left:auto;color:#1f6fff;font-size:12px;font-style:normal;font-weight:700;white-space:nowrap}
-.ec-ai-actions{display:flex;flex-direction:column;gap:7px}.ec-ai-action{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 11px;border-left:3px solid #4f8cff;border-radius:0 8px 8px 0;background:#fff}.ec-ai-action strong{display:block;color:#22466f;font-size:14px;line-height:1.4}.ec-ai-action span{display:block;margin-top:3px;color:#617995;font-size:13px;line-height:1.4}.ec-ai-action button{min-width:64px;height:28px;border:1px solid #ffb873;border-radius:14px;background:#fff8ef;color:#bd6106;font-size:12px;font-weight:800;cursor:pointer}.ec-ai-action button[data-state="doing"]{border-color:#83b7ff;background:#eef5ff;color:#1f6fff}.ec-ai-action button[data-state="done"]{border-color:#79d39b;background:#effbf3;color:#178a46}
+.ec-ai-actions{display:flex;flex-direction:column;gap:7px}.ec-ai-action{padding:10px 11px;border-left:3px solid #4f8cff;border-radius:0 8px 8px 0;background:#fff}.ec-ai-action strong{display:block;color:#22466f;font-size:14px;line-height:1.4}.ec-ai-action span{display:block;margin-top:3px;color:#617995;font-size:13px;line-height:1.4}
 @media(max-width:900px){.ec-ai-diagnosis{margin:8px 14px}.ec-ai-diag-chain,.ec-ai-diag-grid{grid-template-columns:1fr}.ec-ai-diag-arrow{height:18px;transform:rotate(90deg)}.ec-ai-diagnosis-head{flex-direction:column}}
 </style>
 </head>
@@ -13469,11 +13469,10 @@ if(document.readyState==='complete'){setTimeout(init,0);}
       +'<button type="button" data-go="ecAiStep3"><i class="index">1</i><b>'+brand.name+'中，'+brand.item+'是当前最大缺口对象（'+brand.gap+'）</b><i>查看贡献</i></button>'
       +'<button type="button" data-go="ecAiStep3"><i class="index">2</i><b>'+category.name+'中，'+category.item+'需要优先拆解（'+category.gap+'）</b><i>查看品类</i></button>'
       +'<button type="button" data-go="ecAiStepProd"><i class="index">3</i><b>缺口产品 '+prod+' 进入产品与链接核查队列</b><i>查看明细</i></button>'
-      +'</div></section><section class="ec-ai-diag-section"><h5>行动队列：先做什么</h5><div class="ec-ai-actions">'+actions.map(function(a,i){var s=getState(i);return '<div class="ec-ai-action"><div><strong>'+(i+1)+'. '+a.title+'</strong><span>'+a.sub+'</span></div><button type="button" data-state="'+s+'" data-action="'+i+'" data-go="'+a.target+'">'+stateText(s)+'</button></div>';}).join('')+'</div></section></div>';
+      +'</div></section><section class="ec-ai-diag-section"><h5>行动队列：先做什么</h5><div class="ec-ai-actions">'+actions.map(function(a,i){return '<div class="ec-ai-action"><strong>'+(i+1)+'. '+a.title+'</strong><span>'+a.sub+'</span></div>';}).join('')+'</div></section></div>';
   }
   panel.addEventListener('click',function(e){
     var refresh=e.target.closest('.ec-ai-diag-refresh');if(refresh){render();return;}
-    var a=e.target.closest('[data-action]');if(a){var id=Number(a.getAttribute('data-action')),s=nextState(getState(id));setState(id,s);render();go(a.getAttribute('data-go'));return;}
     var btn=e.target.closest('[data-go]');if(btn)go(btn.getAttribute('data-go'));
   });
   var firstPeriod=content.querySelector('.ec-period');
