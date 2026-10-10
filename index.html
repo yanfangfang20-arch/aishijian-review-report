@@ -6231,7 +6231,8 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
       <button class="ai-rc-tab" data-target="aiRcStep2" type="button">② 因子目标对比及贡献度</button>
       <button class="ai-rc-tab" data-target="aiRcStep3" type="button">③ 拆解树</button>
       <button class="ai-rc-tab" data-target="aiRcStep4" type="button">④ 根因证据</button>
-      <button class="ai-rc-tab" data-target="aiRcStep5" type="button">⑤ 总结建议</button>
+      <button class="ai-rc-tab" data-target="aiRcStepSpeech" type="button">⑤ 话术与弹幕</button>
+      <button class="ai-rc-tab" data-target="aiRcStep5" type="button">⑥ 总结建议</button>
     </div>
     <!-- 周期筛选：按日 / 按月（居右） -->
     <div class="ai-rc-pick" id="aiRcPick">
@@ -6282,6 +6283,7 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
                 GMV <strong>85万</strong>，目标 <strong>100万</strong>，缺口 <strong>15万</strong>
               </div>
             </div>
+            <div class="ai-rc-attain-row" id="aiRcGmvAttain">目标达成率 <b>85.0%</b></div>
           </div>
           <!-- 卡片二：综合ROI指标 -->
           <div class="ai-rc-confirm-card">
@@ -6293,6 +6295,7 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
                 ROI <strong>2.4</strong>，目标 <strong>3.0</strong>，缺口 <strong>0.6</strong>
               </div>
             </div>
+            <div class="ai-rc-attain-row" id="aiRcRoiAttain">目标达成率 <b>80.0%</b></div>
           </div>
         </div>
         <div class="ai-rc-info-bar" style="margin-top:12px">
@@ -6310,6 +6313,8 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
 客单价贡献 = 实际UV × 实际CVR × (实际客单价 − 目标客单价)">?</span></span>
           <span class="ai-rc-step-sub">GMV = 流量UV × 曝光转化率CVR × 客单价</span>
         </div>
+        <div class="ai-rc-factor-formula" id="aiRcFactorFormula" aria-live="polite"></div>
+        <div class="ai-rc-factor-compare-title">因子目标 / 实际对比</div>
         <div class="ai-rc-cb-comp">
           <div class="ai-rc-cb-item">
             <div class="ai-rc-cb-name">GMV</div>
@@ -6788,9 +6793,41 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
           </div>
         </div>
       </div>
-      <div class="ai-rc-step" id="aiRcStep5">
+      <div class="ai-rc-step" id="aiRcStepSpeech">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">5</span>
+          <span class="ai-rc-step-title">直播话术与弹幕分析</span>
+          <span class="ai-rc-step-sub">内容覆盖 → 观众意图 → 同主题回应 → 待核验动作</span>
+        </div>
+        <div class="ai-rc-voice-intro"><b id="aiRcVoiceSource">演示样本 · 2026/07/20</b><span>逐行格式：时间｜角色｜文本。支持粘贴或导入 TXT / CSV；仅在本机分析。文本样本不随上方日/月统计自动切换；两分钟同主题匹配不能直接证明转化因果。</span></div>
+        <div class="ai-rc-voice-inputs">
+          <div class="ai-rc-voice-input">
+            <div class="ai-rc-voice-input-head"><b>主播话术逐字稿</b><label>导入文件<input id="aiRcSpeechFile" type="file" accept=".txt,.csv,text/plain,text/csv"></label></div>
+            <textarea id="aiRcSpeechInput" spellcheck="false" aria-label="主播话术逐字稿">20:00:00|主播|欢迎来到爱视健直播间，今晚介绍护眼产品，先别划走
+20:00:45|主播|这款镜片采用防蓝光镀膜，适合经常看屏幕的朋友
+20:01:20|主播|检测报告和镜片参数可以在商品详情页查看
+20:02:50|主播|今晚领券后到手价129元，优惠在购物车一号链接
+20:04:10|主播|需要的朋友点击购物车下单，库存以页面为准
+20:05:30|主播|支持七天无理由退换，度数有疑问可以咨询客服
+20:06:40|主播|商品链接就在购物车一号，点击即可查看</textarea>
+          </div>
+          <div class="ai-rc-voice-input">
+            <div class="ai-rc-voice-input-head"><b>直播弹幕记录</b><label>导入文件<input id="aiRcDanmuFile" type="file" accept=".txt,.csv,text/plain,text/csv"></label></div>
+            <textarea id="aiRcDanmuInput" spellcheck="false" aria-label="直播弹幕记录">20:00:20|观众|这款镜片防蓝光吗？
+20:01:40|观众|有检测报告可以看吗？
+20:02:10|观众|到手多少钱，有券吗？
+20:03:10|观众|近视度数能配吗？
+20:04:30|观众|多久发货？
+20:05:50|观众|七天能退吗？
+20:06:20|观众|商品链接在哪？</textarea>
+          </div>
+        </div>
+        <div class="ai-rc-voice-toolbar"><button type="button" id="aiRcVoiceRun">分析当前文本</button><button type="button" class="secondary" id="aiRcVoiceReset">恢复演示样本</button><span id="aiRcVoiceParseNote"></span></div>
+        <div id="aiRcVoiceResults" aria-live="polite"></div>
+      </div>
+      <div class="ai-rc-step" id="aiRcStep5">
+        <div class="ai-rc-step-head">
+          <span class="ai-rc-step-badge s2">6</span>
           <span class="ai-rc-step-title">总结建议</span>
           <span class="ai-rc-step-sub">核心结论 · 归因判断 · 优先动作</span>
         </div>
@@ -6910,10 +6947,11 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
         });
         aiRcPickSync();
         aiRcReRefresh();
+        if(typeof aiRcApplyScenario==='function') aiRcApplyScenario();
       });
     });
     if(dayInput) dayInput.addEventListener('change',function(){aiRcPickSync();aiRcReRefresh();if(typeof aiRcApplyScenario==='function')aiRcApplyScenario();else if(typeof aiRcSumRender==='function')aiRcSumRender();});
-    if(monthInput) monthInput.addEventListener('change',function(){aiRcPickSync();aiRcReRefresh();if(typeof aiRcSumRender==='function')aiRcSumRender();});
+    if(monthInput) monthInput.addEventListener('change',function(){aiRcPickSync();aiRcReRefresh();if(typeof aiRcApplyScenario==='function')aiRcApplyScenario();else if(typeof aiRcSumRender==='function')aiRcSumRender();});
     if(reBtn){
       reBtn.addEventListener('click',function(){
         var loadingEl=document.getElementById('aiRcLoading');
@@ -7750,6 +7788,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
     }
     drawTreeLines();
     aiRcInjectTags();
+    if(typeof window.aiRcEnhanceRefresh==='function') window.aiRcEnhanceRefresh();
   }
 
   /* 行动建议-自动注入流量/转化侧标签 */
@@ -13796,6 +13835,210 @@ if(document.readyState==='complete'){setTimeout(init,0);}
   document.querySelectorAll('[data-prd-open]').forEach(function(btn){btn.addEventListener('click',function(){show(btn.getAttribute('data-prd-open'));});});
   document.querySelectorAll('[data-prd-tab]').forEach(function(tab){tab.addEventListener('click',function(){show(tab.getAttribute('data-prd-tab'));});});
   close.addEventListener('click',hide);mask.addEventListener('click',function(e){if(e.target===mask)hide();});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mask.classList.contains('show'))hide();});
+})();
+</script>
+
+<style>
+#aiRcDrawer .ai-rc-attain-row{margin:9px 0 0;padding:7px 10px;border-radius:7px;background:#f2f5ff;color:#53627b;font-size:12px;font-weight:700}
+#aiRcDrawer .ai-rc-attain-row b{margin-left:5px;color:#e0525d;font-size:15px;font-variant-numeric:tabular-nums}
+#aiRcDrawer .ai-rc-attain-row.good{background:#effaf3}#aiRcDrawer .ai-rc-attain-row.good b{color:#16935c}
+#aiRcDrawer .ai-rc-factor-compare-title{margin:13px 1px 8px;color:#33465f;font-size:12px;font-weight:800}
+#aiRcDrawer .ai-rc-factor-formula{display:grid;grid-template-columns:minmax(125px,1.15fr) 18px repeat(2,minmax(115px,1fr) 18px) minmax(115px,1fr);align-items:stretch;gap:7px;margin:2px 0 12px}
+#aiRcDrawer .ai-rc-formula-card{min-width:0;padding:10px 11px;border:1px solid #dfe6f5;border-radius:9px;background:#fafbff}
+#aiRcDrawer .ai-rc-formula-card.result{border-color:#b8c5ff;background:#f2f4ff}
+#aiRcDrawer .ai-rc-formula-card span{display:block;color:#68778f;font-size:11px;font-weight:700}
+#aiRcDrawer .ai-rc-formula-card b{display:block;margin:5px 0 2px;color:#25395f;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+#aiRcDrawer .ai-rc-formula-card small{display:block;color:#7a899f;font-size:11px;line-height:1.4}
+#aiRcDrawer .ai-rc-formula-card em{display:inline-block;margin-top:5px;padding:2px 5px;border-radius:4px;background:#fff0f2;color:#d64b59;font-size:11px;font-style:normal;font-weight:800}
+#aiRcDrawer .ai-rc-formula-card em.good{background:#e8f8ee;color:#168e59}
+#aiRcDrawer .ai-rc-formula-op{display:grid;place-items:center;color:#74829d;font-size:20px;font-weight:700}
+#aiRcDrawer .ai-rc-formula-alert{grid-column:1/-1;padding:7px 9px;border:1px solid #f6e2b6;border-radius:6px;background:#fffaf0;color:#8b6522;font-size:11px;line-height:1.5}
+#aiRcStepSpeech .ai-rc-voice-intro{display:flex;align-items:flex-start;gap:11px;margin:2px 0 12px;padding:10px 12px;border:1px solid #dce5f6;border-radius:8px;background:#f7f9ff;color:#62728a;font-size:12px;line-height:1.6}
+#aiRcStepSpeech .ai-rc-voice-intro b{flex:none;color:#5363d8}
+#aiRcStepSpeech .ai-rc-voice-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#aiRcStepSpeech .ai-rc-voice-input{min-width:0;padding:11px;border:1px solid #e0e6f2;border-radius:9px;background:#fff}
+#aiRcStepSpeech .ai-rc-voice-input-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;color:#304360;font-size:13px}
+#aiRcStepSpeech .ai-rc-voice-input-head label{position:relative;overflow:hidden;padding:4px 8px;border:1px solid #cbd7f5;border-radius:5px;color:#4e63cf;font-size:11px;font-weight:700;cursor:pointer}
+#aiRcStepSpeech .ai-rc-voice-input-head input{position:absolute;left:-9999px}
+#aiRcStepSpeech textarea{display:block;box-sizing:border-box;width:100%;min-height:144px;resize:vertical;padding:9px;border:1px solid #dce4f1;border-radius:6px;outline:0;background:#fbfcff;color:#34445e;font:12px/1.55 Consolas,'Microsoft YaHei',sans-serif}
+#aiRcStepSpeech textarea:focus{border-color:#8797f5;box-shadow:0 0 0 2px rgba(88,101,245,.1)}
+#aiRcStepSpeech .ai-rc-voice-toolbar{display:flex;align-items:center;gap:8px;margin:10px 0 13px;color:#8692a7;font-size:11px}
+#aiRcStepSpeech .ai-rc-voice-toolbar button{padding:7px 12px;border:1px solid #5865f5;border-radius:6px;background:#5865f5;color:#fff;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+#aiRcStepSpeech .ai-rc-voice-toolbar button.secondary{border-color:#d8dff0;background:#fff;color:#5865f5}
+#aiRcStepSpeech .ai-rc-voice-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+#aiRcStepSpeech .ai-rc-voice-kpi{padding:10px 11px;border:1px solid #e0e6f1;border-radius:8px;background:#fafdff}
+#aiRcStepSpeech .ai-rc-voice-kpi span{display:block;color:#74839a;font-size:11px}
+#aiRcStepSpeech .ai-rc-voice-kpi b{display:block;margin:5px 0 2px;color:#2f4565;font-size:17px;font-variant-numeric:tabular-nums}
+#aiRcStepSpeech .ai-rc-voice-kpi b.risk{color:#e0525d}#aiRcStepSpeech .ai-rc-voice-kpi b.good{color:#179460}
+#aiRcStepSpeech .ai-rc-voice-kpi small{color:#8b98aa;font-size:11px}
+#aiRcStepSpeech .ai-rc-voice-panels{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:12px}
+#aiRcStepSpeech .ai-rc-voice-panel{min-width:0;padding:11px;border:1px solid #e0e6f1;border-radius:9px;background:#fff}
+#aiRcStepSpeech .ai-rc-voice-panel h4{margin:0 0 10px;color:#2e4160;font-size:13px}
+#aiRcStepSpeech .ai-rc-voice-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#aiRcStepSpeech .ai-rc-voice-stage-item{padding:8px;border:1px solid #e4eaf4;border-radius:6px;background:#fafdff}
+#aiRcStepSpeech .ai-rc-voice-stage-item.miss{border-color:#f6dadd;background:#fff9f9}
+#aiRcStepSpeech .ai-rc-voice-stage-item b{display:block;color:#344a67;font-size:12px}
+#aiRcStepSpeech .ai-rc-voice-stage-item span{display:block;margin-top:3px;color:#7e8b9e;font-size:11px;line-height:1.4}
+#aiRcStepSpeech .ai-rc-voice-table{width:100%;border-collapse:collapse;font-size:11px}
+#aiRcStepSpeech .ai-rc-voice-table th{padding:7px 6px;background:#f4f6fb;color:#718099;text-align:left;font-weight:700}
+#aiRcStepSpeech .ai-rc-voice-table td{padding:7px 6px;border-bottom:1px solid #edf0f5;color:#394e6b;vertical-align:top;line-height:1.4}
+#aiRcStepSpeech .ai-rc-voice-table td:first-child{white-space:nowrap}
+#aiRcStepSpeech .ai-rc-voice-table .no{color:#d8505d;font-weight:700}#aiRcStepSpeech .ai-rc-voice-table .yes{color:#178c5b;font-weight:700}
+#aiRcStepSpeech .ai-rc-voice-foot{margin-top:11px;padding:10px 12px;border:1px solid #e1e7f2;border-radius:8px;background:#fafbff;color:#53647d;font-size:12px;line-height:1.65}
+#aiRcStepSpeech .ai-rc-voice-foot b{color:#334565}
+@media(max-width:960px){#aiRcDrawer .ai-rc-factor-formula{grid-template-columns:repeat(4,minmax(0,1fr))}#aiRcDrawer .ai-rc-formula-op{display:none}#aiRcStepSpeech .ai-rc-voice-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){#aiRcDrawer .ai-rc-factor-formula{grid-template-columns:repeat(2,minmax(0,1fr))}#aiRcStepSpeech .ai-rc-voice-inputs,#aiRcStepSpeech .ai-rc-voice-panels{grid-template-columns:1fr}#aiRcStepSpeech .ai-rc-voice-intro{display:block}}
+</style>
+
+<script>
+(function(){
+  var drawer=document.getElementById('aiRcDrawer');
+  if(!drawer)return;
+  function el(id){return document.getElementById(id);}
+  function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function pct(a,t){return t?((a/t)*100).toFixed(1)+'%':'—';}
+  function liveScenario(){
+    var active=drawer.querySelector('#aiRcPick .ai-rc-pick-btn.active');
+    var period=active?active.getAttribute('data-g'):'day';
+    if(period==='day'&&el('aiRcDayPick')&&el('aiRcDayPick').value!=='2026-07-20')return 3;
+    if(period==='month'&&el('aiRcMonthPick')&&el('aiRcMonthPick').value!=='2026-07')return 2;
+    return 0;
+  }
+  var scenarios={
+    0:{gmv:[85,100],roi:[2.4,3],uv:[42000,50000],cvr:[4.5,5],aov:[125,120]},
+    1:{gmv:[120,100],roi:[3.5,3],uv:[60000,50000],cvr:[5.5,5],aov:[110,105]},
+    2:{gmv:[108,100],roi:[3.2,3],uv:[45000,50000],cvr:[5.8,5],aov:[130,120]},
+    3:{gmv:[88,100],roi:[2.9,3],uv:[50000,50000],cvr:[5,5],aov:[105,120]}
+  };
+  function formulaCard(title,values,format,unit,result){
+    var rate=values[1]?values[0]/values[1]*100:0;
+    return '<div class="ai-rc-formula-card'+(result?' result':'')+'"><span>'+title+'</span><b>'+format(values[0])+unit+'</b><small>目标 '+format(values[1])+unit+'</small><em class="'+(rate>=100?'good':'')+'">目标达成率 '+rate.toFixed(1)+'%</em></div>';
+  }
+  function refreshFactor(){
+    var d=scenarios[liveScenario()];
+    if(!d)return;
+    [['aiRcGmvAttain',d.gmv],['aiRcRoiAttain',d.roi]].forEach(function(pair){
+      var node=el(pair[0]);if(!node)return;
+      node.classList.toggle('good',pair[1][0]>=pair[1][1]);
+      node.querySelector('b').textContent=pct(pair[1][0],pair[1][1]);
+    });
+    var wrap=el('aiRcFactorFormula');if(!wrap)return;
+    var number=function(v){return Number(v).toLocaleString('zh-CN');};
+    var one=function(v){return Number(v).toFixed(1);};
+    var calculatedActual=d.uv[0]*d.cvr[0]/100*d.aov[0]/10000;
+    var calculatedTarget=d.uv[1]*d.cvr[1]/100*d.aov[1]/10000;
+    var mismatch=Math.abs(calculatedActual-d.gmv[0])>Math.max(1,d.gmv[0]*.01)||Math.abs(calculatedTarget-d.gmv[1])>Math.max(1,d.gmv[1]*.01);
+    wrap.innerHTML=formulaCard('GMV',d.gmv,number,'万',true)
+      +'<div class="ai-rc-formula-op">=</div>'
+      +formulaCard('流量 UV',d.uv,number,'人',false)
+      +'<div class="ai-rc-formula-op">×</div>'
+      +formulaCard('曝光转化率 CVR',d.cvr,one,'%',false)
+      +'<div class="ai-rc-formula-op">×</div>'
+      +formulaCard('客单价',d.aov,number,'元',false)
+      +(mismatch?'<div class="ai-rc-formula-alert">口径待校验：当前原型中的 UV、转化率、客单价相乘与报表 GMV 未闭合。公式展示经营关系，原有因子贡献仅作演示；接入真实数据时需统一统计口径。</div>':'');
+  }
+  window.aiRcEnhanceRefresh=refreshFactor;
+  refreshFactor();
+
+  var speechInput=el('aiRcSpeechInput'),danmuInput=el('aiRcDanmuInput'),output=el('aiRcVoiceResults');
+  if(!speechInput||!danmuInput||!output)return;
+  var sampleSpeech=speechInput.value,sampleDanmu=danmuInput.value;
+  var sources={speech:'演示样本',danmu:'演示样本'};
+  var stages=[
+    {name:'开场留人',pattern:/欢迎|进来|别划走|开场|留在直播间/},
+    {name:'需求与卖点',pattern:/镜片|防蓝光|护眼|看屏幕|疲劳|度数|材质|适合/},
+    {name:'证据背书',pattern:/检测|报告|质检|认证|参数|实测|证书/},
+    {name:'价格权益',pattern:/券|优惠|到手|立减|价格|限时/},
+    {name:'下单引导',pattern:/点击|下单|购物车|链接|拍下|购买/},
+    {name:'异议处理',pattern:/退换|售后|发货|疑问|客服|质保|包邮/}
+  ];
+  var topics=[
+    {name:'价格权益',pattern:/价格|多少钱|到手|优惠|券|划算|便宜/},
+    {name:'退换售后',pattern:/退|换|售后|质保|保修/},
+    {name:'发货物流',pattern:/发货|快递|到货|物流|包邮/},
+    {name:'信任证据',pattern:/报告|检测|认证|真假|靠谱吗|质检|真实/},
+    {name:'购买路径',pattern:/链接|购物车|怎么买|怎么拍|下单|购买/},
+    {name:'产品适配',pattern:/镜片|度数|防蓝光|护眼|近视|材质|适合|效果/}
+  ];
+  var riskPattern=/全网最低|绝对|永久|保证(?:有效|治好)|100%有效|治愈|治疗近视/;
+  function parseLines(raw){
+    var invalid=0;
+    var rows=String(raw||'').split(/\r?\n/).map(function(line){
+      line=line.trim();if(!line)return null;
+      var parts=line.split(/[|｜,\t]/),timePart=parts.length>1?parts.shift().trim():'';
+      var role=parts.length>1?parts.shift().trim():'';
+      var body=parts.length?parts.join('，').trim():line;
+      var match=/^(?:(\d{4}-\d{1,2}-\d{1,2})\s+)?(\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec(timePart);
+      var seconds=null,clock='—';
+      if(match&&Number(match[2])<24&&Number(match[3])<60&&Number(match[4]||0)<60){
+        seconds=Number(match[2])*3600+Number(match[3])*60+Number(match[4]||0);
+        if(match[1])seconds+=Date.parse(match[1]+'T00:00:00')/1000;
+        clock=(match[1]?match[1]+' ':'')+match[2].padStart(2,'0')+':'+match[3]+':'+String(match[4]||'00').padStart(2,'0');
+      }else invalid++;
+      return {seconds:seconds,clock:clock,role:role,text:body};
+    }).filter(Boolean);
+    return {rows:rows,untimed:invalid};
+  }
+  function topic(text){for(var i=0;i<topics.length;i++)if(topics[i].pattern.test(text))return topics[i].name;return '其他';}
+  function sentence(text,max){return text.length>max?text.slice(0,max)+'…':text;}
+  function sourceLabel(){el('aiRcVoiceSource').textContent='话术：'+sources.speech+'｜弹幕：'+sources.danmu;}
+  function analyzeVoice(){
+    var speech=parseLines(speechInput.value),danmu=parseLines(danmuInput.value);
+    var note=el('aiRcVoiceParseNote');
+    if(note)note.textContent='已读取话术 '+speech.rows.length+' 行、弹幕 '+danmu.rows.length+' 行'+(speech.untimed+danmu.untimed?'；'+(speech.untimed+danmu.untimed)+' 行无有效时间，仅参与文本分类':'');
+    sourceLabel();
+    if(!speech.rows.length&&!danmu.rows.length){output.innerHTML='<div class="ai-rc-voice-foot">暂无文本。粘贴带时间的话术和弹幕，或导入 TXT / CSV 后点击“分析当前文本”。</div>';return;}
+    var covered=stages.map(function(stage){var hits=speech.rows.filter(function(row){return stage.pattern.test(row.text);});return {name:stage.name,hits:hits};});
+    var coverCount=covered.filter(function(item){return item.hits.length;}).length;
+    var risky=speech.rows.filter(function(row){return riskPattern.test(row.text);});
+    var comments=danmu.rows.map(function(row){
+      var category=topic(row.text),same=speech.rows.filter(function(s){
+        return category!=='其他'&&row.seconds!=null&&s.seconds!=null&&s.seconds>=row.seconds&&s.seconds-row.seconds<=120&&topics.some(function(t){return t.name===category&&t.pattern.test(s.text);});
+      }).sort(function(a,b){return a.seconds-b.seconds;})[0];
+      return {row:row,category:category,response:same||null,latency:same?Math.round(same.seconds-row.seconds):null};
+    });
+    var timed=comments.filter(function(item){return item.category!=='其他'&&item.row.seconds!=null;});
+    var canMatch=speech.rows.some(function(row){return row.seconds!=null;})&&timed.length>0;
+    var matched=canMatch?timed.filter(function(item){return item.response;}).length:0;
+    var responseRate=canMatch?matched/timed.length*100:null;
+    var missed=canMatch?timed.filter(function(item){return !item.response;}):[];
+    var counts={};comments.forEach(function(item){if(item.category!=='其他')counts[item.category]=(counts[item.category]||0)+1;});
+    var top=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a];})[0]||'暂无分类问题';
+    var kpi=function(name,value,detail,risk){return '<div class="ai-rc-voice-kpi"><span>'+name+'</span><b class="'+(risk?'risk':'good')+'">'+value+'</b><small>'+detail+'</small></div>';};
+    var html='<div class="ai-rc-voice-kpis">'
+      +kpi('话术环节覆盖',coverCount+'/6','目标达成率 '+pct(coverCount,6),coverCount<6)
+      +kpi('2分钟同主题回应',responseRate==null?'—':responseRate.toFixed(1)+'%',responseRate==null?'需两类带时间的文本':'参考目标 ≥80% · 目标达成率 '+pct(responseRate,80),responseRate==null||responseRate<80)
+      +kpi('未覆盖观众问题',canMatch?String(missed.length):'—',canMatch?'在有效时间窗内':'需时间戳才能判断',canMatch&&missed.length>0)
+      +kpi('话术合规待复核',String(risky.length),'参考目标 0 条',risky.length>0)
+      +'</div><div class="ai-rc-voice-panels"><section class="ai-rc-voice-panel"><h4>话术链路 · 六环节覆盖</h4><div class="ai-rc-voice-stage">';
+    covered.forEach(function(item){var row=item.hits[0];html+='<div class="ai-rc-voice-stage-item'+(row?'':' miss')+'"><b>'+item.name+' · '+item.hits.length+'条</b><span>'+(row?safe(row.clock+' '+sentence(row.text,31)):'未在样本中识别')+'</span></div>';});
+    html+='</div></section><section class="ai-rc-voice-panel"><h4>弹幕意图与回应证据 · 高频 '+safe(top)+'</h4>';
+    if(comments.length){
+      html+='<div style="overflow-x:auto"><table class="ai-rc-voice-table"><thead><tr><th>时间</th><th>观众原文</th><th>意图</th><th>同主题话术</th><th>匹配</th></tr></thead><tbody>';
+      comments.slice().sort(function(a,b){return Number(!!a.response)-Number(!!b.response);}).slice(0,8).forEach(function(item){
+        var state=item.row.seconds==null||!canMatch?'时间不足':item.response?'+'+item.latency+'秒':'未覆盖';
+        html+='<tr><td>'+safe(item.row.clock)+'</td><td>'+safe(sentence(item.row.text,37))+'</td><td>'+safe(item.category)+'</td><td>'+(item.response?safe(item.response.clock+' '+sentence(item.response.text,34)):'—')+'</td><td class="'+(item.response?'yes':'no')+'">'+state+'</td></tr>';
+      });
+      html+='</tbody></table></div>';
+    }else html+='<div class="ai-rc-voice-foot">暂无弹幕文本。</div>';
+    html+='</section></div>';
+    var actions=[];
+    if(coverCount<6)actions.push('补齐 '+covered.filter(function(item){return !item.hits.length;}).map(function(item){return item.name;}).join('、')+' 环节，并在下一场验证对应时段的点击与支付变化');
+    if(missed.length)actions.push('为 '+safe(top)+' 等未覆盖问题配置主播 FAQ，并复核问题出现后的商品点击、加购和支付漏斗');
+    if(risky.length)actions.push('人工复核 '+risky.length+' 条绝对化或功效类表述，核对证据与平台规则后再复用');
+    if(!actions.length)actions.push('保留高覆盖话术和回应节奏，继续按场次对照观众问题与转化表现');
+    html+='<div class="ai-rc-voice-foot"><b>复盘动作：</b>'+actions.map(safe).join('；')+'。<br><b>判读边界：</b>“回应”是两分钟内出现同主题话术的规则匹配，不等于主播直接回答；是否影响 GMV 需结合该时段 UV、点击、加购与支付数据验证。</div>';
+    output.innerHTML=html;
+  }
+  var run=el('aiRcVoiceRun'),reset=el('aiRcVoiceReset');
+  if(run)run.addEventListener('click',analyzeVoice);
+  if(reset)reset.addEventListener('click',function(){speechInput.value=sampleSpeech;danmuInput.value=sampleDanmu;sources={speech:'演示样本',danmu:'演示样本'};analyzeVoice();});
+  [[speechInput,'speech'],[danmuInput,'danmu']].forEach(function(pair){pair[0].addEventListener('input',function(){sources[pair[1]]='自有文本';sourceLabel();});});
+  [['aiRcSpeechFile',speechInput,'speech'],['aiRcDanmuFile',danmuInput,'danmu']].forEach(function(pair){
+    var input=el(pair[0]);if(!input)return;
+    input.addEventListener('change',function(){var file=input.files&&input.files[0];if(!file)return;if(file.size>5*1024*1024){el('aiRcVoiceParseNote').textContent='文件超过 5MB，请按场次拆分后导入';return;}file.text().then(function(value){pair[1].value=value;sources[pair[2]]=file.name;analyzeVoice();}).catch(function(){el('aiRcVoiceParseNote').textContent='读取失败，请将文件内容粘贴到文本框';});});
+  });
+  analyzeVoice();
 })();
 </script>
 
