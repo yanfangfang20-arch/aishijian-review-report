@@ -9491,7 +9491,7 @@ if(document.getElementById('ecLcTabs')){
     <button data-target="ecvProductRanks" type="button">产品销售榜</button>
     <button data-target="ecvLowRanks" type="button">产品低销榜</button>
     <span class="ecv-risk-notice" aria-label="经营风险提示"><i aria-hidden="true">●</i>一类有 <b>83</b> 条风险项，<b>5</b> 条中风险待处理 <em>更多 &gt;&gt;</em></span>
-    <button class="ecv-ai-btn" id="ecvAiBtn" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.3 1.5 3.8 8h3.4l-.7 6.5 5.7-7H8.8l.5-6Z" fill="currentColor"/></svg>AI根因分析</button>
+    <button class="ecv-ai-btn" id="ecvAiBtn" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.3 1.5 3.8 8h3.4l-.7 6.5 5.7-7H8.8l.5-6Z" fill="currentColor"/></svg>复盘分析</button>
   </div>
   <main class="ecv-main">
     <div class="ecv-pane show" data-pane="0">
@@ -9691,7 +9691,7 @@ if(document.getElementById('ecLcTabs')){
   }
   if(navBtn) navBtn.addEventListener('click',function(e){e.preventDefault();openEc();});
   if(backBtn) backBtn.addEventListener('click',closeEc);
-  /* 一类电商AI根因分析：由 ecAiDrawer 抽屉脚本负责（右侧弹窗 + 直播式拆解树） */
+  /* 一类电商复盘分析：由 ecAiDrawer 抽屉脚本负责（右侧弹窗 + 直播式拆解树） */
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.classList.contains('show'))closeEc();});
   ov.querySelectorAll('#ecvMenu a').forEach(function(a){
     a.addEventListener('click',function(){
@@ -9754,11 +9754,11 @@ if(document.getElementById('ecLcTabs')){
 </script>
 
 
-<!-- ===== 一类电商 AI根因分析 右侧抽屉 ===== -->
+<!-- ===== 一类电商复盘分析右侧抽屉 ===== -->
 <div class="ai-rc-drawer-mask" id="ecAiMask"></div>
-<aside class="ai-rc-drawer" id="ecAiDrawer" role="dialog" aria-label="一类AI根因分析">
+<aside class="ai-rc-drawer" id="ecAiDrawer" role="dialog" aria-label="一类电商复盘分析">
   <div class="ai-rc-drawer-head">
-    <h3><span class="ai-rc-icon">⚡</span>一类电商 · AI根因分析</h3>
+    <h3><span class="ai-rc-icon">⚡</span>一类电商 · 复盘分析</h3>
     <div class="ai-rc-head-actions">
       <button class="ai-rc-pdf-btn" id="ecAiPdfBtn" type="button">⬇ 下载PDF报告</button>
       <button class="ai-rc-full-btn" id="ecAiFullBtn" type="button" aria-label="全屏"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2H2v4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg><span>全屏</span></button>
@@ -10114,7 +10114,7 @@ if(document.getElementById('ecLcTabs')){
     document.querySelectorAll('style').forEach(function(s){styles+=s.innerHTML;});
     var w=window.open('','_blank');
     if(!w){alert('浏览器拦截了新窗口，请允许弹窗后重试');return;}
-    w.document.write('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>一类电商AI根因分析报告</title><style>'+styles+'</style><style>body{background:#fff;padding:0}@page{margin:10mm}*{box-sizing:border-box}.pdf-titlebar{background:linear-gradient(135deg,#1f6fff,#4b8cff);color:#fff;padding:18px 24px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;position:static}.ai-rc-loading{display:none!important}.ai-rc-tabs{display:none!important}.ai-rc-analysis{overflow:visible!important}.ai-rc-content{display:block!important}.ai-rc-drawer-head{position:static!important}.ec-ai-pickrow,.ec-ow-tabs,.ec-rd-tabs{display:none!important}.ec-rd-channels{display:block!important}.lk-tbl-wrap,.ec-bi-table-wrap{overflow:visible!important}.b-table,.ec-bi-table{min-width:0!important}.b-table{font-size:9.5px!important}.lk-tt{max-width:none!important;white-space:normal!important;word-break:break-word}@page{size:A4 landscape;margin:8mm}</style></head><body class="ec-pdf-export"><div class="pdf-titlebar">⚡ 一类电商AI根因分析报告</div>'+contentEl.innerHTML+'</body></html>');
+    w.document.write('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>一类电商复盘分析报告</title><style>'+styles+'</style><style>body{background:#fff;padding:0}@page{margin:10mm}*{box-sizing:border-box}.pdf-titlebar{background:linear-gradient(135deg,#1f6fff,#4b8cff);color:#fff;padding:18px 24px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;position:static}.ai-rc-loading{display:none!important}.ai-rc-tabs{display:none!important}.ai-rc-analysis{overflow:visible!important}.ai-rc-content{display:block!important}.ai-rc-drawer-head{position:static!important}.ec-ai-pickrow,.ec-ow-tabs,.ec-rd-tabs{display:none!important}.ec-rd-channels{display:block!important}.lk-tbl-wrap,.ec-bi-table-wrap{overflow:visible!important}.b-table,.ec-bi-table{min-width:0!important}.b-table{font-size:9.5px!important}.lk-tt{max-width:none!important;white-space:normal!important;word-break:break-word}@page{size:A4 landscape;margin:8mm}</style></head><body class="ec-pdf-export"><div class="pdf-titlebar">⚡ 一类电商复盘分析报告</div>'+contentEl.innerHTML+'</body></html>');
     w.document.close();
     setTimeout(function(){w.focus();w.print();},500);
   }
@@ -10152,7 +10152,7 @@ if(document.getElementById('ecLcTabs')){
             cx.drawImage(canvas,0,sy,imgW,shPx,0,0,imgW,shPx);
             pdf.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',margin,margin,iw,drawH);
           }
-          pdf.save('一类电商AI根因分析报告.pdf');
+          pdf.save('一类电商复盘分析报告.pdf');
         })
         .catch(function(){pdfFallbackPrint();})
         .then(function(){if(contentEl) contentEl.classList.remove('ec-pdf-export');pdfBtn.disabled=false;pdfBtn.innerHTML='⬇ 下载PDF报告';});
