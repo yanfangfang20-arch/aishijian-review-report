@@ -9741,8 +9741,9 @@ if(document.getElementById('ecLcTabs')){
     <button class="ai-rc-tab active" data-target="ecAiStep1" type="button">① 确认问题</button>
     <button class="ai-rc-tab" data-target="ecAiStep3" type="button">② 缺口贡献度</button>
     <button class="ai-rc-tab" data-target="ecAiStepRegion" type="button">③ 大区下钻</button>
-    <button class="ai-rc-tab" data-target="ecAiStepProd" type="button">④ 缺口产品明细·链接清单</button>
-    <button class="ai-rc-tab" data-target="ecAiStepSum" type="button">⑤ 总结建议</button>
+    <button class="ai-rc-tab" data-target="ecAiStepStore" type="button">④ 店铺缺口</button>
+    <button class="ai-rc-tab" data-target="ecAiStepProd" type="button">⑤ 缺口产品明细·链接清单</button>
+    <button class="ai-rc-tab" data-target="ecAiStepSum" type="button">⑥ 总结建议</button>
   </div>
   <!-- 周期筛选：按日 / 按月 + 重新分析 -->
   <div class="ec-ai-pickrow">
@@ -9827,9 +9828,17 @@ if(document.getElementById('ecLcTabs')){
         <div class="ec-rd-channels" id="ecRdChannels"></div>
       </div>
 
-      <div class="ai-rc-step" id="ecAiStepProd">
+      <div class="ai-rc-step ec-rd-store-module" id="ecAiStepStore">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">4</span>
+          <span class="ai-rc-step-title">店铺缺口汇总</span>
+        </div>
+        <div id="ecRdStoreSummary"></div>
+      </div>
+
+      <div class="ai-rc-step" id="ecAiStepProd">
+        <div class="ai-rc-step-head">
+          <span class="ai-rc-step-badge s2">5</span>
           <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
         </div>
         <div class="ec-bi-tools" id="ecBiTools"></div>
@@ -9870,7 +9879,7 @@ if(document.getElementById('ecLcTabs')){
 
       <div class="ai-rc-step" id="ecAiStepSum">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">5</span>
+          <span class="ai-rc-step-badge s2">6</span>
           <span class="ai-rc-step-title">总结建议</span>
         </div>
         <div class="ec-sum-wrap" id="ecSumWrap"></div>
@@ -9932,9 +9941,17 @@ if(document.getElementById('ecLcTabs')){
         <div class="ec-rd-channels" id="ecRdChannelsD"></div>
       </div>
 
-      <div class="ai-rc-step" id="ecAiStepProdD">
+      <div class="ai-rc-step ec-rd-store-module" id="ecAiStepStoreD">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">4</span>
+          <span class="ai-rc-step-title">店铺缺口汇总</span>
+        </div>
+        <div id="ecRdStoreSummaryD"></div>
+      </div>
+
+      <div class="ai-rc-step" id="ecAiStepProdD">
+        <div class="ai-rc-step-head">
+          <span class="ai-rc-step-badge s2">5</span>
           <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
         </div>
         <div class="ec-bi-tools" id="ecBiToolsD"></div>
@@ -9970,7 +9987,7 @@ if(document.getElementById('ecLcTabs')){
 
       <div class="ai-rc-step" id="ecAiStepSumD">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">5</span>
+          <span class="ai-rc-step-badge s2">6</span>
           <span class="ai-rc-step-title">总结建议</span>
         </div>
         <div class="ec-sum-wrap" id="ecSumWrapD"></div>
@@ -11011,37 +11028,43 @@ if(document.getElementById('ecLcTabs')){
     });
     return h+'</tbody></table></div>';
   }
-  /* 店铺缺口汇总：按当前选中大区聚合，负责人作为经营归因的责任字段展示。 */
+  /* 店铺缺口汇总：独立于大区下钻，按当前周期全量店铺与渠道聚合。 */
   var EC_RD_STORE_OWNERS={
     '爱视健旗舰店':{strategy:'张伟',content:'王丽',promotion:'赵强'},
     '爱视健京东自营店':{strategy:'李娜',content:'周敏',promotion:'陈浩'},
     '爱视健官方店':{strategy:'刘洋',content:'孙悦',promotion:'黄磊'}
   };
-  function ecRdStoreSummary(region){
+  function ecRdStoreSummary(data){
     var map={};
-    (region.channels||[]).forEach(function(channel){
-      (channel.products||[]).forEach(function(product){
-        var stores=product.stores||[],total=0;
-        stores.forEach(function(store){(store.links||[]).forEach(function(link){total+=Math.abs(link.g||0);});});
-        if(!total) total=stores.length||1;
-        stores.forEach(function(store){
-          var weight=0;(store.links||[]).forEach(function(link){weight+=Math.abs(link.g||0);});
-          weight=weight||1;
-          var key=store.n+'__'+channel.n;
-          if(!map[key]) map[key]={store:store.n,channel:channel.n,t:0,a:0};
-          map[key].t+=product.t*weight/total;
-          map[key].a+=product.a*weight/total;
+    (data.regions||[]).forEach(function(region){
+      (region.channels||[]).forEach(function(channel){
+        (channel.products||[]).forEach(function(product){
+          var stores=product.stores||[],total=0;
+          stores.forEach(function(store){(store.links||[]).forEach(function(link){total+=Math.abs(link.g||0);});});
+          if(!total) total=stores.length||1;
+          stores.forEach(function(store){
+            var weight=0;(store.links||[]).forEach(function(link){weight+=Math.abs(link.g||0);});
+            weight=weight||1;
+            var key=store.n+'__'+channel.n;
+            if(!map[key]) map[key]={store:store.n,channel:channel.n,t:0,a:0};
+            map[key].t+=product.t*weight/total;
+            map[key].a+=product.a*weight/total;
+          });
         });
       });
     });
     var rows=Object.keys(map).map(function(k){return map[k];}).sort(function(a,b){return (a.a-a.t)-(b.a-b.t);});
     if(!rows.length) return '';
-    var h='<section class="ec-rd-store-summary"><div class="ec-rd-store-summary-head"><b>店铺缺口汇总</b><span>当前大区：'+ecRdEsc(region.n)+' · 按店铺与渠道汇总</span></div><table class="ec-rd-store-table"><thead><tr><th style="width:20%">店铺名称</th><th class="c" style="width:12%">实际GSV</th><th class="c" style="width:12%">目标GSV</th><th class="c" style="width:12%">目标达成率</th><th class="c" style="width:11%">渠道</th><th class="c" style="width:11%">策略负责人</th><th class="c" style="width:11%">内容负责人</th><th class="c" style="width:11%">推广负责人</th></tr></thead><tbody>';
+    var h='<section class="ec-rd-store-summary"><div class="ec-rd-store-summary-head"><b>店铺缺口汇总</b><span>当前周期 · 按店铺与渠道汇总</span></div><table class="ec-rd-store-table"><thead><tr><th style="width:20%">店铺名称</th><th class="c" style="width:12%">实际GSV</th><th class="c" style="width:12%">目标GSV</th><th class="c" style="width:12%">目标达成率</th><th class="c" style="width:11%">渠道</th><th class="c" style="width:11%">策略负责人</th><th class="c" style="width:11%">内容负责人</th><th class="c" style="width:11%">推广负责人</th></tr></thead><tbody>';
     rows.forEach(function(row){
       var owner=EC_RD_STORE_OWNERS[row.store]||{strategy:'待分配',content:'待分配',promotion:'待分配'},rate=row.t?row.a/row.t*100:0;
       h+='<tr><td class="store-name">'+ecRdEsc(row.store)+'</td><td class="c actual">'+row.a.toFixed(1)+'万</td><td class="c target">'+row.t.toFixed(1)+'万</td><td class="c rate">'+rate.toFixed(1)+'%</td><td class="c">'+ecRdEsc(row.channel)+'</td><td class="c"><span class="owner">'+owner.strategy+'</span></td><td class="c"><span class="owner">'+owner.content+'</span></td><td class="c"><span class="owner">'+owner.promotion+'</span></td></tr>';
     });
     return h+'</tbody></table></section>';
+  }
+  function ecRdRenderStoreSummary(){
+    var sfx=ecRdSfx(),el=document.getElementById('ecRdStoreSummary'+sfx);
+    if(el) el.innerHTML=ecRdStoreSummary(ecRdData());
   }
   function ecRdRenderChannels(){
     var sfx=ecRdSfx(),el=document.getElementById('ecRdChannels'+sfx);
@@ -11066,7 +11089,6 @@ if(document.getElementById('ecLcTabs')){
         +'<div class="ec-rd-ch-sum">GSV 实际/目标 <b class="a'+(region.a<region.t?' short':'')+'">'+region.a.toLocaleString()+'万</b><i class="sep">/</i><b class="t">'+region.t.toLocaleString()+'万</b> · '+wdCap+'合计 <b class="gap '+(region.g<0?'neg':'pos')+'">'+ecRdW(region.g)+'</b> · <span style="color:#a8b6c8">点击'+lvlName+'展开产品，点击产品查看缺口链接明细</span></div>'
         +'<button class="ec-rd-allbtn" type="button" data-open="0"><i>⇕</i><span class="txt">全部展开</span></button>'
       +'</div></div>';
-    h+=ecRdStoreSummary(region);
     chs.forEach(function(c,ci){
       var pct=Math.abs(c.g)/totalGap*100;
       var barW=Math.max(3,pct);
@@ -11168,6 +11190,7 @@ if(document.getElementById('ecLcTabs')){
   function ecRdRender(){
     ecRdRenderTabs();
     ecRdRenderChannels();
+    ecRdRenderStoreSummary();
   }
   /* ============================================================
      一类电商 · 店铺负责人下钻分析（天猫 / 京东 / 拼多多 → 产品）
