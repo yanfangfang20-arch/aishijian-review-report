@@ -12402,11 +12402,17 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-pick" id="inPick">
         <div class="ai-rc-pick-seg">
           <button class="ai-rc-pick-btn" data-in-g="day" type="button">按日</button>
+          <button class="ai-rc-pick-btn" data-in-g="week" type="button">按周</button>
           <button class="ai-rc-pick-btn active" data-in-g="month" type="button">按月</button>
         </div>
         <div class="ai-rc-pick-field" style="display:none">
           <input type="date" id="inDayPick" class="ai-rc-pick-input" value="2026-09-20">
           <span class="ai-rc-pick-value" id="inDayText">2026/09/20</span>
+          <span class="ai-rc-pick-caret">▾</span>
+        </div>
+        <div class="ai-rc-pick-field" style="display:none">
+          <input type="week" id="inWeekPick" class="ai-rc-pick-input" value="2026-W38">
+          <span class="ai-rc-pick-value" id="inWeekText">本周 · 2026年第38周</span>
           <span class="ai-rc-pick-caret">▾</span>
         </div>
         <div class="ai-rc-pick-field" style="display:flex">
@@ -12442,7 +12448,6 @@ if(document.getElementById('ecLcTabs')){
           <span class="ai-rc-step-badge s1">2</span>
           <span class="ai-rc-step-title">兴趣整体四维 GSV 缺口贡献度</span>
         </div>
-        <div class="ec-bi-block-hd"><h4>四大维度 GSV 缺口 &amp; 贡献度</h4></div>
         <div class="ec-bi-grid" id="inBiGrid"></div>
       </div>
 
@@ -12474,7 +12479,6 @@ if(document.getElementById('ecLcTabs')){
             <tbody id="inBiTBody"></tbody>
           </table>
         </div>
-        <div class="b-note" id="inBiTableNote"></div>
         <div class="ec-bi-pager" id="inBiPager"></div>
       </div>
 
@@ -12592,11 +12596,11 @@ if(document.getElementById('ecLcTabs')){
    ④ 风险产品  ⑤ 总结建议
    =================================================================== */
 (function(){
-var DEF_DATE='2026-09-20',DEF_MONTH='2026-09';
+var DEF_DATE='2026-09-20',DEF_WEEK='2026-W38',DEF_MONTH='2026-09';
 var KEEP={'儿童台灯K1':1,'剃须刀T3':1};           /* 达标场景下仍存在缺口的产品 */
-var SCALE={month:1,day:0.045};
+var SCALE={month:1,week:0.315,day:0.045};
 var P='month';
-var SEL={month:'',day:''};
+var SEL={month:'',week:'',day:''};
 var OOS_DAYS=2;
 var STOCK_TIP='可售库存天数＝兴趣我司可售库存／14天日均销量；当可售天数≤'+OOS_DAYS+'天时为缺货状态';
 var UV_AOV=120,FEE_T=15.0;
@@ -12609,6 +12613,7 @@ function sc(v){return Math.round(v*(SCALE[P]||1));}
 function n2(v){return Math.round(v).toLocaleString();}
 function isOver(){
   if(P==='day'){var d=$('inDayPick');return !!(d&&d.value&&d.value!==DEF_DATE);}
+  if(P==='week'){var w=$('inWeekPick');return !!(w&&w.value&&w.value!==DEF_WEEK);}
   var m=$('inMonthPick');return !!(m&&m.value&&m.value!==DEF_MONTH);
 }
 
@@ -12702,7 +12707,7 @@ var IN_CATEGORY={
   '护眼台灯Pro':'护眼台灯','儿童台灯K1':'儿童台灯','加湿器H2':'加湿器','空气净化器A3':'空气净化器',
   '净水器W1':'净水器','按摩椅M8':'按摩椅','电饭煲R6':'电饭煲','剃须刀T3':'剃须刀','扫地机器人S5':'扫地机器人','破壁机B2':'破壁机'
 };
-var RATE={month:{t:16.0,a:13.4},day:{t:16.0,a:13.4}};
+var RATE={month:{t:16.0,a:13.4},week:{t:16.0,a:13.4},day:{t:16.0,a:13.4}};
 
 /* ---------------- 汇总（自下而上，客户品级缺口一致） ---------------- */
 function tree(){
@@ -12841,8 +12846,11 @@ function renderConfirm(){
   var note=$('inConfirmNote');
   if(note)note.innerHTML='<span><b style="color:#1f6fff">问题总结及建议：</b>GSV 与利润率'+(ov?'均已达标':'均未达标')+'，'+(ov?'超额':'缺口')+'贡献率 TOP1 为 <b>'+esc(top.n)+'</b>（'+share.toFixed(0)+'%）；建议优先查看四维'+((ov?'超额':'缺口'))+'贡献与大区→缺口产品→员工的结构因子数据。</span>';
   var sub=$('inStep1Sub'),rn=$('inReportDate');
-  if(sub)sub.textContent=(P==='day'?('2026年9月20日 单日'):'2026年9月 vs 8月');
-  if(rn)rn.textContent=(P==='day'?'2026年9月20日':'2026年9月');
+  var weekValue=($('inWeekPick')||{}).value||DEF_WEEK;
+  var weekMatch=/^(\d{4})-W(\d{2})$/.exec(weekValue);
+  var weekLabel=weekMatch?(weekMatch[1]+'年第'+parseInt(weekMatch[2],10)+'周'):'本周';
+  if(sub)sub.textContent=(P==='day'?'2026年9月20日 单日':(P==='week'?weekLabel+'（近7天）':'2026年9月 vs 8月'));
+  if(rn)rn.textContent=(P==='day'?'2026年9月20日':(P==='week'?weekLabel:'2026年9月'));
 }
 
 /* ---------------- ② 五维缺口贡献度 ---------------- */
@@ -12983,8 +12991,7 @@ function rdRender(){
   var hasReg=!!(reg.regs&&reg.regs.length);
   var h='<div class="ec-rd-ch-hd"><div class="ec-rd-ch-title">'+(hasReg?'区域':(productEnds?'产品':'部门'))+cap+'贡献度</div>'
     +'<div class="ec-rd-ch-right">'
-      +'<div class="ec-rd-ch-sum">GSV 实际/目标 <b class="a'+(reg.a<reg.t?' short':'')+'">'+n2(reg.a)+'万</b><i class="sep">/</i><b class="t">'+n2(reg.t)+'万</b> · '+cap+'合计 <b class="gap '+(reg.g<0?'neg':'pos')+'">'+W(reg.g)+'</b> · <span style="color:#a8b6c8">'
-      +(hasReg?'点击大区展开部门 → 点击部门展开缺口产品 → 点击产品展开员工卡片':(productEnds?'商务达播仅统计产品':'点击部门展开缺口产品 → 点击产品展开员工卡片'))+'</span></div>'
+      +'<div class="ec-rd-ch-sum">GSV 实际/目标 <b class="a'+(reg.a<reg.t?' short':'')+'">'+n2(reg.a)+'万</b><i class="sep">/</i><b class="t">'+n2(reg.t)+'万</b> · '+cap+'合计 <b class="gap '+(reg.g<0?'neg':'pos')+'">'+W(reg.g)+'</b></div>'
     
       +(productEnds?'':'<button class="ec-rd-allbtn" type="button" data-in-open="0"><i>⇕</i><span class="txt">全部展开</span></button>')
     +'</div></div>';
@@ -13225,7 +13232,7 @@ function prodRows(){
   });
 }
 function renderProd(){
-  var head=$('inBiTHead'),body=$('inBiTBody'),note=$('inBiTableNote');
+  var head=$('inBiTHead'),body=$('inBiTBody');
   if(!head||!body)return;
   var allRows=prodRows();
   inProdFillOptions(allRows);
@@ -13265,11 +13272,6 @@ function renderProd(){
   }).join('');
   inProdRenderPager(rows.length);
   var count=$('inBiFilterCount');if(count)count.innerHTML='命中 <b>'+rows.length+'</b> / 共 '+allRows.length+' 条';
-  if(note){
-    var down=rows.filter(function(r){return r.a<r.t;}).length;
-    var dlyN=rows.filter(function(r){return r.delay>0;}).length;
-    note.innerHTML='共 <b>'+rows.length+'</b> 个风险产品，其中 <b>'+down+'</b> 个未达目标；'+(P==='month'?'<b>'+dlyN+'</b> 个风险产品当月目标销售天数不足30天。':'按日维度不展示当月目标销售天数。');
-  }
 }
 function linkRows(){
   var out=[];
@@ -13344,14 +13346,18 @@ function renderAll(){
   var box=$('inAnalysis');if(box)box.scrollTop=0;
 }
 function setPeriod(g){
-  P=(g==='day')?'day':'month';
+  P=(g==='day'||g==='week')?g:'month';
   var pick=$('inPick');
   if(pick){
     pick.querySelectorAll('.ai-rc-pick-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-in-g')===P);});
     var f=pick.querySelectorAll('.ai-rc-pick-field');
-    if(f.length>=2){f[0].style.display=(P==='day')?'flex':'none';f[1].style.display=(P==='day')?'none':'flex';}
+    if(f.length>=3){
+      f[0].style.display=(P==='day')?'flex':'none';
+      f[1].style.display=(P==='week')?'flex':'none';
+      f[2].style.display=(P==='month')?'flex':'none';
+    }
   }
-  SEL={month:'',day:''};
+  SEL={month:'',week:'',day:''};
   renderAll();
 }
 function reAnalyze(){
@@ -13374,6 +13380,8 @@ function scrollToStep(el){
 function syncPickText(){
   var d=$('inDayPick'),dt=$('inDayText');
   if(d&&dt)dt.textContent=String(d.value||'').replace(/-/g,'/');
+  var w=$('inWeekPick'),wt=$('inWeekText');
+  if(w&&wt){var mw=/^(\d{4})-W(\d{2})$/.exec(w.value||DEF_WEEK);wt.textContent=mw?'本周 · '+mw[1]+'年第'+parseInt(mw[2],10)+'周':'本周';}
   var m=$('inMonthPick'),mt=$('inMonthText');
   if(m&&mt){var p=String(m.value||'').split('-');mt.textContent='本月 · '+(p[0]||'')+'年'+parseInt(p[1]||'1',10)+'月';}
 }
@@ -13451,7 +13459,7 @@ function bind(){
     var field=e.target&&e.target.getAttribute?e.target.getAttribute('data-in-prod-filter'):'';
     if(field==='name'){IN_PROD_FILTERS.name=e.target.value||'';IN_PROD_PAGE=1;renderProd();}
   });
-  ['inDayPick','inMonthPick'].forEach(function(id){
+  ['inDayPick','inWeekPick','inMonthPick'].forEach(function(id){
     var el=$(id);if(el)el.addEventListener('change',function(){syncPickText();renderAll();});
   });
 }
