@@ -1323,6 +1323,34 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 .ecv-pane[data-pane="0"]>.ecv-panel{display:none}.ecv-pane[data-pane]:not([data-pane="0"]){display:none!important}.ecv-longboard{display:block}.ecv-longboard .ecv-panel{display:block}.ecv-longboard-section{scroll-margin-top:122px}
 .ecv-overlay button:focus-visible,.ecv-overlay a:focus-visible{outline:2px solid #2674ff;outline-offset:2px}.ecv-overlay ::selection{background:#c9dcff;color:#173b72}
 .ecv-longboard~.ecv-panel{display:none}.ecv-pane:not([data-pane="0"]){display:none!important}
+
+/* 一类电商总览视觉优化：仅作用于看板承载页，不影响 AI 根因分析抽屉 */
+#ecvOverlay{background:radial-gradient(circle at 87% 7%,rgba(162,203,255,.26),transparent 25%),linear-gradient(180deg,#edf7ff 0,#f5f8fc 35%,#eef6ff 100%)}
+#ecvOverlay .ecv-topbar{position:sticky;top:0;z-index:24;background:linear-gradient(180deg,#c5dcff 0%,#eff5ff 100%);box-shadow:0 1px 0 rgba(93,135,191,.16)}
+#ecvOverlay .ecv-subnav{position:sticky;top:58px;z-index:23;box-shadow:0 6px 18px rgba(43,91,150,.08);border:1px solid rgba(218,230,246,.88)}
+#ecvOverlay .ecv-subnav button{transition:color .18s ease,background .18s ease}
+#ecvOverlay .ecv-risk-notice{margin-left:auto;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;padding:7px 10px;border-radius:6px;background:#fff8ee;color:#9a5c10;font-size:12px;font-weight:600}
+#ecvOverlay .ecv-risk-notice i{color:#ff8a00;font-style:normal;font-size:13px;line-height:1}
+#ecvOverlay .ecv-risk-notice b{color:#ef6b00;font-size:13px}
+#ecvOverlay .ecv-risk-notice em{margin-left:4px;color:#2674ff;font-style:normal;font-weight:700}
+#ecvOverlay .ecv-subnav .ecv-ai-btn{margin-left:0}
+#ecvOverlay .ecv-panel{background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(48,91,146,.055)}
+#ecvOverlay .ecv-ph{background:linear-gradient(90deg,#f4f9ff 0%,#fff 58%);font-weight:800;letter-spacing:.1px}
+#ecvOverlay .ecv-kpi{position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+#ecvOverlay .ecv-kpi:hover{transform:translateY(-2px);border-color:#bad4fb;box-shadow:0 7px 16px rgba(53,106,181,.1)}
+#ecvOverlay .ecv-kpi.primary{background:linear-gradient(145deg,#edf6ff,#fbfdff);border-color:#80b6ff}
+#ecvOverlay .ecv-kpi.primary:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#1677ff}
+#ecvOverlay .ecv-kpi.primary-gsv{background:linear-gradient(145deg,#fff8e9,#fffdf9);border-color:#ffbd54}
+#ecvOverlay .ecv-kpi.primary-gsv:before{background:#f5a000}
+#ecvOverlay .ecv-kpi .k-value{letter-spacing:-.35px}
+#ecvOverlay .ecv-overview-chart{border-left:1px solid #edf2f8}
+#ecvOverlay .ecv-section-tabs{box-shadow:0 4px 12px rgba(58,101,155,.035)}
+#ecvOverlay .ecv-summary-card{transition:transform .18s ease,box-shadow .18s ease}
+#ecvOverlay .ecv-summary-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(52,101,169,.08)}
+#ecvOverlay .ecv-summary-card.active{box-shadow:0 5px 15px rgba(36,116,255,.11)}
+#ecvOverlay .ecv-table tbody tr{transition:background .16s ease}
+#ecvOverlay .ecv-table tbody tr:hover{background:#f4f8ff}
+@media(max-width:1350px){#ecvOverlay .ecv-risk-notice{font-size:11px;padding:6px 8px;gap:3px}#ecvOverlay .ecv-subnav{gap:17px}}
 @media(max-width:1350px){.ecv-brand{width:190px;min-width:190px}.ecv-menu a{width:58px}.ecv-menu a.ecv-wide{width:102px;min-width:102px}.ecv-subnav{gap:22px}.ecv-subnav button{font-size:12px}.ecv-target-cards{grid-template-columns:repeat(3,1fr)}}
 
 
@@ -9462,6 +9490,7 @@ if(document.getElementById('ecLcTabs')){
     <button data-target="ecvTargets" type="button">销售目标达成</button>
     <button data-target="ecvProductRanks" type="button">产品销售榜</button>
     <button data-target="ecvLowRanks" type="button">产品低销榜</button>
+    <span class="ecv-risk-notice" aria-label="经营风险提示"><i aria-hidden="true">●</i>一类有 <b>83</b> 条风险项，<b>5</b> 条中风险待处理 <em>更多 &gt;&gt;</em></span>
     <button class="ecv-ai-btn" id="ecvAiBtn" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.3 1.5 3.8 8h3.4l-.7 6.5 5.7-7H8.8l.5-6Z" fill="currentColor"/></svg>AI根因分析</button>
   </div>
   <main class="ecv-main">
@@ -9471,8 +9500,8 @@ if(document.getElementById('ecLcTabs')){
           <div class="ecv-ph">数据概览<span class="ecv-date">▦ 2026/09/07 - 2026/09/07</span><span class="ecv-seg"><button class="active">日</button><button>周</button><button>月</button><button>季</button><button>年</button></span></div>
           <div class="ecv-overview-body">
             <div class="ecv-kpis">
-              <div class="ecv-kpi"><span class="k-name">GMV</span><span class="k-value">311.9w</span><span class="ecv-diff down">▼ 8.7%</span><div class="k-sub"><span>环比</span><b class="ecv-neg">▼ 8.7%</b></div></div>
-              <div class="ecv-kpi hot"><span class="k-name">GSV</span><span class="k-value">196.1w</span><span class="ecv-diff down">▼ 4.1%</span><div class="k-sub"><span>环比</span><b class="ecv-neg">▼ 4.1%</b></div></div>
+              <div class="ecv-kpi primary"><span class="k-name">GMV</span><span class="k-value">311.9w</span><span class="ecv-diff down">▼ 8.7%</span><div class="k-sub"><span>环比</span><b class="ecv-neg">▼ 8.7%</b></div></div>
+              <div class="ecv-kpi hot primary primary-gsv"><span class="k-name">GSV</span><span class="k-value">196.1w</span><span class="ecv-diff down">▼ 4.1%</span><div class="k-sub"><span>环比</span><b class="ecv-neg">▼ 4.1%</b></div></div>
               <div class="ecv-kpi"><span class="k-name">利润率</span><span class="k-value">16.6%</span><span class="ecv-diff up">▲ 5.4%</span><div class="k-sub"><span>环比</span><b class="ecv-pos">▲ 5.4%</b></div></div>
               <div class="ecv-kpi"><span class="k-name">消耗</span><span class="k-value">44.1w</span><span class="ecv-diff down">▼ 6.3%</span><div class="k-sub"><span>环比</span><b class="ecv-neg">▼ 6.3%</b></div></div>
               <div class="ecv-kpi"><span class="k-name">费率</span><span class="k-value">22.4%</span><span class="ecv-diff up">▲ 1.6%</span><div class="k-sub"><span>环比</span><b class="ecv-pos">▲ 1.6%</b></div></div>
