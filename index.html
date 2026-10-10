@@ -5688,39 +5688,39 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
 #ecAiDrawer .ec-sum-compact-row em{color:#173f73}
 
 /* 一类电商复盘结论：将结果、归因、证据和动作组织为一条经营决策链。 */
-#ecAiDrawer .ec-review{margin:14px 15px 4px;padding:16px;border:1px solid #dfe7f7;border-radius:10px;background:linear-gradient(135deg,#f8faff 0%,#fff 70%)}
-#ecAiDrawer .ec-review-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
-#ecAiDrawer .ec-review-eyebrow{display:block;margin-bottom:4px;color:#5865f5;font-size:12px;font-weight:800;letter-spacing:.03em}
-#ecAiDrawer .ec-review-title{margin:0;color:#1f2a44;font-size:16px;line-height:1.45;font-weight:800}
-#ecAiDrawer .ec-review-desc{margin:4px 0 0;color:#68758c;font-size:12px;line-height:1.65}
-#ecAiDrawer .ec-review-status{flex:0 0 auto;display:inline-flex;align-items:center;min-height:27px;padding:0 10px;border:1px solid #ffd5d8;border-radius:99px;background:#fff3f4;color:#dd4956;font-size:12px;font-weight:800;white-space:nowrap}
-#ecAiDrawer .ec-review-status.good{border-color:#bde8cf;background:#f0fbf4;color:#188653}
-#ecAiDrawer .ec-review-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
-#ecAiDrawer .ec-review-kpi{min-height:66px;padding:10px 11px;border:1px solid #e7ecf6;border-radius:8px;background:#fff}
-#ecAiDrawer .ec-review-kpi span{display:block;color:#7b879b;font-size:11px;font-weight:700}
-#ecAiDrawer .ec-review-kpi b{display:block;margin-top:5px;color:#243553;font-size:17px;line-height:1.05;font-weight:800}
-#ecAiDrawer .ec-review-kpi b.risk{color:#e4525c}#ecAiDrawer .ec-review-kpi b.good{color:#1b9a66}
-#ecAiDrawer .ec-review-kpi small{display:block;margin-top:4px;color:#8793a7;font-size:11px;line-height:1.25}
-#ecAiDrawer .ec-review-chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
-#ecAiDrawer .ec-review-node{position:relative;min-height:84px;padding:10px 11px;border:1px solid #e5eaf4;border-radius:8px;background:#fff}
-#ecAiDrawer .ec-review-node:not(:last-child):after{content:'›';position:absolute;z-index:1;right:-14px;top:31px;width:20px;height:20px;display:grid;place-items:center;border:1px solid #dce4f2;border-radius:50%;background:#fff;color:#8290aa;font-size:19px;line-height:1}
-#ecAiDrawer .ec-review-node em{display:inline-flex;align-items:center;height:19px;padding:0 6px;border-radius:4px;background:#eef1ff;color:#5865f5;font-size:10px;font-style:normal;font-weight:800}
-#ecAiDrawer .ec-review-node b{display:block;margin-top:7px;color:#263651;font-size:13px;line-height:1.35;font-weight:800}
-#ecAiDrawer .ec-review-node span{display:block;margin-top:3px;color:#758197;font-size:11px;line-height:1.45}
-#ecAiDrawer .ec-review-node.risk em{background:#fff0f1;color:#de5963}#ecAiDrawer .ec-review-node.good em{background:#edf9f2;color:#188653}
-#ecAiDrawer .ec-review-bottom{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:10px}
-#ecAiDrawer .ec-review-panel{padding:12px;border:1px solid #e7ecf5;border-radius:8px;background:#fff}
-#ecAiDrawer .ec-review-panel h4{margin:0 0 9px;color:#33445e;font-size:13px;font-weight:800}
-#ecAiDrawer .ec-review-evidence{display:grid;gap:7px}
-#ecAiDrawer .ec-review-evidence div{position:relative;padding-left:13px;color:#5c6b81;font-size:12px;line-height:1.55}
-#ecAiDrawer .ec-review-evidence div:before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#5865f5}
-#ecAiDrawer .ec-review-evidence b{color:#263651;font-weight:800}
-#ecAiDrawer .ec-review-evidence .risk{color:#db4c59}
-#ecAiDrawer .ec-review-actions{display:grid;gap:7px}
-#ecAiDrawer .ec-review-action{width:100%;min-height:40px;padding:7px 9px;border:1px solid #dce4f2;border-radius:7px;background:#fff;color:#50617a;font:inherit;font-size:12px;line-height:1.35;text-align:left;cursor:pointer;transition:.16s ease}
-#ecAiDrawer .ec-review-action:hover{border-color:#aeb9fa;background:#f7f8ff;color:#4352dc;transform:translateY(-1px)}
-#ecAiDrawer .ec-review-action b{display:block;color:#32425c;font-size:12px;font-weight:800}#ecAiDrawer .ec-review-action:hover b{color:#4352dc}
-@media(max-width:820px){#ecAiDrawer .ec-review{margin:12px;padding:13px}#ecAiDrawer .ec-review-kpis{grid-template-columns:1fr}#ecAiDrawer .ec-review-chain{grid-template-columns:1fr 1fr}#ecAiDrawer .ec-review-node:not(:last-child):after{display:none}#ecAiDrawer .ec-review-bottom{grid-template-columns:1fr}}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review{margin:14px 15px 4px;padding:16px;border:1px solid #dfe7f7;border-radius:10px;background:linear-gradient(135deg,#f8faff 0%,#fff 70%)}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-eyebrow{display:block;margin-bottom:4px;color:#5865f5;font-size:12px;font-weight:800;letter-spacing:.03em}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-title{margin:0;color:#1f2a44;font-size:16px;line-height:1.45;font-weight:800}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-desc{margin:4px 0 0;color:#68758c;font-size:12px;line-height:1.65}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-status{flex:0 0 auto;display:inline-flex;align-items:center;min-height:27px;padding:0 10px;border:1px solid #ffd5d8;border-radius:99px;background:#fff3f4;color:#dd4956;font-size:12px;font-weight:800;white-space:nowrap}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-status.good{border-color:#bde8cf;background:#f0fbf4;color:#188653}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpi{min-height:66px;padding:10px 11px;border:1px solid #e7ecf6;border-radius:8px;background:#fff}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpi span{display:block;color:#7b879b;font-size:11px;font-weight:700}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpi b{display:block;margin-top:5px;color:#243553;font-size:17px;line-height:1.05;font-weight:800}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpi b.risk{color:#e4525c}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpi b.good{color:#1b9a66}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpi small{display:block;margin-top:4px;color:#8793a7;font-size:11px;line-height:1.25}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node{position:relative;min-height:84px;padding:10px 11px;border:1px solid #e5eaf4;border-radius:8px;background:#fff}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node:not(:last-child):after{content:'›';position:absolute;z-index:1;right:-14px;top:31px;width:20px;height:20px;display:grid;place-items:center;border:1px solid #dce4f2;border-radius:50%;background:#fff;color:#8290aa;font-size:19px;line-height:1}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node em{display:inline-flex;align-items:center;height:19px;padding:0 6px;border-radius:4px;background:#eef1ff;color:#5865f5;font-size:10px;font-style:normal;font-weight:800}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node b{display:block;margin-top:7px;color:#263651;font-size:13px;line-height:1.35;font-weight:800}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node span{display:block;margin-top:3px;color:#758197;font-size:11px;line-height:1.45}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node.risk em{background:#fff0f1;color:#de5963}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node.good em{background:#edf9f2;color:#188653}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-bottom{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:10px}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-panel{padding:12px;border:1px solid #e7ecf5;border-radius:8px;background:#fff}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-panel h4{margin:0 0 9px;color:#33445e;font-size:13px;font-weight:800}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-evidence{display:grid;gap:7px}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-evidence div{position:relative;padding-left:13px;color:#5c6b81;font-size:12px;line-height:1.55}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-evidence div:before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#5865f5}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-evidence b{color:#263651;font-weight:800}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-evidence .risk{color:#db4c59}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-actions{display:grid;gap:7px}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-action{width:100%;min-height:40px;padding:7px 9px;border:1px solid #dce4f2;border-radius:7px;background:#fff;color:#50617a;font:inherit;font-size:12px;line-height:1.35;text-align:left;cursor:pointer;transition:.16s ease}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-action:hover{border-color:#aeb9fa;background:#f7f8ff;color:#4352dc;transform:translateY(-1px)}
+:is(#ecAiDrawer,#interestAiDrawer) .ec-review-action b{display:block;color:#32425c;font-size:12px;font-weight:800}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-action:hover b{color:#4352dc}
+@media(max-width:820px){:is(#ecAiDrawer,#interestAiDrawer) .ec-review{margin:12px;padding:13px}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-kpis{grid-template-columns:1fr}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-chain{grid-template-columns:1fr 1fr}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-node:not(:last-child):after{display:none}:is(#ecAiDrawer,#interestAiDrawer) .ec-review-bottom{grid-template-columns:1fr}}
 
 /* 原型内 PRD：与根因分析并排查看，无需离开当前场景。 */
 .ai-rc-prd-btn{height:30px;padding:0 10px;border:1px solid rgba(255,255,255,.46);border-radius:8px;background:rgba(255,255,255,.13);color:#fff;font:inherit;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;transition:background .16s ease,transform .16s ease}.ai-rc-prd-btn:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
@@ -12482,7 +12482,7 @@ if(document.getElementById('ecLcTabs')){
   </div>
     <div class="ec-ai-toprow">
     <div class="ai-rc-tabs" id="inTabs">
-      <button class="ai-rc-tab active" data-in-target="inStep1" type="button">① 确认问题</button>
+      <button class="ai-rc-tab active" data-in-target="inStep1" type="button">① 复盘结论</button>
       <button class="ai-rc-tab" data-in-target="inStep3" type="button">② 四维缺口贡献度</button>
       <button class="ai-rc-tab" data-in-target="inStepRegion" type="button">③ 大区下钻</button>
       <button class="ai-rc-tab" data-in-target="inStepProd" type="button">④ 风险产品</button>
@@ -12527,10 +12527,10 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="inStep1">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">1</span>
-          <span class="ai-rc-step-title">确认问题</span>
+          <span class="ai-rc-step-title">复盘结论</span>
         </div>
         <div class="ai-rc-confirm-cards" id="inConfirmCards"></div>
-        <div class="ai-rc-info-bar" style="margin-top:10px" id="inConfirmNote"></div>
+        <div class="ec-review" id="inReview" aria-live="polite"></div>
       </div>
 
       <div class="ai-rc-step" id="inStep3">
@@ -12682,7 +12682,7 @@ if(document.getElementById('ecLcTabs')){
 <script>
 /* ===================================================================
    兴趣电商 · 复盘分析
-   ① 确认问题  ② 四维 GSV 缺口贡献度  ③ 大区下钻（抖音整体→大区→部门→产品→员工）
+   ① 复盘结论  ② 四维 GSV 缺口贡献度  ③ 大区下钻（抖音整体→大区→部门→产品→员工）
    ④ 风险产品  ⑤ 总结建议
    =================================================================== */
 (function(){
@@ -12905,7 +12905,7 @@ function brief(t){t=String(t||'');return t.length>20?(t.slice(0,20)+'…'):t;}
 function uvNum(gmvWan,cvrPct){if(!(gmvWan>0)||!(cvrPct>0))return 0;return gmvWan*10000/(cvrPct/100*UV_AOV);}
 function uvWan(gmvWan,cvrPct){var v=uvNum(gmvWan,cvrPct);return v>0?(v/10000).toFixed(1)+'万':'—';}
 
-/* ---------------- ① 确认问题 ---------------- */
+/* ---------------- ① 复盘结论 ---------------- */
 function renderConfirm(){
   var D=totals(),R=rateNow(),ov=isOver();
   var gap=ov?(D.a-D.t):(D.t-D.a),pct=(D.t>0?(D.a-D.t)/D.t*100:0);
@@ -12930,17 +12930,86 @@ function renderConfirm(){
       +'</div>'
     +'</div></div>';
   var el=$('inConfirmCards');if(el)el.innerHTML=cards;
-  var dm=dims(),top=dm[0].items.slice().sort(function(a,b){return a.g-b.g;})[0]||{n:'—',g:0};
-  var allg=dm[0].items.reduce(function(s,x){return s+Math.abs(x.g);},0)||1;
-  var share=Math.abs(top.g)/allg*100;
-  var note=$('inConfirmNote');
-  if(note)note.innerHTML='<span><b style="color:#1f6fff">问题总结及建议：</b>GSV 与利润率'+(ov?'均已达标':'均未达标')+'，'+(ov?'超额':'缺口')+'贡献率 TOP1 为 <b>'+esc(top.n)+'</b>（'+share.toFixed(0)+'%）；建议优先查看四维'+((ov?'超额':'缺口'))+'贡献与大区→缺口产品→员工的结构因子数据。</span>';
   var sub=$('inStep1Sub'),rn=$('inReportDate');
   var weekValue=($('inWeekPick')||{}).value||DEF_WEEK;
   var weekMatch=/^(\d{4})-W(\d{2})$/.exec(weekValue);
   var weekLabel=weekMatch?(weekMatch[1]+'年第'+parseInt(weekMatch[2],10)+'周'):'本周';
-  if(sub)sub.textContent=(P==='day'?'2026年9月20日 单日':(P==='week'?weekLabel+'（近7天）':'2026年9月 vs 8月'));
-  if(rn)rn.textContent=(P==='day'?'2026年9月20日':(P==='week'?weekLabel:'2026年9月'));
+  var dayValue=($('inDayPick')||{}).value||DEF_DATE,monthValue=($('inMonthPick')||{}).value||DEF_MONTH;
+  var dayParts=dayValue.split('-'),monthParts=monthValue.split('-');
+  var dayLabel=dayParts[0]+'年'+parseInt(dayParts[1],10)+'月'+parseInt(dayParts[2],10)+'日';
+  var monthLabel=monthParts[0]+'年'+parseInt(monthParts[1],10)+'月';
+  if(sub)sub.textContent=(P==='day'?dayLabel+' 单日':(P==='week'?weekLabel+'（近7天）':monthLabel+' vs 上月'));
+  if(rn)rn.textContent=(P==='day'?dayLabel:(P==='week'?weekLabel:monthLabel));
+}
+
+/* 复盘路径严格沿平台→大区→部门→产品的同一分支选择；经营原因只列为待核验线索。 */
+function reviewPick(list,positive){
+  var rows=(list||[]).slice().sort(function(a,b){return positive?(b.g-a.g):(a.g-b.g);});
+  return rows[0]||{n:'—',t:0,a:0,g:0};
+}
+function reviewShare(item,list,positive){
+  var total=(list||[]).reduce(function(sum,row){return sum+Math.max(0,positive?row.g:-row.g);},0);
+  return total?Math.round(Math.max(0,positive?item.g:-item.g)/total*100):0;
+}
+function reviewProduct(department,positive){
+  var map={};
+  (department.emps||[]).forEach(function(employee){(employee.prods||[]).forEach(function(product){
+    if(!map[product.n])map[product.n]={n:product.n,t:0,a:0,g:0,employee:employee.n,employeeGap:product.g};
+    var row=map[product.n];row.t+=product.t;row.a+=product.a;row.g+=product.g;
+    if(positive?product.g>row.employeeGap:product.g<row.employeeGap){row.employee=employee.n;row.employeeGap=product.g;}
+  });});
+  return {items:Object.keys(map).map(function(key){return map[key];}),map:map};
+}
+function renderReview(){
+  var el=$('inReview');if(!el)return;
+  var D=totals(),R=rateNow(),positive=D.g>=0,goodR=R.a>=R.t;
+  var platforms=tree(),platform=reviewPick(platforms,positive);
+  var hasRegions=!!(platform.regs&&platform.regs.length);
+  var region=hasRegions?reviewPick(platform.regs,positive):null;
+  var departments=region?region.deps:(platform.deps||[]);
+  var department=reviewPick(departments,positive);
+  var products=reviewProduct(department,positive),product=reviewPick(products.items,positive);
+  var attribute=ATTR[product.n]||{},category=IN_CATEGORY[product.n]||attribute.cat||'—';
+  var platformPct=reviewShare(platform,platforms,positive),branchPct=reviewShare(department,departments,positive);
+  var productPct=reviewShare(product,products.items,positive);
+  var showNum=function(v){return n2(Math.abs(v))+'万';};
+  var signed=function(v){return (v>=0?'+':'−')+showNum(v);};
+  var gsvRate=D.t?D.a/D.t*100:0,profitRate=R.t?R.a/R.t*100:0;
+  var branch=region?(region.n+' → '+department.n):department.n;
+  var ctr=attribute.ctr||[],cvr=attribute.cvr||[];
+  var clues=[];
+  if(cvr.length===2&&cvr[0]<cvr[1])clues.push('产品转化率 '+cvr[0].toFixed(2)+'% / 目标 '+cvr[1].toFixed(2)+'%');
+  if(ctr.length===2&&ctr[0]<ctr[1])clues.push('点击率 '+ctr[0].toFixed(2)+'% / 目标 '+ctr[1].toFixed(2)+'%');
+  if(attribute.rr>=15)clues.push('退货率 '+attribute.rr.toFixed(1)+'%');
+  if(attribute.oos>0)clues.push('近30天缺货 '+attribute.oos+' 天');
+  var clueText=clues.length?clues.slice(0,2).join('；'):'当前产品指标未显示明显异常';
+  var status=positive?(goodR?'经营达标':'GSV 达标 · 利润率待改善'):'经营待改善';
+  var headline=positive
+    ?('本期 GSV 超额 '+showNum(D.g)+'，主要贡献路径为 '+platform.n+' → '+branch+'。')
+    :('本期 GSV 缺口 '+showNum(D.g)+'，优先核查 '+platform.n+' → '+branch+'。');
+  var tone=positive?'good':'risk';
+  var h='<div class="ec-review-head"><div><span class="ec-review-eyebrow">经营复盘结论</span><h4 class="ec-review-title">'+esc(headline)+'</h4><p class="ec-review-desc">按当前周期的实际 GSV 逐层定位；产品经营指标作为后续核验线索。</p></div><span class="ec-review-status '+(positive&&goodR?'good':'')+'">'+esc(status)+'</span></div>';
+  h+='<div class="ec-review-kpis">'
+    +'<div class="ec-review-kpi"><span>GSV 目标达成率</span><b class="'+(positive?'good':'risk')+'">'+gsvRate.toFixed(1)+'%</b><small>'+(positive?'超额 ':'缺口 ')+showNum(D.g)+' · 实际 '+n2(D.a)+'万</small></div>'
+    +'<div class="ec-review-kpi"><span>利润率目标达成率</span><b class="'+(goodR?'good':'risk')+'">'+profitRate.toFixed(1)+'%</b><small>'+(goodR?'高于':'低于')+'目标 '+Math.abs(R.a-R.t).toFixed(1)+' 个百分点</small></div>'
+    +'<div class="ec-review-kpi"><span>首要平台贡献</span><b class="'+tone+'">'+esc(platform.n)+'</b><small>'+signed(platform.g)+' · 占平台同向差异 '+platformPct+'%</small></div>'
+    +'</div>';
+  h+='<div class="ec-review-chain">'
+    +'<div class="ec-review-node '+tone+'"><em>01 结果</em><b>GSV '+(positive?'超额 ':'缺口 ')+showNum(D.g)+'</b><span>利润率 '+R.a.toFixed(1)+'% / 目标 '+R.t.toFixed(1)+'%</span></div>'
+    +'<div class="ec-review-node '+tone+'"><em>02 平台</em><b>'+esc(platform.n)+' '+signed(platform.g)+'</b><span>占平台同向差异 '+platformPct+'%</span></div>'
+    +'<div class="ec-review-node '+tone+'"><em>03 大区 / 部门</em><b>'+esc(branch)+'</b><span>部门 '+signed(department.g)+' · 占该层 '+branchPct+'%</span></div>'
+    +'<div class="ec-review-node '+tone+'"><em>04 品类 / 产品</em><b>'+esc(category)+' · '+esc(product.n)+'</b><span>'+signed(product.g)+' · 对应员工 '+esc(product.employee||'—')+'</span></div>'
+    +'</div>';
+  h+='<div class="ec-review-bottom"><section class="ec-review-panel"><h4>结构归因与经营线索</h4><div class="ec-review-evidence">'
+    +'<div><b>已核实：</b>'+esc(platform.n)+' '+signed(platform.g)+'，占平台同向差异 '+platformPct+'%。</div>'
+    +'<div><b>已核实：</b>'+esc(branch)+' 下的 '+esc(product.n)+' '+signed(product.g)+'，占该部门同向差异 '+productPct+'%。</div>'
+    +'<div class="risk"><b>待核验：</b>'+esc(clueText)+'；需结合该路径的素材、直播间及商品承接数据确认原因。</div>'
+    +'</div></section><section class="ec-review-panel"><h4>优先行动</h4><div class="ec-review-actions">'
+    +'<button class="ec-review-action" type="button" data-in-review-go="inStepRegion" data-in-review-platform="'+esc(platform.n)+'"><b>1. 下钻 '+esc(platform.n)+' 的部门与产品</b><span>核查 '+esc(branch)+'，定位贡献明细。</span></button>'
+    +'<button class="ec-review-action" type="button" data-in-review-go="inStepProd"><b>2. 核验 '+esc(product.n)+' 的经营指标</b><span>查看实际/目标、退货、缺货和销售天数。</span></button>'
+    +'<button class="ec-review-action" type="button" data-in-review-go="inStepSum"><b>3. 复盘内容与转化承接</b><span>验证产品点击、转化及投放效率的影响。</span></button>'
+    +'</div></section></div>';
+  el.innerHTML=h;
 }
 
 /* ---------------- ② 五维缺口贡献度 ---------------- */
@@ -13428,7 +13497,7 @@ function renderSum(){
 /* ---------------- 渲染总入口 / 交互 ---------------- */
 function renderAll(){
   _plat=null;
-  renderConfirm();renderGrid();rdRender();renderProd();renderSum();
+  renderConfirm();renderReview();renderGrid();rdRender();renderProd();renderSum();
   var tabs=$('inTabs');
   if(tabs)tabs.querySelectorAll('.ai-rc-tab').forEach(function(b){
     b.classList.toggle('active',b.getAttribute('data-in-target')==='inStep1');
@@ -13503,6 +13572,18 @@ function bind(){
   drawer.addEventListener('click',function(e){
     var t=e.target;
     function closest(sel){return (t&&t.closest)?t.closest(sel):null;}
+    var reviewAction=closest('[data-in-review-go]');
+    if(reviewAction){
+      var targetId=reviewAction.getAttribute('data-in-review-go');
+      var platformName=reviewAction.getAttribute('data-in-review-platform');
+      if(platformName){SEL[P]=platformName;rdRender();}
+      var target=$(targetId);
+      if(target){
+        $('inTabs').querySelectorAll('.ai-rc-tab').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-in-target')===targetId);});
+        scrollToStep(target);
+      }
+      return;
+    }
     var tab=closest('.ai-rc-tab[data-in-target]');
     if(tab){
       var id=tab.getAttribute('data-in-target'),el=$(id);
