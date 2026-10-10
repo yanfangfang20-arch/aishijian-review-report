@@ -1453,7 +1453,7 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 .ec-rd-tab:not(.active) em{background:#f2f3f5;color:#86909c}
 /* 渠道缺口贡献度：渠道行 + 条形 */
 .ec-rd-ch-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 8px;flex-wrap:nowrap}
-.ec-rd-store-summary{margin:0 0 12px;border:1px solid #dbe7f6;border-radius:10px;background:#fff;overflow:hidden}.ec-rd-store-summary-head{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f7faff;border-bottom:1px solid #e5eef9}.ec-rd-store-summary-head b{color:#183a66;font-size:13px}.ec-rd-store-summary-head span{color:#6c83a0;font-size:12px}.ec-rd-store-table{width:100%;border-collapse:collapse;table-layout:fixed}.ec-rd-store-table th{height:34px;padding:0 10px;background:#fbfcff;color:#7185a0;font-size:11px;font-weight:700;text-align:left}.ec-rd-store-table td{height:43px;padding:0 10px;border-top:1px solid #edf2f8;color:#28486e;font-size:12px}.ec-rd-store-table td.c,.ec-rd-store-table th.c{text-align:center}.ec-rd-store-table .store-name{font-weight:800;color:#183a66}.ec-rd-store-table .actual{color:#ef4c55;font-weight:800}.ec-rd-store-table .target{color:#6f829d}.ec-rd-store-table .rate{font-weight:800;color:#276fe5}.ec-rd-store-table .owner{display:inline-flex;padding:3px 7px;border-radius:5px;background:#f1f6ff;color:#386397;font-weight:700}
+.ec-rd-store-summary{margin:0 0 12px;border:1px solid #dbe7f6;border-radius:10px;background:#fff;overflow:hidden}.ec-rd-store-summary-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;background:#f7faff;border-bottom:1px solid #e5eef9}.ec-rd-store-summary-head b{color:#183a66;font-size:13px}.ec-rd-store-summary-head span{color:#6c83a0;font-size:12px}.ec-rd-store-summary-meta{display:flex;align-items:center;gap:10px}.ec-rd-store-export,.ec-lk-export{height:25px;padding:0 10px;border:1px solid #c9dcff;background:#fff;border-radius:6px;font-size:11px;font-family:inherit;color:#165dff;font-weight:700;cursor:pointer;transition:all .15s ease;white-space:nowrap}.ec-rd-store-export:hover,.ec-lk-export:hover{background:#165dff;border-color:#165dff;color:#fff}.ec-rd-store-export.done,.ec-lk-export.done{background:#effaf4;border-color:#a9dfbf;color:#16975d}.ec-rd-store-table{width:100%;border-collapse:collapse;table-layout:fixed}.ec-rd-store-table th{height:34px;padding:0 10px;background:#fbfcff;color:#7185a0;font-size:11px;font-weight:700;text-align:left}.ec-rd-store-table td{height:43px;padding:0 10px;border-top:1px solid #edf2f8;color:#28486e;font-size:12px}.ec-rd-store-table td.c,.ec-rd-store-table th.c{text-align:center}.ec-rd-store-table .store-name{font-weight:800;color:#183a66}.ec-rd-store-table .actual{color:#ef4c55;font-weight:800}.ec-rd-store-table .target{color:#6f829d}.ec-rd-store-table .rate{font-weight:800;color:#276fe5}.ec-rd-store-table .owner{display:inline-flex;padding:3px 7px;border-radius:5px;background:#f1f6ff;color:#386397;font-weight:700}
 .ec-rd-ch-title{font-size:12px;font-weight:800;color:#1d2b3f}
 .ec-rd-ch-right{display:flex;align-items:center;gap:10px;min-width:0;flex:0 1 auto}
 .ec-rd-ch-sum{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;justify-content:flex-end;font-size:11px;color:#8595ab;min-width:0;overflow:hidden}
@@ -9899,6 +9899,7 @@ if(document.getElementById('ecLcTabs')){
           <div class="ec-lk-tool"><span>类目</span><select class="ec-lk-sel" data-lk-dim="cat"><option value="">全部</option></select></div>
           <div class="ec-lk-tool"><input class="ec-lk-input" type="text" placeholder="搜索链接名称 / 产品名称"></div>
           <button class="ec-lk-reset" type="button">重置</button>
+          <button class="ec-lk-export" type="button">⇩ 导出</button>
           <span class="ec-lk-count"></span>
         </div>
         <div class="lk-tbl-wrap ec-link-summary-table"><table class="b-table">
@@ -10018,6 +10019,7 @@ if(document.getElementById('ecLcTabs')){
           <div class="ec-lk-tool"><span>类目</span><select class="ec-lk-sel" data-lk-dim="cat"><option value="">全部</option></select></div>
           <div class="ec-lk-tool"><input class="ec-lk-input" type="text" placeholder="搜索链接名称 / 产品名称"></div>
           <button class="ec-lk-reset" type="button">重置</button>
+          <button class="ec-lk-export" type="button">⇩ 导出</button>
           <span class="ec-lk-count"></span>
         </div>
         <div class="lk-tbl-wrap ec-link-summary-table"><table class="b-table">
@@ -11134,7 +11136,7 @@ if(document.getElementById('ecLcTabs')){
     });
     var rows=Object.keys(map).map(function(k){return map[k];}).sort(function(a,b){return (a.a-a.t)-(b.a-b.t);});
     if(!rows.length) return '';
-    var h='<section class="ec-rd-store-summary"><div class="ec-rd-store-summary-head"><b>店铺缺口汇总</b><span>当前周期 · 按店铺与渠道汇总</span></div><table class="ec-rd-store-table"><thead><tr><th style="width:20%">店铺名称</th><th class="c" style="width:12%">实际GSV</th><th class="c" style="width:12%">目标GSV</th><th class="c" style="width:12%">目标达成率</th><th class="c" style="width:11%">渠道</th><th class="c" style="width:11%">策略负责人</th><th class="c" style="width:11%">内容负责人</th><th class="c" style="width:11%">推广负责人</th></tr></thead><tbody>';
+    var h='<section class="ec-rd-store-summary"><div class="ec-rd-store-summary-head"><b>店铺缺口汇总</b><div class="ec-rd-store-summary-meta"><span>当前周期 · 按店铺与渠道汇总</span><button class="ec-rd-store-export" type="button">⇩ 导出</button></div></div><table class="ec-rd-store-table"><thead><tr><th style="width:20%">店铺名称</th><th class="c" style="width:12%">实际GSV</th><th class="c" style="width:12%">目标GSV</th><th class="c" style="width:12%">目标达成率</th><th class="c" style="width:11%">渠道</th><th class="c" style="width:11%">策略负责人</th><th class="c" style="width:11%">内容负责人</th><th class="c" style="width:11%">推广负责人</th></tr></thead><tbody>';
     rows.forEach(function(row){
       var owner=EC_RD_STORE_OWNERS[row.store]||{strategy:'待分配',content:'待分配',promotion:'待分配'},rate=row.t?row.a/row.t*100:0;
       h+='<tr><td class="store-name">'+ecRdEsc(row.store)+'</td><td class="c actual">'+row.a.toFixed(1)+'万</td><td class="c target">'+row.t.toFixed(1)+'万</td><td class="c rate">'+rate.toFixed(1)+'%</td><td class="c">'+ecRdEsc(row.channel)+'</td><td class="c"><span class="owner">'+owner.strategy+'</span></td><td class="c"><span class="owner">'+owner.content+'</span></td><td class="c"><span class="owner">'+owner.promotion+'</span></td></tr>';
@@ -12044,6 +12046,10 @@ if(document.getElementById('ecLcTabs')){
       if(rst){
         rst.addEventListener('click',function(e){ e.preventDefault(); ecLkReset(); });
       }
+      var exp=tools.querySelector('.ec-lk-export');
+      if(exp){
+        exp.addEventListener('click',function(e){ e.preventDefault(); ecLkExport(exp); });
+      }
     });
   }
   /* ---- 悬浮明细提示 ---- */
@@ -12140,6 +12146,49 @@ if(document.getElementById('ecLcTabs')){
       setTimeout(function(){btn.innerHTML=old;btn.classList.remove('active');},1400);
     }
   }
+  /* ---- 店铺 / 风险链接清单导出：遵循当前周期与筛选条件，统一输出 CSV。 ---- */
+  function ecCsvText(v){return String(v===undefined||v===null?'':v).replace(/\s+/g,' ').trim();}
+  function ecCsvEscape(v){return '"'+ecCsvText(v).replace(/"/g,'""')+'"';}
+  function ecCsvDownload(filename,heads,rows,btn){
+    var lines=[heads.map(ecCsvEscape).join(',')];
+    rows.forEach(function(row){lines.push(row.map(ecCsvEscape).join(','));});
+    var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();
+    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},120);
+    if(btn){var old=btn.innerHTML;btn.classList.add('done');btn.innerHTML='✓ 已导出';setTimeout(function(){btn.innerHTML=old;btn.classList.remove('done');},1400);}
+  }
+  function ecCsvTable(tbl,rowCheck){
+    if(!tbl) return {heads:[],rows:[]};
+    var keep=[],heads=[];
+    tbl.querySelectorAll('thead th').forEach(function(th,i){
+      if(th.classList.contains('ec-lk-hidden-col')) return;
+      keep.push(i);heads.push(ecCsvText(th.textContent));
+    });
+    var rows=[];
+    tbl.querySelectorAll('tbody tr').forEach(function(tr){
+      if(tr.classList.contains('ec-lk-nores')||(rowCheck&&!rowCheck(tr))) return;
+      var row=[];keep.forEach(function(i){row.push(ecCsvText(tr.children[i]?tr.children[i].textContent:''));});
+      if(row.length) rows.push(row);
+    });
+    return {heads:heads,rows:rows};
+  }
+  function ecPeriodName(){return ecBiPeriod==='day'?'日':(ecBiPeriod==='week'?'周':'月');}
+  function ecExportStoreList(btn){
+    var holder=document.getElementById('ecRdStoreSummary'+ecRdSfx()),tbl=holder?holder.querySelector('.ec-rd-store-table'):null,csv=ecCsvTable(tbl);
+    ecCsvDownload('一类电商店铺缺口汇总（'+ecPeriodName()+'）.csv',csv.heads,csv.rows,btn);
+  }
+  function ecLkExport(btn){
+    var o=ecLkParts();if(!o) return;
+    var prod=ecLkFilter[ecBiPeriod]||'',dim=ecLkDim[ecBiPeriod]||{chan:'',store:''},kw=String(ecLkKw[ecBiPeriod]||'').trim().toLowerCase(),idx=ecLkIdx(o.tbl);
+    var csv=ecCsvTable(o.tbl,function(tr){
+      var okProd=!prod||tr.getAttribute('data-prod')===prod;
+      var okChan=!dim.chan||ecLkCell(tr,idx.chan)===dim.chan;
+      var okStore=!dim.store||ecLkCell(tr,idx.store)===dim.store;
+      var hay=(ecLkCell(tr,idx.link)+' '+String(tr.getAttribute('data-prod')||'')).toLowerCase();
+      return okProd&&okChan&&okStore&&(!kw||hay.indexOf(kw)>=0);
+    });
+    ecCsvDownload('一类电商风险链接清单（'+ecPeriodName()+'）.csv',csv.heads,csv.rows,btn);
+  }
   (function ecBiBind(){
     if(!analysisEl) return;
     analysisEl.addEventListener('mousemove',function(e){
@@ -12161,6 +12210,8 @@ if(document.getElementById('ecLcTabs')){
       if(owHead){ecOwToggleHead(owHead);return;}
       var rst=e.target.closest('.ec-bi-reset');
       if(rst){ecBiResetFilters();return;}
+      var storeExport=e.target.closest('.ec-rd-store-export');
+      if(storeExport){ecExportStoreList(storeExport);return;}
       var prodPage=e.target.closest('[data-ec-bi-page]');
       if(prodPage&&!prodPage.disabled){ecBiPage[ecBiPeriod]=Math.max(1,Number(prodPage.getAttribute('data-ec-bi-page'))||1);ecBiRenderTable();return;}
       var linkPage=e.target.closest('[data-ec-lk-page]');
