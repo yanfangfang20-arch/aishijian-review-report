@@ -9771,8 +9771,9 @@ if(document.getElementById('ecLcTabs')){
     <button class="ai-rc-tab" data-target="ecAiStep3" type="button">② 缺口贡献度</button>
     <button class="ai-rc-tab" data-target="ecAiStepRegion" type="button">③ 大区下钻</button>
     <button class="ai-rc-tab" data-target="ecAiStepStore" type="button">④ 店铺缺口</button>
-    <button class="ai-rc-tab" data-target="ecAiStepProd" type="button">⑤ 缺口产品明细·链接清单</button>
-    <button class="ai-rc-tab" data-target="ecAiStepSum" type="button">⑥ 总结建议</button>
+    <button class="ai-rc-tab" data-target="ecAiStepProd" type="button">⑤ 风险产品</button>
+    <button class="ai-rc-tab" data-target="ecAiStepLinks" type="button">⑥ 风险链接</button>
+    <button class="ai-rc-tab" data-target="ecAiStepSum" type="button">⑦ 总结建议</button>
   </div>
   <!-- 周期筛选：按日 / 按月 + 重新分析 -->
   <div class="ec-ai-pickrow">
@@ -9868,7 +9869,7 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="ecAiStepProd">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">5</span>
-          <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
+          <span class="ai-rc-step-title">风险产品</span>
         </div>
         <div class="ec-bi-tools" id="ecBiTools"></div>
         <div class="ec-bi-table-wrap">
@@ -9878,8 +9879,14 @@ if(document.getElementById('ecLcTabs')){
           </table>
         </div>
         <div class="b-note" id="ecBiTableNote"></div>
+      </div>
 
-        <div class="ec-bi-block-hd" style="margin-top:18px"><h4>受影响链接汇总</h4><span>10个链接 · 合计−171万 · 点击上方产品明细的「主链接」可筛选本表</span></div>
+      <div class="ai-rc-step ec-risk-link-step" id="ecAiStepLinks">
+        <div class="ai-rc-step-head">
+          <span class="ai-rc-step-badge s2">6</span>
+          <span class="ai-rc-step-title">风险链接</span>
+        </div>
+        <div class="ec-bi-block-hd"><h4>风险链接汇总</h4><span>10个链接 · 合计−171万 · 点击上方风险产品的「主链接」可筛选本表</span></div>
         <div class="ec-lk-tools">
           <div class="ec-lk-tool"><span>渠道</span><select class="ec-lk-sel" data-lk-dim="chan"><option value="">全部</option></select></div>
           <div class="ec-lk-tool"><span>店铺</span><select class="ec-lk-sel" data-lk-dim="store"><option value="">全部</option></select></div>
@@ -9908,7 +9915,7 @@ if(document.getElementById('ecLcTabs')){
 
       <div class="ai-rc-step" id="ecAiStepSum">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">6</span>
+          <span class="ai-rc-step-badge s2">7</span>
           <span class="ai-rc-step-title">总结建议</span>
         </div>
         <div class="ec-sum-wrap" id="ecSumWrap"></div>
@@ -9981,7 +9988,7 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="ecAiStepProdD">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">5</span>
-          <span class="ai-rc-step-title">缺口产品明细 · 链接清单</span>
+          <span class="ai-rc-step-title">风险产品</span>
         </div>
         <div class="ec-bi-tools" id="ecBiToolsD"></div>
         <div class="ec-bi-table-wrap">
@@ -9991,8 +9998,14 @@ if(document.getElementById('ecLcTabs')){
           </table>
         </div>
         <div class="b-note" id="ecBiTableNoteD"></div>
+      </div>
 
-        <div class="ec-bi-block-hd" style="margin-top:18px"><h4>受影响链接汇总</h4><span>5个链接 · 合计−15万 · 覆盖单日缺口 54% · 点击上方产品明细的「主链接」可筛选本表</span></div>
+      <div class="ai-rc-step ec-risk-link-step" id="ecAiStepLinksD">
+        <div class="ai-rc-step-head">
+          <span class="ai-rc-step-badge s2">6</span>
+          <span class="ai-rc-step-title">风险链接</span>
+        </div>
+        <div class="ec-bi-block-hd"><h4>风险链接汇总</h4><span>5个链接 · 合计−15万 · 覆盖单日缺口 54% · 点击上方风险产品的「主链接」可筛选本表</span></div>
         <div class="ec-lk-tools">
           <div class="ec-lk-tool"><span>渠道</span><select class="ec-lk-sel" data-lk-dim="chan"><option value="">全部</option></select></div>
           <div class="ec-lk-tool"><span>店铺</span><select class="ec-lk-sel" data-lk-dim="store"><option value="">全部</option></select></div>
@@ -10016,7 +10029,7 @@ if(document.getElementById('ecLcTabs')){
 
       <div class="ai-rc-step" id="ecAiStepSumD">
         <div class="ai-rc-step-head">
-          <span class="ai-rc-step-badge s2">6</span>
+          <span class="ai-rc-step-badge s2">7</span>
           <span class="ai-rc-step-title">总结建议</span>
         </div>
         <div class="ec-sum-wrap" id="ecSumWrapD"></div>
@@ -10406,8 +10419,9 @@ if(document.getElementById('ecLcTabs')){
     ecBiD().dims.forEach(function(d){
       var viewD=ecBiDisplayDim(d);
       var tot=viewD.items.map(ecBiGap).reduce(function(s,g){return s+g;},0);
+      var sub=(viewD.key==='品牌'||viewD.key==='类目'||viewD.key==='渠道')?'':viewD.sub;
       h+='<div class="ec-bi-card'+(viewD.key==='SPU'?' wide':'')+'">'
-       +'<div class="ec-bi-card-hd"><h4>'+viewD.name+'</h4><span class="sub">'+viewD.sub+'</span></div>'
+       +'<div class="ec-bi-card-hd"><h4>'+viewD.name+'</h4>'+(sub?'<span class="sub">'+sub+'</span>':'')+'</div>'
         +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span><span class="ec-bi-rate-key"><i></i>目标达成率</span></div>'
        +ecBiBars(viewD)
        +ecBiCtb(viewD)
@@ -11464,7 +11478,7 @@ if(document.getElementById('ecLcTabs')){
   var EC_LK_UNDER={}, EC_LK_NOTE_UNDER={};
   function ecAiApplyLkRows(){
     var sfx=(ecAiPeriod==='day')?'D':'';
-    var step=document.getElementById('ecAiStepProd'+sfx);
+    var step=document.getElementById('ecAiStepLinks'+sfx);
     if(!step) return;
     var tbl=step.querySelector('table.b-table');
     if(!tbl) return;
@@ -11473,8 +11487,7 @@ if(document.getElementById('ecLcTabs')){
     if(tb&&!EC_LK_UNDER[sfx]) EC_LK_UNDER[sfx]=tb.innerHTML;
     var note=step.querySelector('.b-note');
     if(note&&!EC_LK_NOTE_UNDER[sfx]) EC_LK_NOTE_UNDER[sfx]=note.innerHTML;
-    var hd=step.querySelectorAll('.ec-bi-block-hd');
-    var lkHd=hd.length>1?hd[1]:null;
+    var lkHd=step.querySelector('.ec-bi-block-hd');
     if(lkHd&&!EC_LK_UNDER[sfx+'hd']) EC_LK_UNDER[sfx+'hd']=lkHd.innerHTML;
     var over=ecAiIsOver();
     if(tb) tb.innerHTML=over?ecLkOverRows(sfx):EC_LK_UNDER[sfx];
@@ -11483,7 +11496,7 @@ if(document.getElementById('ecLcTabs')){
       ? '达标场景下仍存在缺口的主链接已置顶展示（共 12 条，含少量未达标链接）；建议优先处理<span class="hl-red">缺口链接</span>，同时把超额链接的高效打法复制到其他产品。'
       : EC_LK_NOTE_UNDER[sfx];
     if(lkHd) lkHd.innerHTML=over
-      ? '<h4>受影响链接汇总</h4><span>12个链接 · 缺口链接优先 · 点击上方产品明细的「主链接」可筛选本表</span>'
+      ? '<h4>风险链接汇总</h4><span>12个链接 · 缺口链接优先 · 点击上方风险产品的「主链接」可筛选本表</span>'
       : EC_LK_UNDER[sfx+'hd'];
     /* 场景切换会重置链接行，重置后再次按表头移除不展示字段。 */
     if(typeof ecLkSimplifyTable==='function') ecLkSimplifyTable(sfx);
@@ -11717,14 +11730,14 @@ if(document.getElementById('ecLcTabs')){
     ecOwTab[ecBiPeriod]=tab;
     ecOwRender();
   }
-  /* ---- 产品明细 → 受影响链接清单 联动：点击「主链接」筛选下方链接数据 ---- */
+  /* ---- 风险产品 → 风险链接清单联动：点击「主链接」筛选下方链接数据 ---- */
   var ecLkFilter={month:'',day:''};
   var ecLkPage={month:1,day:1},EC_LK_PAGE_SIZE=10;
   var ecLkDim={month:{chan:'',store:''},day:{chan:'',store:''}};
   var ecLkKw={month:'',day:''};
   function ecLkParts(sfx){
     if(sfx===undefined) sfx=(ecBiPeriod==='day')?'D':'';
-    var step=document.getElementById('ecAiStepProd'+sfx);
+    var step=document.getElementById('ecAiStepLinks'+sfx);
     if(!step) return null;
     var tbl=step.querySelector('table.b-table');
     if(!tbl) return null;
@@ -11738,7 +11751,7 @@ if(document.getElementById('ecLcTabs')){
   /* 链接汇总固定展示：链接名称、市场排名、GSV、点击率、转化率、访客量、退货率、费率、店铺名称。
      其他字段保留在 DOM 供筛选使用，但不参与表格展示，避免场景重绘造成列错位。 */
   function ecLkSimplifyTable(sfx){
-    var step=document.getElementById('ecAiStepProd'+(sfx||''));
+    var step=document.getElementById('ecAiStepLinks'+(sfx||''));
     if(!step) return;
     var tbl=step.querySelector('.ec-link-summary-table table');
     if(tbl){
@@ -11949,7 +11962,7 @@ if(document.getElementById('ecLcTabs')){
   /* 绑定筛选工具条事件（月/日各一套） */
   function ecLkBind(){
     [['','month'],['D','day']].forEach(function(p){
-      var step=document.getElementById('ecAiStepProd'+p[0]);
+      var step=document.getElementById('ecAiStepLinks'+p[0]);
       if(!step) return;
       var tools=step.querySelector('.ec-lk-tools');
       if(!tools) return;
