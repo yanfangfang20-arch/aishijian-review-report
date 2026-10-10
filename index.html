@@ -9780,14 +9780,20 @@ if(document.getElementById('ecLcTabs')){
     <div class="ai-rc-pick" id="ecAiPick">
       <div class="ai-rc-pick-seg">
         <button class="ai-rc-pick-btn" data-g="day" type="button">按日</button>
+        <button class="ai-rc-pick-btn" data-g="week" type="button">按周</button>
         <button class="ai-rc-pick-btn active" data-g="month" type="button">按月</button>
       </div>
-      <div class="ai-rc-pick-field" style="display:none">
+      <div class="ai-rc-pick-field" data-period="day" style="display:none">
         <input type="date" id="ecAiDayPick" class="ai-rc-pick-input" value="2026-09-20">
         <span class="ai-rc-pick-value" id="ecAiDayText">2026/09/20</span>
         <span class="ai-rc-pick-caret">▾</span>
       </div>
-      <div class="ai-rc-pick-field" style="display:flex">
+      <div class="ai-rc-pick-field" data-period="week" style="display:none">
+        <input type="week" id="ecAiWeekPick" class="ai-rc-pick-input" value="2026-W38">
+        <span class="ai-rc-pick-value" id="ecAiWeekText">本周 · 2026年第38周</span>
+        <span class="ai-rc-pick-caret">▾</span>
+      </div>
+      <div class="ai-rc-pick-field" data-period="month" style="display:flex">
         <input type="month" id="ecAiMonthPick" class="ai-rc-pick-input" value="2026-09">
         <span class="ai-rc-pick-value" id="ecAiMonthText">本月 · 2026年9月</span>
         <span class="ai-rc-pick-caret">▾</span>
@@ -10050,10 +10056,11 @@ if(document.getElementById('ecLcTabs')){
   var analysisEl=document.getElementById('ecAiAnalysis');
   var tabs=document.querySelectorAll('#ecAiTabs .ai-rc-tab');
   var ecAiPeriod='month';
-  function ecAiSfx(){return ecAiPeriod==='day'?'D':'';}
+  function ecAiSfx(){return ecAiPeriod==='month'?'':'D';}
   function ecAiId(base){return base+ecAiSfx();}
   function ecAiStepEls(){
-    return document.querySelectorAll('#ecAiContent .ec-period[data-period="'+ecAiPeriod+'"] .ai-rc-step');
+    var domPeriod=ecAiPeriod==='week'?'day':ecAiPeriod;
+    return document.querySelectorAll('#ecAiContent .ec-period[data-period="'+domPeriod+'"] .ai-rc-step');
   }
   if(!drawer||!analysisEl) return;
 
@@ -10275,6 +10282,22 @@ if(document.getElementById('ecLcTabs')){
       }
     }
   };
+  /* 周口径：以连续 7 日的汇总口径生成，与日/月视图使用同一套维度与下钻规则。 */
+  function ecBiBuildWeek(src){
+    var out=JSON.parse(JSON.stringify(src)),factor=7;
+    out.target*=factor;out.actual*=factor;out.gap=out.actual-out.target;
+    (out.dims||[]).forEach(function(d){(d.items||[]).forEach(function(it){
+      if(typeof it.t==='number') it.t*=factor;
+      if(typeof it.a==='number') it.a*=factor;
+      if(typeof it.g==='number') it.g*=factor;
+    });});
+    out.trend=[156,164,171,176,168,173,196];
+    out.trendLbl=['周一','周二','周三','周四','周五','周六','周日'];
+    out.trendWord='逐日';
+    out.quad={q1:'P0链接14个（−63万）：素材老化 / 详情页跳出',q2:'拼多多周销结构（−70万）、店铺动销率（−63万）',q3:'搜索关键词、达人续签',q4:'活动自然回落、竞品降价'};
+    return out;
+  }
+  EC_BI_DATA.week=ecBiBuildWeek(EC_BI_DATA.day);
   var ecBiPeriod='month';
   function ecBiD(){var __o=ecAiIsOver();return (__o?EC_BI_OVER:EC_BI_DATA)[ecBiPeriod]||EC_BI_DATA.month;}
   /* 品类维度仅用于整体缺口贡献展示；产品明细仍保留 SPU 口径。 */
@@ -10289,11 +10312,12 @@ if(document.getElementById('ecLcTabs')){
       ['空气净化器',8,7],['加湿器',8,8],['空调伴侣',8,8],['洗地机',7,6],['吸尘器',7,6],
       ['扫地机/擦窗机',7,6],['破壁/豆浆机',7,6],['电热水壶',7,6],['蒸汽清洁机',7,6],['电动拖把',7,5]
     ];
-    var rows=(period==='day'?day:month);
+    var rows=(period==='month'?month:day);
+    if(period==='week') rows=day.map(function(x){return [x[0],x[1]*7,x[2]*7];});
     return {key:'SPU',name:'品类维度',sub:'TOP15 缺口品类',items:rows.map(function(x){return {n:x[0],t:x[1],a:x[2]};})};
   }
   function ecBiDisplayDim(d){return d.key==='SPU'?ecBiThirdCategoryDim(ecBiPeriod):d;}
-  function ecBiId(base){return base+(ecBiPeriod==='day'?'D':'');}
+  function ecBiId(base){return base+(ecBiPeriod==='month'?'':'D');}
   function ecBiGap(it){return it.a-it.t;}
   function ecBiW(v){return (v>0?'+':(v<0?'\u2212':''))+Math.abs(v)+'万';}
   function ecBiP(v,dec){
@@ -10460,7 +10484,7 @@ if(document.getElementById('ecLcTabs')){
     {k:'links',t:'主链接',c:1}
   ];
   var ecBiSort={key:'a',dir:1};
-  var ecBiPage={month:1,day:1},EC_BI_PAGE_SIZE=10;
+  var ecBiPage={month:1,week:1,day:1},EC_BI_PAGE_SIZE=10;
   /* 筛选状态：品牌 / 类目 / 渠道（平台）/ SPU名称模糊搜索 */
   var ecBiFilters={brand:'',cat:'',platform:'',spu:''};
   var EC_BI_FIELDS=[
@@ -10957,15 +10981,15 @@ if(document.getElementById('ecLcTabs')){
     }
   };
   var EC_RD_H=34,EC_RD_GAP=12;
-  var ecRdSel={month:'',day:''};
+  var ecRdSel={month:'',week:'',day:''};
   function ecRdEsc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
   function ecRdW(v){return (v>0?'+':(v<0?'\u2212':''))+Math.abs(v)+'\u4e07';}
-  function ecRdSfx(){return (ecBiPeriod==='day')?'D':'';}
+  function ecRdSfx(){return (ecBiPeriod==='month')?'':'D';}
   function ecRdData(){var __o=ecAiIsOver();return (__o?EC_RD_OVER:EC_RD)[ecBiPeriod]||EC_RD.month;}
-  function ecRdSelId(){if(!ecRdSel)ecRdSel={month:'',day:''};return ecRdSel[ecBiPeriod]||'';}
+  function ecRdSelId(){if(!ecRdSel)ecRdSel={month:'',week:'',day:''};return ecRdSel[ecBiPeriod]||'';}
   /* \u5207\u6362\u5927\u533a Tab */
   function ecRdSelect(id){
-    if(!ecRdSel)ecRdSel={month:'',day:''};
+    if(!ecRdSel)ecRdSel={month:'',week:'',day:''};
     ecRdSel[ecBiPeriod]=id||'';
     ecRdRender();
   }
@@ -11136,7 +11160,7 @@ if(document.getElementById('ecLcTabs')){
     var wdCap=(ecAiIsOver()?'\u8d85\u989d':'\u7f3a\u53e3');
     var h='<div class="ec-rd-ch-hd"><div class="ec-rd-ch-title">'+lvlName+wdCap+'贡献度</div>'
       +'<div class="ec-rd-ch-right">'
-        +'<div class="ec-rd-ch-sum">GSV 实际/目标 <b class="a'+(region.a<region.t?' short':'')+'">'+region.a.toLocaleString()+'万</b><i class="sep">/</i><b class="t">'+region.t.toLocaleString()+'万</b> · '+wdCap+'合计 <b class="gap '+(region.g<0?'neg':'pos')+'">'+ecRdW(region.g)+'</b> · <span style="color:#a8b6c8">点击'+lvlName+'展开产品，点击产品查看缺口链接明细</span></div>'
+        +'<div class="ec-rd-ch-sum">GSV 实际/目标 <b class="a'+(region.a<region.t?' short':'')+'">'+region.a.toLocaleString()+'万</b><i class="sep">/</i><b class="t">'+region.t.toLocaleString()+'万</b> · '+wdCap+'合计 <b class="gap '+(region.g<0?'neg':'pos')+'">'+ecRdW(region.g)+'</b></div>'
         +'<button class="ec-rd-allbtn" type="button" data-open="0"><i>⇕</i><span class="txt">全部展开</span></button>'
       +'</div></div>';
     chs.forEach(function(c,ci){
@@ -11306,18 +11330,34 @@ if(document.getElementById('ecLcTabs')){
       ]}
     ]
   };
+  /* 周视图沿用日视图的组织层级，并按连续 7 日汇总 GSV 目标、实际与缺口。 */
+  function ecAiScaleTree(src,factor){
+    if(Array.isArray(src)) return src.map(function(x){return ecAiScaleTree(x,factor);});
+    if(src&&typeof src==='object'){
+      var out={};Object.keys(src).forEach(function(k){
+        var v=src[k];out[k]=((k==='t'||k==='a'||k==='g')&&typeof v==='number')?v*factor:ecAiScaleTree(v,factor);
+      });return out;
+    }
+    return src;
+  }
+  EC_RD.week=ecAiScaleTree(EC_RD.day,7);
+  EC_OW_BASE.week=ecAiScaleTree(EC_OW_BASE.day,7);
   var EC_OW_CHANNEL_ORDER={天猫:0,京东:1,拼多多:2};
-  var ecOwTab={month:'strategy',day:'strategy'};
+  var ecOwTab={month:'strategy',week:'strategy',day:'strategy'};
   /* ============================================================
      场景切换：未达标（缺口） / 达标（超额）
      把「按日/按月」的日期切到非默认值即进入达标场景
      ============================================================ */
-  var EC_AI_DEF_DATE='2026-09-20', EC_AI_DEF_MONTH='2026-09';
+  var EC_AI_DEF_DATE='2026-09-20', EC_AI_DEF_WEEK='2026-W38', EC_AI_DEF_MONTH='2026-09';
   var EC_OVER_KEEP={'儿童台灯K1':1,'剃须刀T3':1,'挂烫机G5':1};   /* 达标场景下仍存在缺口的产品 */
   function ecAiIsOver(){
     if(ecAiPeriod==='day'){
       var d=document.getElementById('ecAiDayPick');
       return !!(d&&d.value&&d.value!==EC_AI_DEF_DATE);
+    }
+    if(ecAiPeriod==='week'){
+      var w=document.getElementById('ecAiWeekPick');
+      return !!(w&&w.value&&w.value!==EC_AI_DEF_WEEK);
     }
     var m=document.getElementById('ecAiMonthPick');
     return !!(m&&m.value&&m.value!==EC_AI_DEF_MONTH);
@@ -11374,10 +11414,10 @@ if(document.getElementById('ecLcTabs')){
       })};
     });
   }
-  var EC_RD_OVER={month:ecRdOverBuild(EC_RD.month),day:ecRdOverBuild(EC_RD.day)};
-  var EC_BI_OVER={month:ecBiOver(EC_BI_DATA.month),day:ecBiOver(EC_BI_DATA.day)};
-  var EC_OW_OVER={month:ecOwOverBuild(EC_OW_BASE.month),day:ecOwOverBuild(EC_OW_BASE.day)};
-  var EC_RATE_SC={under:{month:[15.2,18.0],day:[14.6,18.0]},over:{month:[19.4,18.0],day:[18.6,18.0]}};
+  var EC_RD_OVER={month:ecRdOverBuild(EC_RD.month),week:ecRdOverBuild(EC_RD.week),day:ecRdOverBuild(EC_RD.day)};
+  var EC_BI_OVER={month:ecBiOver(EC_BI_DATA.month),week:ecBiOver(EC_BI_DATA.week),day:ecBiOver(EC_BI_DATA.day)};
+  var EC_OW_OVER={month:ecOwOverBuild(EC_OW_BASE.month),week:ecOwOverBuild(EC_OW_BASE.week),day:ecOwOverBuild(EC_OW_BASE.day)};
+  var EC_RATE_SC={under:{month:[15.2,18.0],week:[14.8,18.0],day:[14.6,18.0]},over:{month:[19.4,18.0],week:[18.9,18.0],day:[18.6,18.0]}};
   /* 达标场景下的链接明细（含仍存在缺口的链接） */
   function ecLkOverRows(sfx){
     var dd=EC_RD_OVER[ecBiPeriod]||EC_RD_OVER.month, out=[];
@@ -11431,7 +11471,7 @@ if(document.getElementById('ecLcTabs')){
   function ecSumPct(a,b){ return (b>0)?(a/b*100):0; }
   function ecSumTag(txt,cls){ return '<span class="tag '+cls+'">'+txt+'</span>'; }
   function ecSumRender(){
-    var sfx=(ecAiPeriod==='day')?'D':'';
+    var sfx=(ecAiPeriod==='month')?'':'D';
     var el=document.getElementById('ecSumWrap'+sfx);
     if(!el) return;
     var over=ecAiIsOver();
@@ -11478,13 +11518,13 @@ if(document.getElementById('ecLcTabs')){
     el.innerHTML=h;
   }
   function ecSumRecRun(){
-    var sfx=(ecAiPeriod==='day')?'D':'';
+    var sfx=(ecAiPeriod==='month')?'':'D';
     if(document.getElementById('ecSumWrap'+sfx)) ecSumRender();
   }
 
   var EC_LK_UNDER={}, EC_LK_NOTE_UNDER={};
   function ecAiApplyLkRows(){
-    var sfx=(ecAiPeriod==='day')?'D':'';
+    var sfx=(ecAiPeriod==='month')?'':'D';
     var step=document.getElementById('ecAiStepLinks'+sfx);
     if(!step) return;
     var tbl=step.querySelector('table.b-table');
@@ -11512,12 +11552,15 @@ if(document.getElementById('ecLcTabs')){
   function ecAiApplyScenario(){
     var over=ecAiIsOver();
     document.body.classList.toggle('ec-ai-over',over);
-    var sfx=(ecAiPeriod==='day')?'D':'';
+    var sfx=(ecAiPeriod==='month')?'':'D';
     var D=ecBiD(), rs=EC_RATE_SC[over?'over':'under'][ecAiPeriod], rateN=rs[0], rateT=rs[1];
     var s1=document.getElementById('ecAiStep1'+sfx);
     if(s1){
       var tt=s1.querySelector('.ai-rc-step-title');
       if(tt) tt.textContent=(over?'\u786e\u8ba4\u4eae\u70b9':'\u786e\u8ba4\u95ee\u9898');
+      var periodSub=s1.querySelector('.ai-rc-step-sub');
+      if(periodSub&&ecAiPeriod==='week') periodSub.textContent='连续 7 日累计 vs 周目标';
+      else if(periodSub&&ecAiPeriod==='day') periodSub.textContent='2026/09/20 单日 vs 日目标';
       var g=s1.querySelector('.ai-rc-what-gmv');
       if(g) g.innerHTML=D.actual.toLocaleString()+'\u4e07<small>&nbsp;/ '+D.target.toLocaleString()+'\u4e07</small>';
       var tag=s1.querySelector('.ai-rc-what-tag');
@@ -11663,7 +11706,7 @@ if(document.getElementById('ecLcTabs')){
     return '<div class="ec-ow-rec"><b>\u5efa\u8bae\uff1a</b>\u63a8\u5e7f\u89c6\u89d2\u4e0b\uff0c'+chn+'\u7684<span class="hl">'+ecOwEsc(top.n)+'</span> ROI '+top.meta.roi[0].toFixed(1)+'\uff08\u76ee\u6807 '+top.meta.roi[1].toFixed(1)+'\uff09\u4f4e\u4e8e\u76ee\u6807\uff0c\u5efa\u8bae '+ecOwEsc(wO.owner)+'\u6536\u7f29\u4f4e\u6548\u8ba1\u5212\u3001\u5c06\u9884\u7b97\u96c6\u4e2d\u81f3 ROI \u8fbe\u6807\u4ea7\u54c1\uff1b'+ecOwEsc(wC.plat)+'\u4ee5 '+(EC_OW_TOOL[wC.plat]||['\u63a8\u5e7f']).join('\u3001')+'\u4e3a\u4e3b\uff0c\u6309 ROI \u9608\u503c\u52a8\u6001\u8c03\u63a7\u51fa\u4ef7\u3002</div>';
   }
   function ecOwRender(){
-    var sfx=(ecBiPeriod==='day')?'D':'';
+    var sfx=(ecBiPeriod==='month')?'':'D';
     var el=document.getElementById('ecOwWrap'+sfx);
     if(!el) return;
     var tab=ecOwTab[ecBiPeriod]||'strategy';
@@ -11709,7 +11752,7 @@ if(document.getElementById('ecLcTabs')){
     h+=ecOwRec(tab);
     el.innerHTML=h;
   }
-  function ecOwWrapEl(){return document.getElementById('ecOwWrap'+((ecBiPeriod==='day')?'D':''));}
+  function ecOwWrapEl(){return document.getElementById('ecOwWrap'+((ecBiPeriod==='month')?'':'D'));}
   function ecOwSyncAllBtn(){
     var wrap=ecOwWrapEl(); if(!wrap) return;
     var btn=wrap.querySelector('.ec-ow-allbtn'); if(!btn) return;
@@ -11738,12 +11781,12 @@ if(document.getElementById('ecLcTabs')){
     ecOwRender();
   }
   /* ---- 风险产品 → 风险链接清单联动：点击「主链接」筛选下方链接数据 ---- */
-  var ecLkFilter={month:'',day:''};
-  var ecLkPage={month:1,day:1},EC_LK_PAGE_SIZE=10;
-  var ecLkDim={month:{chan:'',store:''},day:{chan:'',store:''}};
-  var ecLkKw={month:'',day:''};
+  var ecLkFilter={month:'',week:'',day:''};
+  var ecLkPage={month:1,week:1,day:1},EC_LK_PAGE_SIZE=10;
+  var ecLkDim={month:{chan:'',store:''},week:{chan:'',store:''},day:{chan:'',store:''}};
+  var ecLkKw={month:'',week:'',day:''};
   function ecLkParts(sfx){
-    if(sfx===undefined) sfx=(ecBiPeriod==='day')?'D':'';
+    if(sfx===undefined) sfx=(ecBiPeriod==='month')?'':'D';
     var step=document.getElementById('ecAiStepLinks'+sfx);
     if(!step) return null;
     var tbl=step.querySelector('table.b-table');
@@ -11906,7 +11949,7 @@ if(document.getElementById('ecLcTabs')){
     }
     if(jump){
       ecTabLockUntil=Date.now()+900;
-      activate(3);
+      activate(5);
       ecScrollToStep(o.step);
     }
   }
@@ -11966,7 +12009,7 @@ if(document.getElementById('ecLcTabs')){
     }
     ecLkApply(false);
   }
-  /* 绑定筛选工具条事件（月/日各一套） */
+  /* 绑定筛选工具条事件（月与日/周共用一套日明细容器） */
   function ecLkBind(){
     [['','month'],['D','day']].forEach(function(p){
       var step=document.getElementById('ecAiStepLinks'+p[0]);
@@ -11976,18 +12019,20 @@ if(document.getElementById('ecLcTabs')){
       tools.querySelectorAll('.ec-lk-sel').forEach(function(sel){
         sel.addEventListener('change',function(){
           var dim=sel.getAttribute('data-lk-dim');
-          if(!ecLkDim[p[1]]) ecLkDim[p[1]]={chan:'',store:''};
-          ecLkDim[p[1]][dim]=sel.value||'';
-          ecLkPage[p[1]]=1;
-          if(ecBiPeriod===p[1]) ecLkApply(false);
+          var key=(p[1]==='day'&&ecBiPeriod==='week')?'week':p[1];
+          if(!ecLkDim[key]) ecLkDim[key]={chan:'',store:''};
+          ecLkDim[key][dim]=sel.value||'';
+          ecLkPage[key]=1;
+          if(ecBiPeriod===key) ecLkApply(false);
         });
       });
       var inp=tools.querySelector('.ec-lk-input');
       if(inp){
         inp.addEventListener('input',function(){
-          ecLkKw[p[1]]=inp.value||'';
-          ecLkPage[p[1]]=1;
-          if(ecBiPeriod===p[1]) ecLkApply(false);
+          var key=(p[1]==='day'&&ecBiPeriod==='week')?'week':p[1];
+          ecLkKw[key]=inp.value||'';
+          ecLkPage[key]=1;
+          if(ecBiPeriod===key) ecLkApply(false);
         });
       }
       var rst=tools.querySelector('.ec-lk-reset');
@@ -12047,12 +12092,12 @@ if(document.getElementById('ecLcTabs')){
   function ecBiApplyPeriod(p){
     ecBiPeriod=p||'month';
     ecBiFilters={brand:'',cat:'',platform:'',spu:''};
-    ecBiPage={month:1,day:1};
-    ecLkFilter={month:'',day:''};
-    ecLkPage={month:1,day:1};
-    ecLkDim={month:{chan:'',store:''},day:{chan:'',store:''}};
-    ecLkKw={month:'',day:''};
-    ecRdSel={month:'',day:''};
+    ecBiPage={month:1,week:1,day:1};
+    ecLkFilter={month:'',week:'',day:''};
+    ecLkPage={month:1,week:1,day:1};
+    ecLkDim={month:{chan:'',store:''},week:{chan:'',store:''},day:{chan:'',store:''}};
+    ecLkKw={month:'',week:'',day:''};
+    ecRdSel={month:'',week:'',day:''};
     ecBiRenderAll();
     ecLkSimplifyAll();
     ecLkBuildAll();
@@ -12076,7 +12121,7 @@ if(document.getElementById('ecLcTabs')){
     var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});
     var a=document.createElement('a');
     a.href=URL.createObjectURL(blob);
-    a.download='一类电商四维缺口贡献明细（'+(ecBiPeriod==='day'?'日':'月')+'）.csv';
+    a.download='一类电商四维缺口贡献明细（'+(ecBiPeriod==='day'?'日':(ecBiPeriod==='week'?'周':'月'))+'）.csv';
     document.body.appendChild(a);
     a.click();
     setTimeout(function(){
@@ -12162,26 +12207,34 @@ if(document.getElementById('ecLcTabs')){
   /* ================= 周期切换：按日 / 按月 + 重新分析 ================= */
   function ecAiSyncLabels(){
     var dIn=document.getElementById('ecAiDayPick');
+    var wIn=document.getElementById('ecAiWeekPick');
     var mIn=document.getElementById('ecAiMonthPick');
     var dTx=document.getElementById('ecAiDayText');
+    var wTx=document.getElementById('ecAiWeekText');
     var mTx=document.getElementById('ecAiMonthText');
     if(dIn&&dTx) dTx.textContent=dIn.value.replace(/-/g,'/');
+    if(wIn&&wTx){var w=wIn.value.split('-W');wTx.textContent='本周 · '+w[0]+'年第'+parseInt(w[1],10)+'周';}
     if(mIn&&mTx){
       var m=mIn.value.split('-');
       mTx.textContent=(mIn.value==='2026-09'?'本月 · ':'')+m[0]+'年'+parseInt(m[1],10)+'月';
     }
   }
   function ecAiApplyPeriod(){
+    var domPeriod=ecAiPeriod==='week'?'day':ecAiPeriod;
     document.querySelectorAll('#ecAiContent .ec-period').forEach(function(el){
-      el.classList.toggle('hide',el.getAttribute('data-period')!==ecAiPeriod);
+      el.classList.toggle('hide',el.getAttribute('data-period')!==domPeriod);
     });
     var dIn=document.getElementById('ecAiDayPick');
+    var wIn=document.getElementById('ecAiWeekPick');
     var mIn=document.getElementById('ecAiMonthPick');
     var rd=document.getElementById('ecAiReportDate');
     if(rd){
       if(ecAiPeriod==='day'&&dIn){
         var d=dIn.value.split('-');
         rd.textContent=d[0]+'/'+d[1]+'/'+d[2];
+      }else if(ecAiPeriod==='week'&&wIn){
+        var w=wIn.value.split('-W');
+        rd.textContent=w[0]+'年第'+parseInt(w[1],10)+'周';
       }else if(mIn){
         var m=mIn.value.split('-');
         rd.textContent=m[0]+'年'+parseInt(m[1],10)+'月';
@@ -12198,8 +12251,8 @@ if(document.getElementById('ecLcTabs')){
         ecAiPickEl.querySelectorAll('.ai-rc-pick-btn').forEach(function(x){x.classList.remove('active');});
         b.classList.add('active');
         var g=b.getAttribute('data-g');
-        ecAiPickEl.querySelectorAll('.ai-rc-pick-field').forEach(function(f,idx){
-          f.style.display=(g==='day'&&idx===0)||(g==='month'&&idx===1)?'flex':'none';
+        ecAiPickEl.querySelectorAll('.ai-rc-pick-field').forEach(function(f){
+          f.style.display=f.getAttribute('data-period')===g?'flex':'none';
         });
         ecAiPeriod=g;
                 ecAiSyncLabels();
@@ -12207,8 +12260,10 @@ if(document.getElementById('ecLcTabs')){
       });
     });
     var ecDayIn=document.getElementById('ecAiDayPick');
+    var ecWeekIn=document.getElementById('ecAiWeekPick');
     var ecMonIn=document.getElementById('ecAiMonthPick');
     if(ecDayIn) ecDayIn.addEventListener('change',function(){ecAiSyncLabels();ecAiApplyPeriod();});
+    if(ecWeekIn) ecWeekIn.addEventListener('change',function(){ecAiSyncLabels();ecAiApplyPeriod();});
     if(ecMonIn) ecMonIn.addEventListener('change',function(){ecAiSyncLabels();ecAiApplyPeriod();});
     var ecReBtn=document.getElementById('ecAiReBtn');
     if(ecReBtn){
