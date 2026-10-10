@@ -12901,7 +12901,7 @@ function bCtb(d){
   var negGap=all.filter(function(x){return x.g<0;}).reduce(function(s,x){return s+Math.abs(x.g);},0);
   var negTotal=Math.max(1,negGap);
   var maxAbs=Math.max(1,items.reduce(function(m,x){return Math.max(m,Math.abs(x.g));},0));
-  var h='<div class="ec-bi-ctb"><div class="ec-bi-ctb-hd">TOP 因子贡献 <em>按缺口绝对值排序 · 缺口合计 '+(negGap?W(-negGap):'—')+'</em></div><div class="ec-bi-ctb-rows">';
+  var h='<div class="ec-bi-ctb"><div class="ec-bi-ctb-hd">TOP 因子贡献</div><div class="ec-bi-ctb-rows">';
   items.forEach(function(x){
     var isPos=x.g>0,pct=Math.abs(x.g)/negTotal*100,w=isPos?Math.max(3,Math.abs(x.g)/maxAbs*100):Math.max(3,pct),cls=(x.g<0?'neg':'pos'),wide=(w>=16);
     h+='<div class="ec-bi-ctb-row">'
