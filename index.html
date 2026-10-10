@@ -1786,7 +1786,7 @@ body{font-family:"Source Han Sans CN","Microsoft YaHei","PingFang SC",Arial,sans
 /* 四维缺口：目标vs实际双柱对比（参考截图样式） */
 .ec-bi-vchart{margin-top:12px}
 .ec-bi-vplot{position:relative;display:flex;gap:6px;align-items:flex-end;padding-top:18px}
-.ec-bi-rate-svg{position:absolute;inset:0;z-index:4;width:100%;height:100%;pointer-events:none;overflow:visible}.ec-bi-rate-svg path{fill:none;stroke:#26a269;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px rgba(38,162,105,.16))}.ec-bi-rate-dot{position:absolute;z-index:5;width:8px;height:8px;border:2px solid #26a269;border-radius:50%;background:#fff;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 1px 2px rgba(38,162,105,.16)}.ec-bi-rate-dot.dense{display:none}.ec-bi-rate-key{display:inline-flex;align-items:center;gap:4px;color:#1b8b55}.ec-bi-rate-key i{display:inline-block;width:14px;height:2px;border-radius:2px;background:#26a269;position:relative}.ec-bi-rate-key i:after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-radius:50%;background:#fff;border:2px solid #26a269}
+.ec-bi-rate-svg{position:absolute;inset:0;z-index:4;width:100%;height:100%;pointer-events:none;overflow:visible}.ec-bi-rate-svg .ec-bi-rate-guide{fill:none;stroke:#d8eee4;stroke-width:1;stroke-dasharray:3 4}.ec-bi-rate-svg .ec-bi-rate-halo{fill:none;stroke:rgba(39,174,116,.14);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.ec-bi-rate-svg .ec-bi-rate-line{fill:none;stroke:#1ca56b;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px rgba(28,165,107,.12))}.ec-bi-rate-dot{position:absolute;z-index:5;width:6px;height:6px;border:1.5px solid #1ca56b;border-radius:50%;background:#fff;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 0 2px rgba(235,250,242,.92)}.ec-bi-rate-dot.dense{display:none}.ec-bi-rate-key{display:inline-flex;align-items:center;gap:4px;color:#198c5b}.ec-bi-rate-key i{display:inline-block;width:16px;height:8px;border-radius:0;background:transparent;position:relative}.ec-bi-rate-key i:before{content:"";position:absolute;left:0;right:0;top:3px;height:2px;border-radius:2px;background:#1ca56b}.ec-bi-rate-key i:after{content:"";position:absolute;right:2px;top:0;width:5px;height:5px;border-radius:50%;background:#fff;border:1.5px solid #1ca56b}
 .ec-bi-vgroup{position:relative;flex:1;min-width:0;cursor:pointer;display:flex;justify-content:center;align-items:flex-end;gap:10px}
 .ec-bi-tbar{background:linear-gradient(180deg,#8db5f0,#4b6fd1);border-radius:3px 3px 0 0;animation:ecBiGrowY .5s cubic-bezier(.22,1,.36,1) both;min-height:3px;transform-origin:center bottom;position:relative}
 .ec-bi-abar{background:linear-gradient(180deg,#f5b070,#e8783c);border-radius:3px 3px 0 0;animation:ecBiGrowY .5s cubic-bezier(.22,1,.36,1) both;min-height:3px;transform-origin:center bottom;position:relative}
@@ -10355,12 +10355,19 @@ if(document.getElementById('ecLcTabs')){
       var x=(idx+.5)/Math.max(1,order.length)*300;
       var y=16+(120-rate)/60*(PLOT-36);
       y=Math.max(16,Math.min(PLOT-20,y));
-      ratePts.push(x.toFixed(1)+','+y.toFixed(1));
+      ratePts.push({x:+x.toFixed(1),y:+y.toFixed(1)});
       rateDots.push('<span class="ec-bi-rate-dot'+(rateDense?' dense':'')+'" style="left:'+((idx+.5)/Math.max(1,order.length)*100).toFixed(2)+'%;top:'+(y/PLOT*100).toFixed(2)+'%" aria-label="目标达成率 '+rate.toFixed(1)+'%"></span>');
     });
     var ratePath='';
-    ratePts.forEach(function(pt,ri){var xy=pt.split(',');ratePath+=(ri?' L ':'M ')+xy[0]+' '+xy[1];});
-    h+='<svg class="ec-bi-rate-svg" viewBox="0 0 300 '+PLOT+'" preserveAspectRatio="none" aria-label="目标达成率折线"><path d="'+ratePath+'"></path></svg>'+rateDots.join('');
+    if(ratePts.length){
+      ratePath='M '+ratePts[0].x+' '+ratePts[0].y;
+      for(var ri=1;ri<ratePts.length;ri++){
+        var prev=ratePts[ri-1],cur=ratePts[ri],dx=(cur.x-prev.x)*.52;
+        ratePath+=' C '+(prev.x+dx).toFixed(1)+' '+prev.y+' '+(cur.x-dx).toFixed(1)+' '+cur.y+' '+cur.x+' '+cur.y;
+      }
+    }
+    var guideY=16+(120-100)/60*(PLOT-36);
+    h+='<svg class="ec-bi-rate-svg" viewBox="0 0 300 '+PLOT+'" preserveAspectRatio="none" aria-label="目标达成率折线"><path class="ec-bi-rate-guide" d="M 0 '+guideY.toFixed(1)+' L 300 '+guideY.toFixed(1)+'"></path><path class="ec-bi-rate-halo" d="'+ratePath+'"></path><path class="ec-bi-rate-line" d="'+ratePath+'"></path></svg>'+rateDots.join('');
     h+='</div><div class="ec-bi-vnames'+(dense?' dense':'')+'">';
     order.forEach(function(o){
       var it=o.it;
