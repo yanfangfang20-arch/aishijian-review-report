@@ -6227,12 +6227,12 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
   <div class="ai-rc-headrow">
     <!-- 模块TAB快速定位 -->
     <div class="ai-rc-tabs" id="aiRcTabs">
-      <button class="ai-rc-tab active" data-target="aiRcStep1" type="button">① 经营结果</button>
-      <button class="ai-rc-tab" data-target="aiRcStep2" type="button">② 因子归因</button>
-      <button class="ai-rc-tab" data-target="aiRcStep3" type="button">③ 同口径下钻</button>
-      <button class="ai-rc-tab" data-target="aiRcStep4" type="button">④ 证据核验</button>
+      <button class="ai-rc-tab active" data-target="aiRcStep1" type="button">① 确认问题</button>
+      <button class="ai-rc-tab" data-target="aiRcStep2" type="button">② 因子目标对比及贡献度</button>
+      <button class="ai-rc-tab" data-target="aiRcStep3" type="button">③ 拆解树</button>
+      <button class="ai-rc-tab" data-target="aiRcStep4" type="button">④ 根因证据</button>
       <button class="ai-rc-tab" data-target="aiRcStepSpeech" type="button">⑤ 话术与弹幕</button>
-      <button class="ai-rc-tab" data-target="aiRcStep5" type="button">⑥ 行动闭环</button>
+      <button class="ai-rc-tab" data-target="aiRcStep5" type="button">⑥ 总结建议</button>
     </div>
     <!-- 周期筛选：按日 / 按月（居右） -->
     <div class="ai-rc-pick" id="aiRcPick">
@@ -8408,7 +8408,7 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
       if(!target||!analysisEl) return;
       var ar=analysisEl.getBoundingClientRect();
       var tr=target.getBoundingClientRect();
-      analysisEl.scrollTo({top:analysisEl.scrollTop+tr.top-ar.top-8,behavior:'smooth'});
+      analysisEl.scrollTo({top:tr.top-ar.top-8,behavior:'smooth'});
       activateTab(idx);
     });
   });
@@ -8419,9 +8419,8 @@ CVR贡献 = 实际UV × (实际CVR − 目标CVR) × 目标客单价
     if(max>0&&st>=max-4){
       idx=stepEls.length-1;
     }else{
-      var probe=analysisEl.getBoundingClientRect().top+48;
       for(var i=0;i<stepEls.length;i++){
-        if(stepEls[i].getBoundingClientRect().top<=probe) idx=i;
+        if(stepEls[i].offsetTop-st<=40) idx=i;
       }
     }
     activateTab(idx);
@@ -9381,11 +9380,11 @@ if(document.getElementById('ecLcTabs')){
   var quickQs=document.getElementById('aiRcQuickQs');
 
   var replies={
-    'UV':'当前演示汇总中，UV 为 42,000 人，目标 50,000 人；按逐步替换法，对 GMV 的算术影响约 −16.00 万。自然曝光、投流或场次分布哪一项造成下降，现有汇总不能判定。请导入同周期明细，沿来源 → 主播 → 商品 → 时段定位，再核对投流与平台记录。',
-    '爆款':'商品缺货可以作为待验证线索，但不能仅凭汇总认定为本场主因。请在负向时段核对商品可售库存、上架状态、观众相关弹幕及支付转化变化；证据成立后再安排调货、预售或替代款，并在下一场复测。',
-    '停留':'停留时长与转化之间不能仅凭同向变化判断因果。请在相同流量来源、主播和商品下对比低达成时段，检查观众疑问、主播回应、商品点击和支付订单；话术/弹幕的关键词匹配只提供候选线索。',
-    'CPC':'综合 ROI 的演示值为 2.4，目标 3.0。要定位投放问题，需要同周期的推广消耗、广告 GMV、计划 CPC 和转化数据；当前不能直接认定 CPC 是 ROI 下滑主因，也不建议据此自动调整预算。',
-    'default':'本期演示汇总：GMV 85 万，目标 100 万，缺口 15 万。按可复算的逐步替换法，UV 影响约 −16.00 万、转化率影响 −8.40 万、客单价正向对冲约 +9.40 万，合计 −15.00 万。以上是指标算术归因，不是已验证的业务根因。请在“同口径下钻”导入同周期明细，再核对话术、弹幕、库存和投流证据。'
+    'UV':'UV从5万降至4.2万（−16%），原因拆解：\n\n1. <strong>自然曝光下降</strong>：22万→25万目标，−12%。疑似平台限流或直播间权重下降。\n2. <strong>CTR微降</strong>：19.1%→20%目标，−0.9pp。封面标题吸引力不足。\n3. <strong>竞品分流</strong>：同赛道竞品同时段大额补贴，抢走部分用户。\n\n主因是自然曝光下降，建议下场增加DOU+投放5000元补量。',
+    '爆款':'爆款A缺货处理方案：\n\n<strong>短期：</strong>\n• 紧急调货500件，下场开播前到位\n• 主播口播预售，引导下单预售款\n• 设置到货提醒，用户下单后自动通知\n\n<strong>中期：</strong>\n• 建立爆款安全库存（≥3天销量）\n• 培育商品B为第二爆款，分散依赖\n• 每月评估商品生命周期，提前备货\n\n当前爆款A库存仅剩200件，是GMV缺口的商品侧主因（−58%）。',
+    '停留':'停留时长从65秒降至45秒（−31%），提升方案：\n\n1. <strong>开场优化</strong>：前5分钟发福袋/红包留人，设置开场互动话术\n2. <strong>内容节奏</strong>：每15分钟设置一个互动节点（抽奖/秒杀/问答）\n3. <strong>主播话术</strong>：增加"扣1领取""评论回复"等互动引导\n4. <strong>视觉优化</strong>：优化直播间背景、灯光、商品展示画面\n5. <strong>商品节奏</strong>：爆款→引流款→利润款交替讲解，避免单调\n\n停留率从60%降至52%（−8pp），是转化漏斗第二大断层。',
+    'CPC':'CPC从2元升至2.5元（+25%），优化方案：\n\n1. <strong>暂停低效计划</strong>：筛选ROI<1的计划暂停，释放预算\n2. <strong>降低出价</strong>：整体出价降低10%，测试流量变化\n3. <strong>新素材测试</strong>：切换2套新素材，A/B测试CTR\n4. <strong>人群优化</strong>：排除低转化人群，提高精准度\n5. <strong>分时段出价</strong>：高峰时段提价，低谷时段降价\n\nCPC偏高拉低ROI（2.4 vs 目标3.0），需在1周内将CPC压回2元以内。',
+    'default':'根据根因分析，本场净缺口15万的主因是：\n\n1. <strong>UV下降</strong>（负向−10万/63%）——自然曝光减少+违规限流\n2. <strong>CVR下降</strong>（负向−6万/37%）——停留时长缩短+爆款缺货\n3. <strong>ROI下降</strong>（80%）——CPC上升拉低投放效率\n4. 客单价实际125元超额达成104%，正向对冲+1万（净缺口 = −16万 + 1万 = −15万）\n\n建议优先处理爆款A缺货和自然曝光下降，预计可回收约10万GMV缺口。'
   };
 
   function getReply(q){
@@ -13825,7 +13824,7 @@ if(document.readyState==='complete'){setTimeout(init,0);}
 /* 原型内 PRD 查看器：三套根因分析共用，内容与独立 Markdown 文档保持一致。 */
 (function(){
   var docs={
-    live:{title:'直播间复盘分析 PRD',meta:['业务：直播间经营','周期：按日 / 按月','版本：V3.0'],html:'<p><b>目标：</b>把经营结果、可计算的因子影响、待核验的业务线索和行动复测分开呈现，避免把看板数值直接写成根因。</p><h3>分析链路</h3><div class="ai-rc-prd-flow"><span>确认结果</span><span>公式闭合</span><span>同口径下钻</span><span>证据核验</span><span>行动复测</span></div><h3>核心功能</h3><ul><li>展示 GMV、ROI 的实际、目标、差额和目标达成率；缺少推广消耗时 ROI 显示待接入。</li><li>GMV = 去重流量 UV × 支付转化率 × 客单价，因子影响采用逐步替换法，三项合计必须与 GMV 差额闭合。</li><li>导入同周期 CSV/JSON 明细，按来源 → 主播 → 商品 → 时段逐层查看缺口；检测周期不符、无效字段和重复维度键。</li><li>话术与弹幕提供规则分类和同主题候选匹配；仅当两者均带日期时间且有经营明细时，展示同时间窗交叉核验。</li><li>行动记录包含负责人、截止时间、状态与复测证据；没有证据不能标记已验证。原有 PDF 报告下载保持不变。</li></ul><h3>判读边界</h3><p>因子影响是算术归因，不是业务因果证明；时间接近和文本规则命中仅形成待核验线索。导入行需为互斥访客群，跨维度 UV 去重需上游校验。</p><div class="ai-rc-prd-note">当前为单文件前端原型。真实生产部署仍需接入可信数据源、账号权限、任务协作和审计记录。</div>'},
+    live:{title:'直播间复盘分析 PRD',meta:['业务：直播间经营','周期：按日 / 按月','版本：V2.1'],html:'<p><b>目标：</b>在单场或周期复盘中，定位 GMV 与综合 ROI 的关键缺口，并将流量、转化、投放、素材、人群和主播承接串联为可执行的证据链。</p><h3>功能范围</h3><ul><li><b>确认问题：</b>展示 GMV、综合ROI的实际值、目标值与缺口。</li><li><b>因子与贡献：</b>按流量UV、曝光转化率CVR、客单价展示目标/实际及GMV贡献。</li><li><b>根因证据：</b>投放效率趋势、近7天TOP20素材、人群看播/支付对比、场次与主播时段分析。</li><li><b>素材诊断：</b>素材列表支持爆款过滤、人群展开及自动生成整体投放结论。</li><li><b>总结建议：</b>将直接因子、业务归因和行动建议按当前周期联动展示。</li></ul><h3>核心口径</h3><p>GMV = 流量UV × 曝光转化率CVR × 客单价；广告ROI = 广告GMV ÷ 消耗；素材爆款定义为广告ROI ≥ 3。</p><h3>关键交互</h3><div class="ai-rc-prd-flow"><span>选择周期</span><span>确认缺口</span><span>展开证据</span><span>筛选素材</span><span>执行建议</span></div><h3>验收标准</h3><ul><li>所有指标均可看到实际与目标（无目标指标仅显示实际/近7天均值）。</li><li>素材、人群、主播展开不遮挡内容；长表格保持表头可见。</li><li>爆款过滤后，列表、统计卡与素材结论同步更新。</li></ul><div class="ai-rc-prd-note">数据为原型模拟数据；接入生产数据时需保持字段、计算口径和刷新周期一致。</div>'},
     ec:{title:'一类电商根因分析 PRD',meta:['业务：一类电商','周期：按日 / 按月','版本：V2.1'],html:'<p><b>目标：</b>对一类电商 GMV、利润率及经营缺口进行渠道、店铺负责人、产品和链接的逐层归因，帮助负责人快速定位需要优先处理的经营单元。</p><h3>功能范围</h3><ul><li><b>确认问题：</b>展示GMV、利润率等结果指标的目标、实际与缺口。</li><li><b>目标对比：</b>用指标卡与图表比较流量、转化、客单、费率等关键经营因子。</li><li><b>渠道下钻：</b>按渠道 / 店铺负责人 / 产品 / 缺口链接展开；负责人层不展示品牌、类目、平台字段。</li><li><b>缺口产品明细：</b>支持筛选、排序与导出，聚焦实际/目标GMV、退货、库存、缺货与新品延期。</li><li><b>结论建议：</b>输出结果层、归因层和业务动作。</li></ul><h3>关键交互</h3><div class="ai-rc-prd-flow"><span>选择周期</span><span>查看渠道</span><span>展开负责人</span><span>定位产品/链接</span><span>导出行动项</span></div><h3>核心规则</h3><p>缺口 = 实际GMV − 目标GMV；负向缺口按绝对值计算贡献度。产品明细仅保留缺口SPU，平台字段不在产品明细展示。</p><h3>验收标准</h3><ul><li>渠道与负责人展开层级正确，缺口金额、占比及实际/目标口径一致。</li><li>产品、链接表支持表头固定、横向滚动和悬停定位。</li><li>日/月切换仅改变周期数据与文案，不改变下钻关系。</li></ul><div class="ai-rc-prd-note">正式接入时应由渠道、店铺、SPU和链接ID建立稳定关联，避免同名对象聚合错误。</div>'},
     interest:{title:'兴趣电商根因分析 PRD',meta:['业务：兴趣电商','周期：按月','版本：V2.1'],html:'<p><b>目标：</b>从抖音整体、各大区、部门、SPU产品到关联员工/直播间，追溯兴趣电商GMV缺口，并明确产品经营与直播承接责任。</p><h3>功能范围</h3><ul><li><b>问题确认与贡献：</b>展示GMV目标对比和关键因子贡献度。</li><li><b>大区下钻：</b>抖音按“整体 → 大区 → 部门 → 产品 → 员工”展开；快手、视频号、百度&CID按“部门 → 产品 → 员工”展开；商务达播仅统计产品。</li><li><b>产品层列表：</b>展示SPU产品名称、GMV（实际/目标）、商品卡GMV占比、退货率、近7天素材爆款率、关联直播间、关联员工、直播间平均CTR/CVR。</li><li><b>关联查看：</b>点击关联直播间/员工数量，在产品下方展开名称；直播间名称可跳转对应直播间。</li><li><b>缺口产品明细：</b>聚焦SPU经营与供给风险，删除平台与当前库存状态字段。</li></ul><h3>关键交互</h3><div class="ai-rc-prd-flow"><span>选择平台</span><span>展开大区</span><span>展开部门</span><span>查看SPU</span><span>查看关联对象</span></div><h3>核心口径</h3><p>商品卡GMV占比 = 商品卡GMV ÷ 产品GMV；素材爆款率 = 广告ROI≥3的素材数 ÷ 近7天素材总数；直播间平均CTR/CVR按关联直播间聚合。</p><h3>验收标准</h3><ul><li>不同平台遵循各自下钻层级，商务达播不出现员工下钻。</li><li>产品列只展示SPU产品名称；关联直播间和关联员工均为可展开交互。</li><li>产品表和缺口明细在全屏、窄屏下均可完整浏览。</li></ul><div class="ai-rc-prd-note">需要由SPU、部门、员工和直播间的关联关系表提供实时映射，避免跨部门重复归因。</div>'}
   };
@@ -14040,144 +14039,6 @@ if(document.readyState==='complete'){setTimeout(init,0);}
     input.addEventListener('change',function(){var file=input.files&&input.files[0];if(!file)return;if(file.size>5*1024*1024){el('aiRcVoiceParseNote').textContent='文件超过 5MB，请按场次拆分后导入';return;}file.text().then(function(value){pair[1].value=value;sources[pair[2]]=file.name;analyzeVoice();}).catch(function(){el('aiRcVoiceParseNote').textContent='读取失败，请将文件内容粘贴到文本框';});});
   });
   analyzeVoice();
-})();
-</script>
-
-<!-- 直播间经营复盘增强：同口径归因、证据状态与行动闭环。原有 PDF 下载流程不变。 -->
-<style>
-#aiRcDrawer .live-commercial-panel{margin-top:12px;font-size:13px;color:#27405f}
-#aiRcStep3>:not(.ai-rc-step-head):not(.live-commercial-panel),#aiRcStep4>:not(.ai-rc-step-head):not(.live-commercial-panel),#aiRcStep5>:not(.ai-rc-step-head):not(.live-commercial-panel){display:none!important}
-#aiRcDrawer .lc-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,1fr);gap:16px;padding:17px 19px;border:1px solid #cfdffa;border-radius:12px;background:linear-gradient(115deg,#f5f9ff,#fff);box-shadow:0 6px 20px rgba(35,84,155,.06)}
-#aiRcDrawer .lc-eyebrow{display:flex;align-items:center;gap:7px;color:#5274b1;font-weight:800;font-size:12px;letter-spacing:.04em}
-#aiRcDrawer .lc-dot{width:7px;height:7px;border-radius:50%;background:#4d6bf5}
-#aiRcDrawer .lc-hero h3{margin:8px 0;color:#17385f;font-size:20px;line-height:1.4}
-#aiRcDrawer .lc-hero p{margin:0;color:#5c718d;line-height:1.7}
-#aiRcDrawer .lc-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-#aiRcDrawer .lc-metric{padding:9px 11px;border:1px solid #e2eafa;border-radius:8px;background:#fff}
-#aiRcDrawer .lc-metric small{display:block;color:#8293ad;font-size:11px}
-#aiRcDrawer .lc-metric b{display:block;margin-top:4px;color:#173b68;font-size:17px;font-variant-numeric:tabular-nums}
-#aiRcDrawer .lc-metric b.bad{color:#e44854}#aiRcDrawer .lc-metric b.good{color:#159b6f}
-#aiRcDrawer .lc-metric em{display:block;margin-top:2px;color:#8a9bb2;font-size:11px;font-style:normal}
-#aiRcDrawer .lc-section{margin-top:13px;padding:14px;border:1px solid #e1e9f5;border-radius:10px;background:#fff}
-#aiRcDrawer .lc-section h4{margin:0 0 10px;color:#244a7d;font-size:13px}
-#aiRcDrawer .lc-note{padding:10px 12px;border-left:3px solid #5e77e8;border-radius:5px;background:#f4f7ff;color:#566d8e;line-height:1.65}
-#aiRcDrawer .lc-note.warn{border-left-color:#efaa4e;background:#fffbf3}
-#aiRcDrawer .lc-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #edf1f7}
-#aiRcDrawer .lc-row:last-child{border-bottom:0}
-#aiRcDrawer .lc-pill{display:inline-block;padding:3px 7px;border-radius:5px;background:#ebf2ff;color:#4169bc;font-size:11px;font-weight:800}
-#aiRcDrawer .lc-pill.warn{background:#fff1e4;color:#c6812d}#aiRcDrawer .lc-pill.good{background:#e7f8ef;color:#16845e}
-#aiRcDrawer .lc-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 12px}
-#aiRcDrawer .lc-btn{padding:7px 11px;border:1px solid #a9c3f5;border-radius:6px;background:#fff;color:#2965bd;font:inherit;font-weight:800;cursor:pointer}
-#aiRcDrawer .lc-btn.primary{border-color:#5865f5;background:#5865f5;color:#fff}
-#aiRcDrawer .lc-file{position:relative;overflow:hidden;cursor:pointer}#aiRcDrawer .lc-file input{position:absolute;inset:0;opacity:0;cursor:pointer}
-#aiRcDrawer .lc-muted{color:#7a8eaa;font-size:12px;line-height:1.6}
-#aiRcDrawer .lc-filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-#aiRcDrawer .lc-filters label{display:flex;align-items:center;gap:5px;color:#6980a0}
-#aiRcDrawer .lc-filters select,#aiRcDrawer .lc-task input,#aiRcDrawer .lc-task select{max-width:180px;min-width:0;padding:6px 7px;border:1px solid #d6e1f1;border-radius:5px;background:#fff;color:#264266;font:inherit}
-#aiRcDrawer .lc-table-wrap{overflow:auto;border:1px solid #e6ecf5;border-radius:8px}
-#aiRcDrawer .lc-table{width:100%;border-collapse:collapse;min-width:620px;font-size:12px}
-#aiRcDrawer .lc-table th{padding:9px 8px;background:#f5f8fd;color:#7083a0;text-align:left;white-space:nowrap}
-#aiRcDrawer .lc-table td{padding:9px 8px;border-top:1px solid #edf1f7;color:#334d70;white-space:nowrap}
-#aiRcDrawer .lc-table td.bad{color:#df4051;font-weight:800}#aiRcDrawer .lc-table td.good{color:#169968;font-weight:800}
-#aiRcDrawer .lc-ledger{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-#aiRcDrawer .lc-evidence{padding:11px;border:1px solid #e0e9f5;border-radius:8px;background:#fbfdff}
-#aiRcDrawer .lc-evidence b{display:block;margin:6px 0;color:#2c486e;font-size:12px}
-#aiRcDrawer .lc-evidence p{margin:0;color:#6b7f9a;line-height:1.65}
-#aiRcDrawer .lc-task{display:grid;grid-template-columns:minmax(160px,1.6fr) minmax(100px,1fr) 90px 120px 96px;align-items:center;gap:8px;padding:10px;border-bottom:1px solid #e9eef7}
-#aiRcDrawer .lc-task:last-child{border-bottom:0}#aiRcDrawer .lc-task b{color:#244569}#aiRcDrawer .lc-task small{display:block;margin-top:3px;color:#7489a5;line-height:1.45}
-#aiRcDrawer .lc-task input{width:100%;box-sizing:border-box}#aiRcDrawer .lc-task select{width:100%;box-sizing:border-box}
-#aiRcDrawer .lc-task .lc-proof{grid-column:1/-1;max-width:none}
-#aiRcDrawer .lc-check{color:#a16a2b}#aiRcDrawer .lc-check.done{color:#188758}
-#aiRcDrawer .ai-rc-factor-formula .ai-rc-formula-alert{grid-column:1/-1}
-@media(max-width:850px){#aiRcDrawer .lc-hero,#aiRcDrawer .lc-ledger{grid-template-columns:1fr}#aiRcDrawer .lc-task{grid-template-columns:1fr 1fr}#aiRcDrawer .lc-task>:first-child{grid-column:1/-1}}
-</style>
-<script>
-(function(){
-  'use strict';
-  var drawer=document.getElementById('aiRcDrawer');if(!drawer)return;
-  var get=function(id){return document.getElementById(id);};
-  var esc=function(v){return String(v==null?'':v).replace(/[&<>"']/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x];});};
-  var fmt=function(v,n){return Number(v||0).toLocaleString('zh-CN',{minimumFractionDigits:n||0,maximumFractionDigits:n||0});};
-  var sign=function(v,n){return (v>0?'+':'')+fmt(v,n);};
-  var demos={
-    0:{gmv:85,goal:100,uv:42000,goalUv:50000,cvr:4.5,goalCvr:5,aov:850000/1890,goalAov:400,roi:2.4,goalRoi:3},
-    1:{gmv:120,goal:100,uv:60000,goalUv:50000,cvr:5,goalCvr:5,aov:400,goalAov:400,roi:3.5,goalRoi:3},
-    2:{gmv:108,goal:100,uv:45000,goalUv:50000,cvr:6,goalCvr:5,aov:400,goalAov:400,roi:3.2,goalRoi:3},
-    3:{gmv:88,goal:100,uv:50000,goalUv:50000,cvr:4.4,goalCvr:5,aov:400,goalAov:400,roi:2.9,goalRoi:3}
-  };
-  var imported=null,filters={source:'',host:'',product:''};
-  function period(){var b=drawer.querySelector('#aiRcPick .ai-rc-pick-btn.active');var type=b?b.getAttribute('data-g'):'day';return {type:type,key:type==='day'?get('aiRcDayPick').value:get('aiRcMonthPick').value};}
-  function scenario(){var p=period();if(p.type==='day'&&p.key!=='2026-07-20')return 3;if(p.type==='month'&&p.key!=='2026-07')return 2;return 0;}
-  function data(){var p=period();return imported&&imported.period===p.type+':'+p.key?imported.metrics:demos[scenario()];}
-  function model(d){var expected=d.uv*d.cvr/100*d.aov/10000,target=d.goalUv*d.goalCvr/100*d.goalAov/10000;return {expected:expected,target:target,closed:Math.abs(expected-d.gmv)<.11&&Math.abs(target-d.goal)<.11};}
-  function effects(d){var uv=(d.uv-d.goalUv)*d.goalCvr/100*d.goalAov/10000;var cvr=d.uv*(d.cvr-d.goalCvr)/100*d.goalAov/10000;var aov=d.uv*d.cvr/100*(d.aov-d.goalAov)/10000;return [{name:'流量 UV',value:uv},{name:'曝光转化率 CVR',value:cvr},{name:'客单价',value:aov}];}
-  function heading(id,text){var h=get(id).querySelector('.ai-rc-step-title');if(h)h.textContent=text;}
-  function panel(id){var p=get(id).querySelector('.live-commercial-panel');if(!p){p=document.createElement('div');p.className='live-commercial-panel';get(id).appendChild(p);}return p;}
-  function updateCards(d){var good=d.gmv>=d.goal,roiGood=d.roi!=null&&d.roi>=d.goalRoi;
-    var n=get('aiRcStep1').querySelector('.ai-rc-what-gmv');n.innerHTML=fmt(d.gmv,1)+'万<small>&nbsp;/ '+fmt(d.goal,1)+'万</small>';
-    var info=get('aiRcStep1').querySelector('.ai-rc-what-info');info.innerHTML='<span class="ai-rc-what-tag">'+(good?'🟢 GMV达标':'🔴 GMV未达标')+'</span><br>实际 <strong>'+fmt(d.gmv,1)+'万</strong>，目标 <strong>'+fmt(d.goal,1)+'万</strong>，'+(good?'超额':'缺口')+' <strong>'+fmt(Math.abs(d.gmv-d.goal),1)+'万</strong>';
-    var r=get('aiRcStep1').querySelector('.ai-rc-roi-num'),ri=get('aiRcStep1').querySelector('.ai-rc-roi-info');
-    r.innerHTML=d.roi==null?'待接入<small>&nbsp;/ 目标 '+fmt(d.goalRoi,1)+'</small>':fmt(d.roi,2)+'<small>&nbsp;/ 目标 '+fmt(d.goalRoi,1)+'</small>';
-    ri.innerHTML=d.roi==null?'推广消耗未提供，不能计算 ROI':(roiGood?'🟢 ROI 达标':'🔴 ROI 未达标')+'<br>实际 <strong>'+fmt(d.roi,2)+'</strong>，目标 <strong>'+fmt(d.goalRoi,1)+'</strong>';
-    [['aiRcGmvAttain',d.gmv,d.goal],['aiRcRoiAttain',d.roi,d.goalRoi]].forEach(function(x){var el=get(x[0]);el.classList.toggle('good',x[1]!=null&&x[1]>=x[2]);el.querySelector('b').textContent=x[1]==null?'待接入':fmt(x[1]/x[2]*100,1)+'%';});
-    var top=effects(d).filter(function(x){return x.value<-.05;}).sort(function(a,b){return a.value-b.value;})[0];
-    var msg=get('aiRcStep1').querySelector('.ai-rc-info-bar span');msg.innerHTML='<b style="color:#315fd3">经营判断：</b>'+(good?'GMV已达目标；':'GMV缺口 '+fmt(d.goal-d.gmv,1)+'万；')+(top?'可计算的最大负向因子是'+top.name+'（'+fmt(top.value,1)+'万）。':'未出现负向因子。')+'因子影响是算术归因，业务根因仍需同周期明细与时段证据核验。';
-  }
-  function updateFactors(d){var m=model(d),fx=effects(d),labels=[['GMV',d.goal,d.gmv,'万'],['流量 UV',d.goalUv,d.uv,'人'],['曝光转化率',d.goalCvr,d.cvr,'%'],['客单价',d.goalAov,d.aov,'元']];
-    var wrap=get('aiRcFactorFormula');wrap.innerHTML=labels.map(function(x,i){return '<div class="ai-rc-formula-card'+(i===0?' result':'')+'"><span>'+x[0]+'</span><b>'+fmt(x[2],i===2||i===3?2:i===0?1:0)+x[3]+'</b><small>目标 '+fmt(x[1],i===2||i===3?2:i===0?1:0)+x[3]+'</small><em class="'+(x[2]>=x[1]?'good':'')+'">目标达成率 '+fmt(x[2]/x[1]*100,1)+'%</em></div>'+(i<3?'<div class="ai-rc-formula-op">'+(i===0?'=':'×')+'</div>':'');}).join('')+'<div class="ai-rc-formula-alert">'+(m.closed?'公式计算闭合：UV × CVR × 客单价 = '+fmt(m.expected,2)+'万；目标 = '+fmt(m.target,2)+'万。UV 跨维度去重仍须由上游数据校验。':'口径未闭合：暂不把因子影响解释为已验证的业务根因。')+'</div>';
-    var items=get('aiRcStep2').querySelectorAll('.ai-rc-cb-item');labels.forEach(function(x,i){var bs=items[i].querySelectorAll('.ai-rc-cb-bar'),max=Math.max(x[1],x[2]);bs[0].style.height=Math.max(8,x[1]/max*100)+'%';bs[1].style.height=Math.max(8,x[2]/max*100)+'%';bs[0].innerHTML='<em>'+fmt(x[1],i===2||i===3?1:i===0?1:0)+x[3]+'</em>';bs[1].innerHTML='<em>'+fmt(x[2],i===2||i===3?1:i===0?1:0)+x[3]+'</em>';});
-    var ct=get('aiRcStep2').querySelector('.ai-rc-mg-title');ct.textContent='GMV因子影响 · 逐步替换法';
-    var rows=get('aiRcStep2').querySelectorAll('.ai-rc-contrib-row'),negative=fx.filter(function(x){return x.value<0;}).reduce(function(s,x){return s-x.value;},0),maxFx=Math.max.apply(null,fx.map(function(x){return Math.abs(x.value);}).concat([1]));
-    fx.forEach(function(x,i){var row=rows[i],bar=row.querySelector('.ai-rc-contrib-bar'),val=row.querySelector('.ai-rc-contrib-val');row.querySelector('.ai-rc-contrib-label').textContent=x.name;bar.className='ai-rc-contrib-bar '+(x.value<0?'red':'green');bar.style.width=Math.max(5,Math.abs(x.value)/maxFx*88)+'%';bar.textContent=x.value<0&&negative?fmt(-x.value/negative*100,0)+'%负向':' ';val.textContent=sign(x.value,2)+'万';val.style.color=x.value<0?'#d93948':'#15996a';});
-    var old=get('aiRcStep2').querySelector('.lc-note');if(old)old.remove();var note=document.createElement('div');note.className='lc-note';note.innerHTML='逐步替换：先替换 UV，再替换 CVR，最后替换客单价；三项合计 <b>'+sign(fx.reduce(function(s,x){return s+x.value;},0),2)+'万</b>，报表差额 <b>'+sign(d.gmv-d.goal,2)+'万</b>。负向占比只在负向因素之间计算，正向因素单独列为对冲。';get('aiRcStep2').appendChild(note);
-  }
-  function metricHtml(d){var f=effects(d),top=f.slice().sort(function(a,b){return a.value-b.value;})[0],label=imported&&imported.period===period().type+':'+period().key?'导入明细':'校正后的演示汇总';return '<div class="lc-hero"><div><div class="lc-eyebrow"><i class="lc-dot"></i>'+label+' · '+esc(period().key)+'</div><h3>'+(d.gmv>=d.goal?'目标达成，复盘可复制的正向因子':'目标未达，先核验最大可计算缺口')+'</h3><p>'+ (top.value<0?top.name+' 对 GMV 的算术影响 '+fmt(top.value,2)+'万；':'三个因子均无负向影响；')+'这只解释指标变化，不等同于业务根因。下一步应沿同一时间、同一流量来源、同一主播和商品核验。</p></div><div class="lc-metrics"><div class="lc-metric"><small>GMV 实际 / 目标</small><b class="'+(d.gmv<d.goal?'bad':'good')+'">'+fmt(d.gmv,1)+' / '+fmt(d.goal,1)+'万</b><em>达成率 '+fmt(d.gmv/d.goal*100,1)+'%</em></div><div class="lc-metric"><small>GMV 差额</small><b class="'+(d.gmv<d.goal?'bad':'good')+'">'+sign(d.gmv-d.goal,1)+'万</b><em>同周期同口径</em></div><div class="lc-metric"><small>因子模型</small><b class="good">'+(model(d).closed?'已闭合':'待校验')+'</b><em>差额容差 0.1 万</em></div><div class="lc-metric"><small>业务根因</small><b>待证据核验</b><em>时间 × 来源 × 主播 × 商品</em></div></div></div>';
-  }
-  function group(rows,key){var map=new Map();rows.forEach(function(r){var k=r[key]||'未填写';if(!map.has(k))map.set(k,{name:k,uv:0,orders:0,gmv:0,goalUv:0,goalOrders:0,goal:0});var a=map.get(k);['uv','orders','gmv','goalUv','goalOrders','goal'].forEach(function(x){a[x]+=r[x];});});return Array.from(map.values()).sort(function(a,b){return (a.gmv-a.goal)-(b.gmv-b.goal);});}
-  function options(rows,key,chosen){return '<option value="">全部</option>'+Array.from(new Set(rows.map(function(r){return r[key];}))).sort().map(function(v){return '<option value="'+esc(v)+'"'+(v===chosen?' selected':'')+'>'+esc(v)+'</option>';}).join('');}
-  function drillHtml(){var p=period(),has=imported&&imported.period===p.type+':'+p.key,rows=has?imported.rows:[],src=filters.source,host=filters.host,product=filters.product;
-    var h='<div class="lc-section"><h4>同周期明细导入与口径检查</h4><div class="lc-tools"><label class="lc-btn primary lc-file">导入本期 CSV / JSON<input id="lcImportFile" type="file" accept=".csv,.json,text/csv,application/json"></label><button class="lc-btn" id="lcTemplate" type="button">下载字段模板</button><span class="lc-muted">仅在当前浏览器处理，不自动上传或保存明细；每行须为互斥访客群，避免重复加总 UV。</span></div><div class="lc-note'+(has?'':' warn')+'" id="lcImportStatus">'+(has?'已导入 '+rows.length+' 行：'+esc(imported.file)+'。日期与所选周期一致；可按来源 → 主播 → 商品依次下钻。':'当前为演示汇总，无可验证的来源、主播、商品或分钟级事实。导入同口径明细后才开放定量下钻。')+'</div></div>';
-    h+='<div class="lc-section"><h4>缺口沿同一路径下钻</h4>';
-    if(!has){h+='<div class="lc-note">待接入：来源、主播、商品、时段的实际 GMV 与目标 GMV。不会把页面中其他演示图表拼成同一条因果链。</div></div>';return h;}
-    var r1=rows.filter(function(r){return !src||r.source===src;});var r2=r1.filter(function(r){return !host||r.host===host;});var r3=r2.filter(function(r){return !product||r.product===product;});
-    h+='<div class="lc-filters"><label>流量来源 <select id="lcSource">'+options(rows,'source',src)+'</select></label><label>主播 <select id="lcHost">'+options(r1,'host',host)+'</select></label><label>商品 <select id="lcProduct">'+options(r2,'product',product)+'</select></label></div>';
-    [['来源',group(rows,'source')],['主播',group(r1,'host')],['商品',group(r2,'product')]].forEach(function(t){h+='<div class="lc-table-wrap" style="margin-top:9px"><table class="lc-table"><thead><tr><th>'+t[0]+'</th><th>实际 GMV</th><th>目标 GMV</th><th>差额</th><th>目标达成率</th><th>访客 UV</th><th>支付转化率</th></tr></thead><tbody>';t[1].slice(0,8).forEach(function(x){var gap=x.gmv-x.goal;h+='<tr><td>'+esc(x.name)+'</td><td>'+fmt(x.gmv,2)+'万</td><td>'+fmt(x.goal,2)+'万</td><td class="'+(gap<0?'bad':'good')+'">'+sign(gap,2)+'万</td><td>'+fmt(x.goal?x.gmv/x.goal*100:0,1)+'%</td><td>'+fmt(x.uv)+'</td><td>'+fmt(x.uv?x.orders/x.uv*100:0,2)+'%</td></tr>';});h+='</tbody></table></div>';});
-    var times=group(r3,'slot').filter(function(x){return x.gmv<x.goal;}).slice(0,5);h+='<p class="lc-muted">下钻遵循当前筛选路径；下面只展示该路径的低达成时段，不跨来源拼接“TOP 根因”。</p><div class="lc-table-wrap"><table class="lc-table"><thead><tr><th>时段</th><th>实际 / 目标 GMV</th><th>差额</th><th>访客 UV</th><th>支付转化率</th><th>下一步</th></tr></thead><tbody>'+(times.length?times.map(function(x){return '<tr><td>'+esc(x.name)+'</td><td>'+fmt(x.gmv,2)+' / '+fmt(x.goal,2)+'万</td><td class="bad">'+sign(x.gmv-x.goal,2)+'万</td><td>'+fmt(x.uv)+'</td><td>'+fmt(x.uv?x.orders/x.uv*100:0,2)+'%</td><td>核对同期话术、弹幕、供给</td></tr>';}).join(''):'<tr><td colspan="6">筛选路径下没有负向时段</td></tr>')+'</tbody></table></div></div>';
-    return h;
-  }
-  function timedLines(raw){return String(raw||'').split(/\r?\n/).map(function(line){var m=line.match(/(\d{4}-\d{2}-\d{2})\s+(\d{2}):([0-5]\d)(?::[0-5]\d)?/);return m?{date:m[1],minute:Number(m[2])*60+Number(m[3])}:null;}).filter(Boolean);}
-  function timelineHtml(has,userSpeech,userDanmu){if(!has||!userSpeech||!userDanmu)return '';var speech=timedLines(get('aiRcSpeechInput').value),danmu=timedLines(get('aiRcDanmuInput').value);if(!speech.length||!danmu.length)return '<div class="lc-section"><h4>话术 × 弹幕 × 经营时段交叉核验</h4><div class="lc-note warn">需在自有话术和弹幕中提供 YYYY-MM-DD HH:mm 时间戳，才能与当前周期的经营明细对齐；现有文本不参与根因判定。</div></div>';var slots=group(imported.rows,'slot').filter(function(x){return x.gmv<x.goal;}).slice(0,5);return '<div class="lc-section"><h4>话术 × 弹幕 × 经营时段交叉核验</h4><div class="lc-table-wrap"><table class="lc-table"><thead><tr><th>低达成时段</th><th>GMV 差额</th><th>±5 分钟话术</th><th>±5 分钟弹幕</th><th>证据状态</th></tr></thead><tbody>'+(slots.length?slots.map(function(x){var m=x.name.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}):([0-5]\d)$/),minute=Number(m[2])*60+Number(m[3]),count=function(lines){return lines.filter(function(y){return y.date===m[1]&&Math.abs(y.minute-minute)<=5;}).length;},a=count(speech),b=count(danmu);return '<tr><td>'+esc(x.name)+'</td><td class="bad">'+sign(x.gmv-x.goal,2)+'万</td><td>'+a+' 条</td><td>'+b+' 条</td><td>'+(a&&b?'同窗候选，需人工复核':'缺少同窗文本')+'</td></tr>';}).join(''):'<tr><td colspan="5">当前周期没有负向时段</td></tr>')+'</tbody></table></div><p class="lc-muted">同窗仅表示时间接近；未证明话术或弹幕造成差额。请返回原文和投流、库存、支付漏斗交叉复核。</p></div>';}
-  function evidenceHtml(d){var p=period(),has=imported&&imported.period===p.type+':'+p.key,voice=get('aiRcSpeechInput'),danmu=get('aiRcDanmuInput');var userSpeech=voice&&voice.value!==initialSpeech,userDanmu=danmu&&danmu.value!==initialDanmu;
-    return '<div class="lc-section"><h4>证据台账 · 事实、线索与缺口分开标注</h4><div class="lc-ledger">'
-      +'<div class="lc-evidence"><span class="lc-pill good">已核验 · 算术</span><b>GMV 因子闭合</b><p>本期 UV、支付转化率和客单价的乘积与 GMV 对齐；因子贡献可复算，但 UV 跨维度去重仍需上游校验。</p></div>'
-      +'<div class="lc-evidence"><span class="lc-pill '+(has?'good':'warn')+'">'+(has?'已导入 · 待业务复核':'缺少明细')+'</span><b>时段与来源</b><p>'+(has?'可沿来源、主播、商品和时段查看同口径差额；异常的业务解释仍需结合投流、商品和主播记录。':'原型仅有整体汇总，无法判定哪一场次、时段或来源造成了缺口。')+'</p></div>'
-      +'<div class="lc-evidence"><span class="lc-pill '+(userSpeech&&userDanmu?'warn':'')+'">'+(userSpeech&&userDanmu?'候选关联':'演示文本')+'</span><b>话术与弹幕</b><p>'+(userSpeech&&userDanmu?'文本规则能定位高频疑问及未匹配回应；需与同时间窗点击、下单变化交叉核验。':'目前为演示文本；不能据此认定话术或弹幕导致 GMV 缺口。')+'</p></div>'
-      +'<div class="lc-evidence"><span class="lc-pill warn">待核验</span><b>业务根因</b><p>需排查投流波动、商品库存/价格、主播承接与页面链路；至少提供同时间窗对照，才能从相关线索升级为根因判断。</p></div>'
-      +'</div></div><div class="lc-section"><h4>验证顺序</h4><div class="lc-row"><b>1. 确认统计口径</b><span>同周期、去重 UV、支付 GMV、订单与推广消耗</span></div><div class="lc-row"><b>2. 锁定缺口时段</b><span>只在相同来源、主播、商品下比较目标与实际</span></div><div class="lc-row"><b>3. 复核机制证据</b><span>对应时段的话术、弹幕、价格、库存与投流日志</span></div><div class="lc-row"><b>4. 做动作并复测</b><span>记录负责人、截止时间和指标回升情况</span></div></div>'+timelineHtml(has,userSpeech,userDanmu);
-  }
-  function taskSeed(d){var f=effects(d).filter(function(x){return x.value<-.05;}).sort(function(a,b){return a.value-b.value;});var tasks=[{title:'校验场次数据口径',metric:'GMV 因子误差 ≤0.1万，UV 去重',owner:'数据负责人'}];
-    f.forEach(function(x){tasks.push({title:x.name==='流量 UV'?'复核低达成时段的流量来源与投流':x.name==='曝光转化率 CVR'?'复核同场次商品点击至支付链路':'复核价格、优惠与组合装结构',metric:'核验 '+x.name+' 的 '+fmt(x.value,2)+'万算术影响',owner:x.name==='流量 UV'?'推广负责人':'直播负责人'});});
-    tasks.push({title:'话术与弹幕按分钟对照',metric:'标记未回应疑问并对照支付转化率',owner:'内容负责人'});return tasks;
-  }
-  function taskKey(){var p=period(),scope=imported&&imported.period===p.type+':'+p.key?imported.fingerprint:'demo';return 'liveReviewTasks:v2:'+p.type+':'+p.key+':'+scope;}
-  function readTasks(d){try{var a=JSON.parse(localStorage.getItem(taskKey())||'null');if(Array.isArray(a)&&a.length)return a;}catch(e){}return taskSeed(d).map(function(t){return Object.assign({due:'',status:'待核验',evidence:''},t);});}
-  function actionHtml(d){var t=readTasks(d);return '<div class="lc-section"><h4>行动闭环 · 从待验证线索到复测结果</h4><div class="lc-note">状态为人工记录，不会因为打开页面自动显示“已完成”。标记“已验证”前须填写复测证据；本地记录仅保存在当前浏览器，真实协作与审计需接入后端。</div><div style="margin-top:10px">'+t.map(function(x,i){return '<div class="lc-task" data-index="'+i+'"><div><b>'+esc(x.title)+'</b><small>'+esc(x.metric)+'</small></div><label>负责人<input data-field="owner" value="'+esc(x.owner)+'" aria-label="负责人"></label><label>截止<input type="date" data-field="due" value="'+esc(x.due||'')+'" aria-label="截止日期"></label><label>状态<select data-field="status"><option'+(x.status==='待核验'?' selected':'')+'>待核验</option><option'+(x.status==='处理中'?' selected':'')+'>处理中</option><option'+(x.status==='待复测'?' selected':'')+'>待复测</option><option'+(x.status==='已验证'?' selected':'')+'>已验证</option></select></label><span class="lc-check'+(x.status==='已验证'?' done':'')+'">'+esc(x.status)+'</span><input class="lc-proof" data-field="evidence" value="'+esc(x.evidence||'')+'" placeholder="复测证据：填写场次、时段与指标变化" aria-label="复测证据"></div>';}).join('')+'</div></div><div class="lc-section"><h4>复测判定</h4><p class="lc-muted">下一场同口径对照：GMV 目标达成率、UV、支付转化率、客单价与 ROI。仅当异常时段改善且相邻对照时段未同步变化，才提高该线索的可信度；否则回退并继续排查。</p></div>';}
-  function refresh(){var d=data();heading('aiRcStep1','经营结果与缺口');heading('aiRcStep3','同口径下钻');heading('aiRcStep4','证据核验');heading('aiRcStep5','行动闭环');updateCards(d);updateFactors(d);var old=get('lcHero');if(!old){old=document.createElement('div');old.id='lcHero';old.className='live-commercial-panel';get('aiRcStep1').insertBefore(old,get('aiRcStep1').querySelector('.ai-rc-confirm-cards'));}old.innerHTML=metricHtml(d);panel('aiRcStep3').innerHTML=drillHtml();panel('aiRcStep4').innerHTML=evidenceHtml(d);panel('aiRcStep5').innerHTML=actionHtml(d);}
-  function csvParse(s){s=s.replace(/^\uFEFF/,'');var out=[],row=[],cell='',quoted=false;for(var i=0;i<s.length;i++){var c=s[i];if(c==='"'){if(quoted&&s[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&s[i+1]==='\n')i++;row.push(cell);if(row.some(function(x){return x.trim();}))out.push(row);row=[];cell='';}else cell+=c;}if(quoted)throw Error('CSV 引号未闭合');row.push(cell);if(row.some(function(x){return x.trim();}))out.push(row);if(out.length<2)throw Error('CSV 缺少表头或数据行');var keys=out.shift().map(function(x){return x.trim();});return out.map(function(r){var o={};keys.forEach(function(k,i){o[k]=r[i]||'';});return o;});}
-  var fields={'日期':'date','时段':'time','流量来源':'source','主播':'host','商品':'product','访客UV':'uv','支付订单':'orders','支付GMV万':'gmv','目标UV':'goalUv','目标订单':'goalOrders','目标GMV万':'goal','推广消耗万':'spend','目标推广消耗万':'goalSpend'};
-  function parseImport(raw,name){var input=/\.json$/i.test(name)?JSON.parse(raw):csvParse(raw);if(!Array.isArray(input)||!input.length||input.length>10000)throw Error('仅支持 1–10000 行明细数组');var p=period(),rows=input.map(function(o,i){var r={};Object.keys(fields).forEach(function(k){r[fields[k]]=o[k]!=null?o[k]:o[fields[k]];});['date','time','source','host','product'].forEach(function(k){r[k]=String(r[k]||'').trim();if(!r[k])throw Error('第 '+(i+2)+' 行缺少 '+k);});if(!/^\d{4}-\d{2}-\d{2}$/.test(r.date)||!(p.type==='day'?r.date===p.key:r.date.slice(0,7)===p.key))throw Error('第 '+(i+2)+' 行日期与当前筛选周期不一致');if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(r.time))throw Error('第 '+(i+2)+' 行时段须为 HH:mm');r.slot=r.date+' '+r.time;['uv','orders','gmv','goalUv','goalOrders','goal'].forEach(function(k){r[k]=Number(r[k]);if(!Number.isFinite(r[k])||r[k]<0)throw Error('第 '+(i+2)+' 行 '+k+' 必须为非负数字');});if(!Number.isInteger(r.uv)||!Number.isInteger(r.orders)||!Number.isInteger(r.goalUv)||!Number.isInteger(r.goalOrders)||r.orders>r.uv||r.goalOrders>r.goalUv)throw Error('第 '+(i+2)+' 行 UV / 支付订单无效');['spend','goalSpend'].forEach(function(k){r[k]=r[k]===''||r[k]==null?null:Number(r[k]);if(r[k]!=null&&(!Number.isFinite(r[k])||r[k]<0))throw Error('第 '+(i+2)+' 行 '+k+' 无效');});return r;});
-    var unique=new Set();rows.forEach(function(r,i){var key=[r.date,r.time,r.source,r.host,r.product].join('|');if(unique.has(key))throw Error('第 '+(i+2)+' 行维度键重复，可能导致 UV 重复加总');unique.add(key);});
-    var sum={gmv:0,goal:0,uv:0,orders:0,goalUv:0,goalOrders:0,spend:0,goalSpend:0};rows.forEach(function(r){['gmv','goal','uv','orders','goalUv','goalOrders'].forEach(function(k){sum[k]+=r[k];});sum.spend+=r.spend||0;sum.goalSpend+=r.goalSpend||0;});if(!sum.uv||!sum.goalUv||!sum.orders||!sum.goalOrders||!sum.goal)throw Error('汇总 UV、订单与目标 GMV 必须大于 0');var spendKnown=rows.every(function(r){return r.spend!=null&&r.goalSpend!=null;});var metrics={gmv:sum.gmv,goal:sum.goal,uv:sum.uv,goalUv:sum.goalUv,cvr:sum.orders/sum.uv*100,goalCvr:sum.goalOrders/sum.goalUv*100,aov:sum.gmv*10000/sum.orders,goalAov:sum.goal*10000/sum.goalOrders,roi:spendKnown&&sum.spend?sum.gmv/sum.spend:null,goalRoi:spendKnown&&sum.goalSpend?sum.goal/sum.goalSpend:3};var fingerprint=2166136261;for(var j=0;j<raw.length;j++)fingerprint=Math.imul(fingerprint^raw.charCodeAt(j),16777619);return {period:p.type+':'+p.key,file:name,fingerprint:(fingerprint>>>0).toString(16),rows:rows,metrics:metrics};
-  }
-  function downloadTemplate(){var p=period(),day=p.type==='day'?p.key:p.key+'-01';var csv='日期,时段,流量来源,主播,商品,访客UV,支付订单,支付GMV万,目标UV,目标订单,目标GMV万,推广消耗万,目标推广消耗万\n'+day+',20:00,自然流量,主播A,商品A,1000,45,2,1200,60,2.4,0.8,0.8\n';var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));a.download='直播间同口径明细模板_'+p.key+'.csv';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},1000);}
-  var initialSpeech=get('aiRcSpeechInput')?get('aiRcSpeechInput').value:'',initialDanmu=get('aiRcDanmuInput')?get('aiRcDanmuInput').value:'';
-  var baseRefresh=window.aiRcEnhanceRefresh;window.aiRcEnhanceRefresh=function(){if(baseRefresh)baseRefresh();refresh();};
-  drawer.addEventListener('change',function(e){if(e.target.id==='lcImportFile'){var file=e.target.files&&e.target.files[0];if(!file)return;if(file.size>3*1024*1024){get('lcImportStatus').textContent='文件超过 3 MB，请按周期拆分';return;}file.text().then(function(raw){imported=parseImport(raw,file.name);filters={source:'',host:'',product:''};refresh();}).catch(function(err){var n=get('lcImportStatus');if(n)n.textContent='导入失败：'+err.message;});}else if(e.target.id==='lcSource'||e.target.id==='lcHost'||e.target.id==='lcProduct'){if(e.target.id==='lcSource'){filters.source=e.target.value;filters.host='';filters.product='';}if(e.target.id==='lcHost'){filters.host=e.target.value;filters.product='';}if(e.target.id==='lcProduct')filters.product=e.target.value;refresh();}else if(e.target.closest('.lc-task')&&e.target.dataset.field){var tasks=readTasks(data()),idx=Number(e.target.closest('.lc-task').dataset.index),field=e.target.dataset.field;if(field==='status'&&e.target.value==='已验证'&&!String(tasks[idx].evidence||'').trim()){e.target.value='待复测';tasks[idx].status='待复测';window.alert('请先填写复测证据，再标记为已验证。');}else tasks[idx][field]=e.target.value;try{localStorage.setItem(taskKey(),JSON.stringify(tasks));}catch(err){}refresh();}});
-  drawer.addEventListener('click',function(e){if(e.target.id==='lcTemplate')downloadTemplate();});
-  ['aiRcSpeechInput','aiRcDanmuInput'].forEach(function(id){var x=get(id);if(x)x.addEventListener('input',function(){panel('aiRcStep4').innerHTML=evidenceHtml(data());});});
-  ['aiRcSpeechFile','aiRcDanmuFile'].forEach(function(id){var x=get(id);if(x)x.addEventListener('change',function(){setTimeout(function(){panel('aiRcStep4').innerHTML=evidenceHtml(data());},500);});});
-  if(get('aiRcVoiceRun'))get('aiRcVoiceRun').addEventListener('click',function(){panel('aiRcStep4').innerHTML=evidenceHtml(data());});
-  refresh();
 })();
 </script>
 
