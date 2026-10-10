@@ -9396,7 +9396,7 @@ if(document.getElementById('ecLcTabs')){
     <div class="interest-user"><span class="live-avatar" id="interestAvatar"></span><strong>刘思涵</strong><svg viewBox="0 0 16 16" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
   </header>
   <nav class="interest-subnav" aria-label="兴趣电商模块">
-    <button class="active" type="button">业绩汇总</button><button type="button">销售大区</button><button type="button">销售部门</button><button type="button">员工</button><button type="button">产品</button><button type="button">品牌类目</button><button class="interest-ai-btn" id="interestAiBtn" type="button" aria-label="打开AI根因分析"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.3 1.5 3.8 8h3.4l-.7 6.5 5.7-7H8.8l.5-6Z" fill="currentColor"/></svg><span>AI根因分析</span></button>
+    <button class="active" type="button">业绩汇总</button><button type="button">销售大区</button><button type="button">销售部门</button><button type="button">员工</button><button type="button">产品</button><button type="button">品牌类目</button><button class="interest-ai-btn" id="interestAiBtn" type="button" aria-label="打开复盘分析"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.3 1.5 3.8 8h3.4l-.7 6.5 5.7-7H8.8l.5-6Z" fill="currentColor"/></svg><span>复盘分析</span></button>
   </nav>
   <main class="interest-main">
     <section class="interest-row">
@@ -12379,15 +12379,15 @@ if(document.getElementById('ecLcTabs')){
 })();
 </script>
 
-<!-- ===== 兴趣电商 AI根因分析 · 空抽屉 ===== -->
+<!-- ===== 兴趣电商复盘分析抽屉 ===== -->
 <div class="ai-rc-drawer-mask" id="interestAiMask" aria-hidden="true"></div>
-<aside class="ai-rc-drawer interest-ai-drawer" id="interestAiDrawer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="兴趣电商AI根因分析">
+<aside class="ai-rc-drawer interest-ai-drawer" id="interestAiDrawer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="兴趣电商复盘分析">
   <div class="ai-rc-drawer-head">
-    <h3><span class="ai-rc-icon"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M10.3 1.8 4.1 9.1h3.8l-.8 7.1 6.5-7.9H9.7l.6-6.5Z" fill="currentColor"/></svg></span>兴趣电商 · AI根因分析</h3>
+    <h3><span class="ai-rc-icon"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M10.3 1.8 4.1 9.1h3.8l-.8 7.1 6.5-7.9H9.7l.6-6.5Z" fill="currentColor"/></svg></span>兴趣电商 · 复盘分析</h3>
     <div class="ai-rc-head-actions">
       <button class="ai-rc-pdf-btn" id="inPdfBtn" type="button">⬇ 下载PDF报告</button>
       <button class="ai-rc-full-btn" id="inFullBtn" type="button" aria-label="全屏"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2H2v4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg><span>全屏</span></button>
-      <button class="ai-rc-close" id="interestAiClose" type="button" aria-label="关闭兴趣电商AI根因分析"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <button class="ai-rc-close" id="interestAiClose" type="button" aria-label="关闭兴趣电商复盘分析"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     </div>
   </div>
     <div class="ec-ai-toprow">
@@ -12395,7 +12395,7 @@ if(document.getElementById('ecLcTabs')){
       <button class="ai-rc-tab active" data-in-target="inStep1" type="button">① 确认问题</button>
       <button class="ai-rc-tab" data-in-target="inStep3" type="button">② 四维缺口贡献度</button>
       <button class="ai-rc-tab" data-in-target="inStepRegion" type="button">③ 大区下钻</button>
-      <button class="ai-rc-tab" data-in-target="inStepProd" type="button">④ 产品明细</button>
+      <button class="ai-rc-tab" data-in-target="inStepProd" type="button">④ 风险产品</button>
       <button class="ai-rc-tab" data-in-target="inStepSum" type="button">⑤ 总结建议</button>
     </div>
     <div class="ec-ai-pickrow">
@@ -12440,9 +12440,9 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="inStep3">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">2</span>
-          <span class="ai-rc-step-title">兴趣整体四维缺口贡献度</span>
+          <span class="ai-rc-step-title">兴趣整体四维 GSV 缺口贡献度</span>
         </div>
-        <div class="ec-bi-block-hd"><h4>四大维度缺口 &amp; 贡献度</h4></div>
+        <div class="ec-bi-block-hd"><h4>四大维度 GSV 缺口 &amp; 贡献度</h4></div>
         <div class="ec-bi-grid" id="inBiGrid"></div>
       </div>
 
@@ -12458,13 +12458,13 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="inStepProd">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s2">4</span>
-          <span class="ai-rc-step-title">产品明细</span>
-          <span class="ai-rc-step-sub">SPU 缺口明细 · 点击表头可排序</span>
+          <span class="ai-rc-step-title">风险产品</span>
+          <span class="ai-rc-step-sub">风险产品缺口明细 · 点击表头可排序</span>
         </div>
         <div class="ec-bi-tools" id="inBiTools">
           <span class="ec-bi-fttl">品牌</span><select class="ec-bi-select" id="inBiBrandFilter" data-in-prod-filter="brand"><option value="">全部品牌</option></select>
           <span class="ec-bi-fttl">类目</span><select class="ec-bi-select" id="inBiCatFilter" data-in-prod-filter="cat"><option value="">全部类目</option></select>
-          <input class="ec-bi-search" id="inBiSearch" data-in-prod-filter="name" type="search" placeholder="搜索产品名称">
+          <input class="ec-bi-search" id="inBiSearch" data-in-prod-filter="name" type="search" placeholder="搜索风险产品">
           <button class="ec-bi-reset" id="inBiReset" type="button">重置</button>
           <span class="ec-bi-fttl" id="inBiFilterCount"></span>
         </div>
@@ -12587,9 +12587,9 @@ if(document.getElementById('ecLcTabs')){
 </script>
 <script>
 /* ===================================================================
-   兴趣电商 · AI根因分析
-   ① 确认问题  ② 五维缺口贡献度  ③ 大区下钻（抖音整体→大区→部门→产品→员工）
-   ④ 产品明细  ⑤ 总结建议
+   兴趣电商 · 复盘分析
+   ① 确认问题  ② 四维 GSV 缺口贡献度  ③ 大区下钻（抖音整体→大区→部门→产品→员工）
+   ④ 风险产品  ⑤ 总结建议
    =================================================================== */
 (function(){
 var DEF_DATE='2026-09-20',DEF_MONTH='2026-09';
@@ -12697,6 +12697,11 @@ var ATTR={
   '扫地机器人S5':{brand:'美的',cat:'清洁类',region:'品牌二区',rr:16.5,stock:260,days:4,oos:18,delay:0,links:1,ctr:[3.05,3.20],cvr:[0.90,1.50],kw:'扫拖一体全自动家用智能吸尘器'},
   '破壁机B2':{brand:'其他',cat:'厨电类',region:'品牌三区',rr:9.4,stock:980,days:21,oos:0,delay:0,links:0,ctr:[2.85,3.10],cvr:[1.15,1.55],kw:'家用低音免洗多功能豆浆机'}
 };
+/* 品类口径：保留产品明细的 SPU 数据，同时在四维贡献区按业务品类汇总。 */
+var IN_CATEGORY={
+  '护眼台灯Pro':'护眼台灯','儿童台灯K1':'儿童台灯','加湿器H2':'加湿器','空气净化器A3':'空气净化器',
+  '净水器W1':'净水器','按摩椅M8':'按摩椅','电饭煲R6':'电饭煲','剃须刀T3':'剃须刀','扫地机器人S5':'扫地机器人','破壁机B2':'破壁机'
+};
 var RATE={month:{t:16.0,a:13.4},day:{t:16.0,a:13.4}};
 
 /* ---------------- 汇总（自下而上，客户品级缺口一致） ---------------- */
@@ -12745,9 +12750,9 @@ function mainPlat(){
 var _plat=null;
 function platOf(name){if(!_plat)_plat=mainPlat();return _plat[name]||'—';}
 
-/* 四维：大区 / 品牌 / 类目 / SPU单品 */
+/* 四维：大区 / 品牌 / 类目 / 品类；SPU 数据继续用于风险产品明细。 */
 function dims(){
-  var area=[],brand=[],cat=[],spu=[];
+  var area=[],brand=[],cat=[],category=[],spu=[];
   function put(arr,name,t,a){
     for(var i=0;i<arr.length;i++){if(arr[i].n===name){arr[i].t+=t;arr[i].a+=a;return;}}
     arr.push({n:name,t:t,a:a});
@@ -12758,6 +12763,7 @@ function dims(){
       em.prods.forEach(function(p){
         var at=ATTR[p.n]||{cat:'其他类',region:'其他'};
         put(cat,at.cat,p.t,p.a);
+        put(category,IN_CATEGORY[p.n]||at.cat||'其他品类',p.t,p.a);
         put(brand,at.brand||'其他',p.t,p.a);
         put(spu,p.n,p.t,p.a);
       });
@@ -12766,13 +12772,15 @@ function dims(){
   function fin(a){a.forEach(function(x){x.g=x.a-x.t;});return a;}
   function sub(a,max){var s=a.map(function(x){return x.n;});
     return (s.length>max?(s.slice(0,max).join(' / ')+' 等'+s.length+'项'):s.join(' / '));}
-  area=fin(area);brand=fin(brand);cat=fin(cat);spu=fin(spu);
-  return [
+  area=fin(area);brand=fin(brand);cat=fin(cat);category=fin(category);spu=fin(spu);
+  var result=[
     {key:'大区',name:'大区维度',sub:sub(area,6),items:area},
     {key:'品牌',name:'品牌维度',sub:sub(brand,5),items:brand},
     {key:'类目',name:'类目维度',sub:sub(cat,5),items:cat},
-    {key:'SPU',name:'SPU单品维度',sub:'缺口 TOP10 + 其他SPU',items:spu}
+    {key:'品类',name:'品类维度',sub:'TOP15 缺口品类',items:category}
   ];
+  result.productItems=spu;
+  return result;
 }
 function topEmployee(){
   var out=[];
@@ -12814,7 +12822,7 @@ function renderConfirm(){
       +'<div class="ai-rc-what-gmv">'+n2(D.a)+'万<small>&nbsp;/ '+n2(D.t)+'万</small></div>'
       +'<div class="ai-rc-what-info">'
         +'<span class="ai-rc-what-tag">'+(ov?'🟢 GSV达标':'🔴 GSV未达标')+'</span><br>'
-        +'GSV <strong>'+n2(D.a)+'万</strong>，目标 <strong>'+n2(D.t)+'万</strong>，'+(ov?'超额':'缺口')+' <strong>'+n2(gap)+'万</strong>'+(ov?'（'+PC(pct)+'）':'')
+        +'GSV <strong>'+n2(D.a)+'万</strong>，目标 <strong>'+n2(D.t)+'万</strong>，'+(ov?'超额':'缺口')+' <strong>'+n2(gap)+'万</strong>'+(ov?'（'+PC(pct)+'）':'')+'<span class="ec-ai-attain">目标达成率 <b>'+(D.t?D.a/D.t*100:0).toFixed(1)+'%</b></span>'
       +'</div>'
     +'</div></div>';
   cards+='<div class="ai-rc-confirm-card">'
@@ -12823,7 +12831,7 @@ function renderConfirm(){
       +'<div class="ai-rc-roi-num">'+R.a.toFixed(1)+'%<small>&nbsp;/ 目标 '+R.t.toFixed(1)+'%</small></div>'
       +'<div class="ai-rc-roi-info">'
         +'<span class="ai-rc-roi-tag">'+(R.a>=R.t?'🟢 利润率达标':'🔴 利润率未达标')+'</span><br>'
-        +'利润率 <strong>'+R.a.toFixed(1)+'%</strong>，目标 <strong>'+R.t.toFixed(1)+'%</strong>，'+(R.a>=R.t?'超额':'缺口')+' <strong>'+rgap.toFixed(1)+'</strong>'+((R.a>=R.t)?'（'+PC(rpct)+'）':'')
+        +'利润率 <strong>'+R.a.toFixed(1)+'%</strong>，目标 <strong>'+R.t.toFixed(1)+'%</strong>，'+(R.a>=R.t?'超额':'缺口')+' <strong>'+rgap.toFixed(1)+'</strong>'+((R.a>=R.t)?'（'+PC(rpct)+'）':'')+'<span class="ec-ai-attain">目标达成率 <b>'+(R.t?R.a/R.t*100:0).toFixed(1)+'%</b></span>'
       +'</div>'
     +'</div></div>';
   var el=$('inConfirmCards');if(el)el.innerHTML=cards;
@@ -12843,7 +12851,7 @@ function bBars(d){
   var gs=items.map(function(x){return x.g;});
   var order=items.map(function(it,i){return {it:it,g:gs[i]};})
     .sort(function(a,b){return Math.abs(b.g)-Math.abs(a.g);});
-  var n=order.length,wide=(d.key==='SPU'),dense=(n>=7);
+  var n=order.length,wide=(d.key==='品类'),dense=(n>=7),nested=true;
   var maxVal=0;items.forEach(function(it){maxVal=Math.max(maxVal,it.t||0,it.a||0);});
   if(!(maxVal>0))maxVal=1;
   var PLOT=wide?200:150,PAD=18,inner=PLOT-PAD,barW=wide?(n<=6?30:20):12;
@@ -12851,11 +12859,29 @@ function bBars(d){
   order.forEach(function(o){
     var it=o.it;
     var th=Math.max((it.t||0)/maxVal*inner,3),ah=Math.max((it.a||0)/maxVal*inner,3);
-    h+='<div class="ec-bi-vgroup" data-dim="'+esc(d.key)+'" data-name="'+esc(it.n)+'">'
+    h+='<div class="ec-bi-vgroup'+(nested?' ec-bi-nested':'')+'" data-dim="'+esc(d.key)+'" data-name="'+esc(it.n)+'">'
       +'<span class="ec-bi-tbar" style="width:'+barW+'px;height:'+th.toFixed(1)+'px"><i class="lab">'+n2(it.t)+'</i></span>'
       +'<span class="ec-bi-abar" style="width:'+barW+'px;height:'+ah.toFixed(1)+'px"><i class="lab">'+n2(it.a)+'</i></span>'
       +'</div>';
   });
+  var ratePts=[],rateMarks=[],rateMax=120;
+  order.forEach(function(o){var raw=o.it.t?o.it.a/o.it.t*100:0;rateMax=Math.max(rateMax,Math.ceil(raw/20)*20);});
+  order.forEach(function(o,idx){
+    var rate=o.it.t?Math.max(0,o.it.a/o.it.t*100):0,x=(idx+.5)/Math.max(1,order.length)*300,y=12+(rateMax-rate)/rateMax*(PLOT-30);
+    y=Math.max(12,Math.min(PLOT-18,y));
+    var tone=rate>=100?'above':'below',left=(x/300*100).toFixed(2)+'%',top=(y/PLOT*100).toFixed(2)+'%';
+    ratePts.push({x:+x.toFixed(1),y:+y.toFixed(1),rate:rate});
+    rateMarks.push('<span class="ec-bi-rate-dot '+tone+'" style="left:'+left+';top:'+top+'" aria-label="目标达成率 '+rate.toFixed(1)+'%"></span>');
+    if(n<=6||wide) rateMarks.push('<span class="ec-bi-rate-label '+tone+(n>=9?' dense':'')+'" style="left:'+left+';top:'+top+'">'+rate.toFixed(0)+'%</span>');
+  });
+  var rateSegs='';
+  for(var ri=1;ri<ratePts.length;ri++){
+    var prev=ratePts[ri-1],cur=ratePts[ri],dx=(cur.x-prev.x)*.5;
+    var tone=(prev.rate>=100&&cur.rate>=100)?'above':(prev.rate<100&&cur.rate<100?'below':(cur.rate>=100?'above':'below'));
+    rateSegs+='<path class="ec-bi-rate-line '+tone+'" d="M '+prev.x+' '+prev.y+' C '+(prev.x+dx).toFixed(1)+' '+prev.y+' '+(cur.x-dx).toFixed(1)+' '+cur.y+' '+cur.x+' '+cur.y+'"></path>';
+  }
+  var guideY=12+(rateMax-100)/rateMax*(PLOT-30);
+  h+='<svg class="ec-bi-rate-svg" viewBox="0 0 300 '+PLOT+'" preserveAspectRatio="none" aria-label="目标达成率折线"><path class="ec-bi-rate-guide" d="M 0 '+guideY.toFixed(1)+' L 300 '+guideY.toFixed(1)+'"></path>'+rateSegs+'</svg>'+rateMarks.join('');
   h+='</div><div class="ec-bi-vnames'+(dense&&!wide?' dense':'')+'">';
   order.forEach(function(o){
     h+='<div class="nm"><b title="'+esc(o.it.n)+'">'+esc(o.it.n)+'</b></div>';
@@ -12900,9 +12926,9 @@ function renderGrid(){
   var h='';
   dims().forEach(function(d){
     var tot=d.items.reduce(function(s,x){return s+x.g;},0);
-    h+='<div class="ec-bi-card'+(d.key==='SPU'?' wide':'')+'">'
+    h+='<div class="ec-bi-card'+(d.key==='品类'?' wide':'')+'">'
       +'<div class="ec-bi-card-hd"><h4>'+esc(d.name)+'</h4></div>'
-      +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span></div>'
+      +'<div class="ec-bi-legend"><span><i class="tgt"></i>目标</span><span><i class="act"></i>实际</span><span class="ec-bi-rate-key"><i></i>目标达成率</span></div>'
       +bBars(d)+bCtb(d)
       +'<div class="ec-bi-card-note"><b>小结：</b>'+esc(d.key)+'维度合计'+((tot<0)?'缺口':'超额')+' <b>'+W(tot)+'</b>，'+bNote(d)+'</div>'
       +'</div>';
@@ -13138,7 +13164,7 @@ function rdToggleAll(){
 
 /* ---------------- ④ 产品明细 ---------------- */
 var COLS=[
-  {k:'n',t:'SPU名称'},{k:'gmv',t:'GSV',sub:'实际 / 目标'},
+  {k:'n',t:'风险产品'},{k:'gmv',t:'GSV',sub:'实际 / 目标'},
   {k:'spend',t:'消耗'},{k:'roi',t:'综合ROI'},{k:'adRoi',t:'广告ROI'},{k:'fee',t:'费率'},
   {k:'oos',t:'近30天缺货天数'},
   {k:'targetSalesDays',t:'当月目标销售天数',monthOnly:1}
@@ -13185,7 +13211,7 @@ function inProdRenderPager(total){
   pager.innerHTML=h;
 }
 function prodRows(){
-  return dims()[3].items.map(function(p){
+  return (dims().productItems||[]).map(function(p){
     var at=ATTR[p.n]||{};
     var media=productMediaMetrics(p.n,p.a,p.t);
     return {
@@ -13242,7 +13268,7 @@ function renderProd(){
   if(note){
     var down=rows.filter(function(r){return r.a<r.t;}).length;
     var dlyN=rows.filter(function(r){return r.delay>0;}).length;
-    note.innerHTML='共 <b>'+rows.length+'</b> 个SPU，其中 <b>'+down+'</b> 个未达目标；'+(P==='month'?'<b>'+dlyN+'</b> 个SPU当月目标销售天数不足30天。':'按日维度不展示当月目标销售天数。');
+    note.innerHTML='共 <b>'+rows.length+'</b> 个风险产品，其中 <b>'+down+'</b> 个未达目标；'+(P==='month'?'<b>'+dlyN+'</b> 个风险产品当月目标销售天数不足30天。':'按日维度不展示当月目标销售天数。');
   }
 }
 function linkRows(){
@@ -13452,7 +13478,7 @@ function pdfFallbackPrint(){
   document.querySelectorAll('style').forEach(function(s){styles+=s.innerHTML;});
   var w=window.open('','_blank');
   if(!w){alert('浏览器拦截了新窗口，请允许弹窗后重试');return;}
-  w.document.write('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>兴趣电商AI根因分析报告</title><style>'+styles+'</style><style>body{background:#fff;padding:0}@page{margin:10mm}*{box-sizing:border-box}.pdf-titlebar{background:linear-gradient(135deg,#1f6fff,#4b8cff);color:#fff;padding:18px 24px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;position:static}.ai-rc-loading{display:none!important}.ai-rc-tabs{display:none!important}.ai-rc-analysis{overflow:visible!important}.ai-rc-content{display:block!important}.ai-rc-drawer-head{position:static!important}.ec-ai-pickrow,.ec-ow-tabs,.ec-rd-tabs{display:none!important}.ec-rd-channels{display:block!important}.lk-tbl-wrap,.ec-bi-table-wrap{overflow:visible!important}.b-table,.ec-bi-table{min-width:0!important}.b-table{font-size:9.5px!important}.lk-tt{max-width:none!important;white-space:normal!important;word-break:break-word}@page{size:A4 landscape;margin:8mm}</style></head><body class="ec-pdf-export"><div class="pdf-titlebar">⚡ 兴趣电商AI根因分析报告</div>'+content.innerHTML+'</body></html>');
+  w.document.write('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>兴趣电商复盘分析报告</title><style>'+styles+'</style><style>body{background:#fff;padding:0}@page{margin:10mm}*{box-sizing:border-box}.pdf-titlebar{background:linear-gradient(135deg,#1f6fff,#4b8cff);color:#fff;padding:18px 24px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;position:static}.ai-rc-loading{display:none!important}.ai-rc-tabs{display:none!important}.ai-rc-analysis{overflow:visible!important}.ai-rc-content{display:block!important}.ai-rc-drawer-head{position:static!important}.ec-ai-pickrow,.ec-ow-tabs,.ec-rd-tabs{display:none!important}.ec-rd-channels{display:block!important}.lk-tbl-wrap,.ec-bi-table-wrap{overflow:visible!important}.b-table,.ec-bi-table{min-width:0!important}.b-table{font-size:9.5px!important}.lk-tt{max-width:none!important;white-space:normal!important;word-break:break-word}@page{size:A4 landscape;margin:8mm}</style></head><body class="ec-pdf-export"><div class="pdf-titlebar">⚡ 兴趣电商复盘分析报告</div>'+content.innerHTML+'</body></html>');
   w.document.close();
   setTimeout(function(){w.focus();w.print();},500);
 }
@@ -13489,7 +13515,7 @@ function exportPdf(){
         cx.drawImage(canvas,0,sy,imgW,shPx,0,0,imgW,shPx);
         pdf.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',margin,margin,iw,drawH);
       }
-      pdf.save('兴趣电商AI根因分析报告.pdf');
+      pdf.save('兴趣电商复盘分析报告.pdf');
     })
     .catch(function(){pdfFallbackPrint();})
     .then(function(){content.classList.remove('ec-pdf-export');if(btn){btn.disabled=false;btn.innerHTML='⬇ 下载PDF报告';}});
