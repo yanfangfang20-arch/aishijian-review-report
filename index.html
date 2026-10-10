@@ -5687,6 +5687,41 @@ button.ai-rc-mat-summary-item.active small{color:#1764d6}
 #ecAiDrawer .ec-sum-compact-row::before{background:#3b82f6}
 #ecAiDrawer .ec-sum-compact-row em{color:#173f73}
 
+/* 一类电商复盘结论：将结果、归因、证据和动作组织为一条经营决策链。 */
+#ecAiDrawer .ec-review{margin:14px 15px 4px;padding:16px;border:1px solid #dfe7f7;border-radius:10px;background:linear-gradient(135deg,#f8faff 0%,#fff 70%)}
+#ecAiDrawer .ec-review-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+#ecAiDrawer .ec-review-eyebrow{display:block;margin-bottom:4px;color:#5865f5;font-size:12px;font-weight:800;letter-spacing:.03em}
+#ecAiDrawer .ec-review-title{margin:0;color:#1f2a44;font-size:16px;line-height:1.45;font-weight:800}
+#ecAiDrawer .ec-review-desc{margin:4px 0 0;color:#68758c;font-size:12px;line-height:1.65}
+#ecAiDrawer .ec-review-status{flex:0 0 auto;display:inline-flex;align-items:center;min-height:27px;padding:0 10px;border:1px solid #ffd5d8;border-radius:99px;background:#fff3f4;color:#dd4956;font-size:12px;font-weight:800;white-space:nowrap}
+#ecAiDrawer .ec-review-status.good{border-color:#bde8cf;background:#f0fbf4;color:#188653}
+#ecAiDrawer .ec-review-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+#ecAiDrawer .ec-review-kpi{min-height:66px;padding:10px 11px;border:1px solid #e7ecf6;border-radius:8px;background:#fff}
+#ecAiDrawer .ec-review-kpi span{display:block;color:#7b879b;font-size:11px;font-weight:700}
+#ecAiDrawer .ec-review-kpi b{display:block;margin-top:5px;color:#243553;font-size:17px;line-height:1.05;font-weight:800}
+#ecAiDrawer .ec-review-kpi b.risk{color:#e4525c}#ecAiDrawer .ec-review-kpi b.good{color:#1b9a66}
+#ecAiDrawer .ec-review-kpi small{display:block;margin-top:4px;color:#8793a7;font-size:11px;line-height:1.25}
+#ecAiDrawer .ec-review-chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+#ecAiDrawer .ec-review-node{position:relative;min-height:84px;padding:10px 11px;border:1px solid #e5eaf4;border-radius:8px;background:#fff}
+#ecAiDrawer .ec-review-node:not(:last-child):after{content:'›';position:absolute;z-index:1;right:-14px;top:31px;width:20px;height:20px;display:grid;place-items:center;border:1px solid #dce4f2;border-radius:50%;background:#fff;color:#8290aa;font-size:19px;line-height:1}
+#ecAiDrawer .ec-review-node em{display:inline-flex;align-items:center;height:19px;padding:0 6px;border-radius:4px;background:#eef1ff;color:#5865f5;font-size:10px;font-style:normal;font-weight:800}
+#ecAiDrawer .ec-review-node b{display:block;margin-top:7px;color:#263651;font-size:13px;line-height:1.35;font-weight:800}
+#ecAiDrawer .ec-review-node span{display:block;margin-top:3px;color:#758197;font-size:11px;line-height:1.45}
+#ecAiDrawer .ec-review-node.risk em{background:#fff0f1;color:#de5963}#ecAiDrawer .ec-review-node.good em{background:#edf9f2;color:#188653}
+#ecAiDrawer .ec-review-bottom{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:10px}
+#ecAiDrawer .ec-review-panel{padding:12px;border:1px solid #e7ecf5;border-radius:8px;background:#fff}
+#ecAiDrawer .ec-review-panel h4{margin:0 0 9px;color:#33445e;font-size:13px;font-weight:800}
+#ecAiDrawer .ec-review-evidence{display:grid;gap:7px}
+#ecAiDrawer .ec-review-evidence div{position:relative;padding-left:13px;color:#5c6b81;font-size:12px;line-height:1.55}
+#ecAiDrawer .ec-review-evidence div:before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#5865f5}
+#ecAiDrawer .ec-review-evidence b{color:#263651;font-weight:800}
+#ecAiDrawer .ec-review-evidence .risk{color:#db4c59}
+#ecAiDrawer .ec-review-actions{display:grid;gap:7px}
+#ecAiDrawer .ec-review-action{width:100%;min-height:40px;padding:7px 9px;border:1px solid #dce4f2;border-radius:7px;background:#fff;color:#50617a;font:inherit;font-size:12px;line-height:1.35;text-align:left;cursor:pointer;transition:.16s ease}
+#ecAiDrawer .ec-review-action:hover{border-color:#aeb9fa;background:#f7f8ff;color:#4352dc;transform:translateY(-1px)}
+#ecAiDrawer .ec-review-action b{display:block;color:#32425c;font-size:12px;font-weight:800}#ecAiDrawer .ec-review-action:hover b{color:#4352dc}
+@media(max-width:820px){#ecAiDrawer .ec-review{margin:12px;padding:13px}#ecAiDrawer .ec-review-kpis{grid-template-columns:1fr}#ecAiDrawer .ec-review-chain{grid-template-columns:1fr 1fr}#ecAiDrawer .ec-review-node:not(:last-child):after{display:none}#ecAiDrawer .ec-review-bottom{grid-template-columns:1fr}}
+
 /* 原型内 PRD：与根因分析并排查看，无需离开当前场景。 */
 .ai-rc-prd-btn{height:30px;padding:0 10px;border:1px solid rgba(255,255,255,.46);border-radius:8px;background:rgba(255,255,255,.13);color:#fff;font:inherit;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;transition:background .16s ease,transform .16s ease}.ai-rc-prd-btn:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
 .ai-rc-prd-mask{position:fixed;z-index:10020;inset:0;display:none;align-items:stretch;justify-content:flex-end;background:rgba(8,28,61,.42);backdrop-filter:blur(3px)}.ai-rc-prd-mask.show{display:flex}
@@ -9767,7 +9802,7 @@ if(document.getElementById('ecLcTabs')){
   </div>
   <div class="ec-ai-toprow">
   <div class="ai-rc-tabs" id="ecAiTabs">
-    <button class="ai-rc-tab active" data-target="ecAiStep1" type="button">① 确认问题</button>
+    <button class="ai-rc-tab active" data-target="ecAiStep1" type="button">① 复盘结论</button>
     <button class="ai-rc-tab" data-target="ecAiStep3" type="button">② 缺口贡献度</button>
     <button class="ai-rc-tab" data-target="ecAiStepRegion" type="button">③ 大区下钻</button>
     <button class="ai-rc-tab" data-target="ecAiStepStore" type="button">④ 店铺缺口</button>
@@ -9816,7 +9851,7 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="ecAiStep1">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">1</span>
-          <span class="ai-rc-step-title">确认问题</span>
+          <span class="ai-rc-step-title">复盘结论</span>
         </div>
         <!-- 指标卡片：达成与缺口判定（与直播「确认问题」同构） -->
         <div class="ai-rc-confirm-cards">
@@ -9841,9 +9876,7 @@ if(document.getElementById('ecLcTabs')){
             </div>
           </div>
         </div>
-        <div class="ai-rc-info-bar" style="margin-top:10px">
-          <span><b style="color:#1f6fff">问题总结及建议：</b>GSV 与利润率均未达标，缺口贡献率 TOP1 为品牌一区（62%）；建议优先查看四维缺口贡献与渠道结构因子数据。</span>
-        </div>
+        <div class="ec-review" id="ecAiReview" aria-live="polite"></div>
       </div>
 
       <div class="ai-rc-step" id="ecAiStep3">
@@ -9934,7 +9967,7 @@ if(document.getElementById('ecLcTabs')){
       <div class="ai-rc-step" id="ecAiStep1D">
         <div class="ai-rc-step-head">
           <span class="ai-rc-step-badge s1">1</span>
-          <span class="ai-rc-step-title">确认问题</span>
+          <span class="ai-rc-step-title">复盘结论</span>
           <span class="ai-rc-step-sub">2026/09/20 单日 vs 日目标</span>
         </div>
         <!-- 指标卡片：达成与缺口判定（与直播「确认问题」同构） -->
@@ -9960,9 +9993,7 @@ if(document.getElementById('ecLcTabs')){
             </div>
           </div>
         </div>
-        <div class="ai-rc-info-bar" style="margin-top:10px">
-          <span><b style="color:#1f6fff">问题总结及建议：</b>GSV 与利润率均未达标，当日缺口贡献率 TOP1 为品牌一区（71%）；建议优先查看单日四维缺口贡献与渠道结构。</span>
-        </div>
+        <div class="ec-review" id="ecAiReviewD" aria-live="polite"></div>
       </div>
 
       <div class="ai-rc-step" id="ecAiStep3D">
@@ -10190,6 +10221,17 @@ if(document.getElementById('ecLcTabs')){
       activate(idx);
       ecScrollToStep(target);
     });
+  });
+  analysisEl.addEventListener('click',function(e){
+    var btn=e.target&&e.target.closest?e.target.closest('[data-ec-review-go]'):null;
+    if(!btn) return;
+    var base=btn.getAttribute('data-ec-review-go'),target=document.getElementById(base+ecAiSfx());
+    if(!target) return;
+    for(var i=0;i<tabs.length;i++){
+      if(tabs[i].getAttribute('data-target')===base){activate(i);break;}
+    }
+    ecTabLockUntil=Date.now()+900;
+    ecScrollToStep(target);
   });
   analysisEl.addEventListener('scroll',function(){
     if(Date.now()<ecTabLockUntil) return;
@@ -11470,6 +11512,54 @@ if(document.getElementById('ecLcTabs')){
     return h;
   }
   /* ============================================================
+     复盘结论：把结果、归因、证据和行动串成一条可执行的经营链。
+     所有数值均来自当前周期的四维、产品与风险属性数据。
+     ============================================================ */
+  function ecReviewItem(dim,over){
+    var items=((dim&&dim.items)||[]).map(function(x){return {n:x.n,t:x.t||0,a:x.a||0,g:(typeof x.g==='number'?x.g:((x.a||0)-(x.t||0)))};});
+    items.sort(function(a,b){return over?(b.g-a.g):(a.g-b.g);});
+    return items[0]||{n:'—',t:0,a:0,g:0};
+  }
+  function ecReviewAmount(v){return Math.abs(Math.round(v||0)).toLocaleString()+'万';}
+  function ecReviewSign(v){return (v>=0?'+':'−')+ecReviewAmount(v);}
+  function ecAiRenderReview(){
+    var sfx=ecAiSfx(),el=document.getElementById('ecAiReview'+sfx);
+    if(!el) return;
+    var D=ecBiD(),over=ecAiIsOver(),rs=EC_RATE_SC[over?'over':'under'][ecAiPeriod];
+    var rateN=rs[0],rateT=rs[1],gap=D.actual-D.target,gapAbs=Math.max(1,Math.abs(gap));
+    var dims=D.dims||[],brand=ecReviewItem(dims[0],over),channel=ecReviewItem(dims[2],over);
+    var rows=ecBiAllRows().filter(function(r){return over?r.g>0:r.g<0;}).sort(function(a,b){return over?(b.g-a.g):(a.g-b.g);});
+    var product=rows[0]||{n:'—',t:0,a:0,g:0};
+    var attr=EC_SPU_ATTR[product.n]||{},share=function(v){return (Math.abs(v)/gapAbs*100).toFixed(0);};
+    var gsvRate=D.target?D.actual/D.target*100:0,profitRate=rateT?rateN/rateT*100:0;
+    var state=over?'经营达标':'经营待改善',result=over?'超额':'缺口',rootLabel=over?'最大超额来源':'最大缺口来源';
+    var productRisk=(attr.rr>=15?'退货率 '+attr.rr.toFixed(1)+'% 偏高':(attr.oos>0?'近30天缺货 '+attr.oos+' 天':'主链接经营指标待核验'));
+    var actionTitle=over?'复制高效打法，扩大正向贡献':'先处理 '+channel.n+' 的 '+product.n;
+    var actionDesc=over?'沉淀 '+brand.n+' 的有效渠道和产品策略。':'优先覆盖 '+ecReviewAmount(product.g)+' 产品缺口，验证链接承接。';
+    var h='<div class="ec-review-head"><div><span class="ec-review-eyebrow">经营复盘结论</span><h4 class="ec-review-title">'+(over?'本期经营已达标，需识别可复制的超额打法。':'本期经营同时存在 GSV 与利润率缺口，需按证据链优先治理。')+'</h4><p class="ec-review-desc">从结果判断、结构归因到风险对象和行动优先级，所有结论随当前周期同步计算。</p></div><span class="ec-review-status '+(over?'good':'')+'">'+state+'</span></div>';
+    h+='<div class="ec-review-kpis">'
+      +'<div class="ec-review-kpi"><span>GSV 目标达成率</span><b class="'+(over?'good':'risk')+'">'+gsvRate.toFixed(1)+'%</b><small>'+result+' '+ecReviewAmount(gap)+' · 实际 '+D.actual.toLocaleString()+'万</small></div>'
+      +'<div class="ec-review-kpi"><span>利润率目标达成率</span><b class="'+(rateN>=rateT?'good':'risk')+'">'+profitRate.toFixed(1)+'%</b><small>'+(rateN>=rateT?'超额':'低于目标')+' '+Math.abs(rateN-rateT).toFixed(1)+' 个百分点</small></div>'
+      +'<div class="ec-review-kpi"><span>'+rootLabel+'</span><b class="'+(over?'good':'risk')+'">'+brand.n+'</b><small>'+ecReviewSign(brand.g)+' · 占结果差异 '+share(brand.g)+'%</small></div>'
+    +'</div>';
+    h+='<div class="ec-review-chain">'
+      +'<div class="ec-review-node '+(over?'good':'risk')+'"><em>01 结果</em><b>GSV '+result+' '+ecReviewAmount(gap)+'</b><span>利润率 '+rateN.toFixed(1)+'% / 目标 '+rateT.toFixed(1)+'%</span></div>'
+      +'<div class="ec-review-node '+(over?'good':'risk')+'"><em>02 主因</em><b>'+brand.n+' '+ecReviewSign(brand.g)+'</b><span>占整体结果差异 '+share(brand.g)+'%</span></div>'
+      +'<div class="ec-review-node '+(over?'good':'risk')+'"><em>03 渠道证据</em><b>'+channel.n+' '+ecReviewSign(channel.g)+'</b><span>需沿渠道—产品继续核验</span></div>'
+      +'<div class="ec-review-node '+(over?'good':'risk')+'"><em>04 风险对象</em><b>'+product.n+' '+ecReviewSign(product.g)+'</b><span>'+productRisk+'</span></div>'
+    +'</div>';
+    h+='<div class="ec-review-bottom"><section class="ec-review-panel"><h4>已证实的归因</h4><div class="ec-review-evidence">'
+      +'<div><b>结构层：</b>'+brand.n+' 为当前'+rootLabel+'，GSV '+ecReviewSign(brand.g)+'。</div>'
+      +'<div><b>渠道层：</b>'+channel.n+' '+(over?'贡献':'拖累')+' '+ecReviewAmount(channel.g)+'，应与产品缺口联动核验。</div>'
+      +'<div class="'+(over?'':'risk')+'"><b>对象层：</b>'+product.n+' 实际 '+product.a.toLocaleString()+'万 / 目标 '+product.t.toLocaleString()+'万；'+productRisk+'。</div>'
+    +'</div></section><section class="ec-review-panel"><h4>优先行动</h4><div class="ec-review-actions">'
+      +'<button class="ec-review-action" type="button" data-ec-review-go="ecAiStepRegion"><b>1. '+actionTitle+'</b><span>'+actionDesc+'</span></button>'
+      +'<button class="ec-review-action" type="button" data-ec-review-go="ecAiStepProd"><b>2. 核验风险产品经营要素</b><span>查看目标、实际、退货、缺货与链接数量。</span></button>'
+      +'<button class="ec-review-action" type="button" data-ec-review-go="ecAiStepLinks"><b>3. 定位风险链接并闭环</b><span>按点击率、转化率、退货率确认可执行动作。</span></button>'
+    +'</div></section></div>';
+    el.innerHTML=h;
+  }
+  /* ============================================================
      ⑥ 总结建议：按直接因子（结果层）/ 业务因子（归因层）生成因子卡片
      所有数值均取自当前周期、当前场景的实际数据
      ============================================================ */
@@ -11562,7 +11652,7 @@ if(document.getElementById('ecLcTabs')){
     var s1=document.getElementById('ecAiStep1'+sfx);
     if(s1){
       var tt=s1.querySelector('.ai-rc-step-title');
-      if(tt) tt.textContent=(over?'\u786e\u8ba4\u4eae\u70b9':'\u786e\u8ba4\u95ee\u9898');
+      if(tt) tt.textContent='复盘结论';
       var periodSub=s1.querySelector('.ai-rc-step-sub');
       if(periodSub&&ecAiPeriod==='week') periodSub.textContent='连续 7 日累计 vs 周目标';
       else if(periodSub&&ecAiPeriod==='day') periodSub.textContent='2026/09/20 单日 vs 日目标';
@@ -12294,8 +12384,9 @@ if(document.getElementById('ecLcTabs')){
         rd.textContent=m[0]+'年'+parseInt(m[1],10)+'月';
       }
     }
-    ecAiApplyScenario();
     ecBiApplyPeriod(ecAiPeriod);
+    ecAiApplyScenario();
+    ecAiRenderReview();
     ecSumRender();
   }
   var ecAiPickEl=document.getElementById('ecAiPick');
