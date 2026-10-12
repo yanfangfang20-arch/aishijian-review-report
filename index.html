@@ -10506,7 +10506,7 @@ if(document.getElementById('ecLcTabs')){
         +'<div class="ec-bi-ctb-track"><div class="ec-bi-ctb-fill '+cls+'" style="width:'+w.toFixed(1)+'%"></div>'
         +(isPos
           ?(wide?'<span class="ec-bi-ctb-pct in cancel" style="right:7px">正向抵消</span>':'<span class="ec-bi-ctb-pct out cancel" style="left:'+w.toFixed(1)+'%;margin-left:6px">正向抵消</span>')
-          :(wide?'<span class="ec-bi-ctb-pct in" style="right:7px">'+pct.toFixed(1)+'%</span>':'<span class="ec-bi-ctb-pct out" style="left:'+w.toFixed(1)+'%;margin-left:6px">'+pct.toFixed(1)+'%</span>'))
+          :'<span class="ec-bi-ctb-pct out" style="left:'+w.toFixed(1)+'%;margin-left:6px">'+pct.toFixed(1)+'%</span>')
         +'</div>'
         +'<div class="ec-bi-ctb-val '+cls+'">'+ecBiW(x.g)+'</div></div>';
     });
